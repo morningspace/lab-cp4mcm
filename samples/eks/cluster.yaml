@@ -1,0 +1,25 @@
+apiVersion: "cluster.k8s.io/v1alpha1"
+kind: Cluster
+metadata:
+  name: {{CLUSTER_NAME}}
+  labels:
+    cloud-provider: eks
+spec:
+  clusterNetwork:
+    services:
+      cidrBlocks: ["10.0.0.0/16"]
+    pods:
+      cidrBlocks: ["10.244.0.0/16"]
+    serviceDomain: "cluster.local"
+  providerSpec:
+    value:
+      apiVersion: "eksprovider/v1alpha1"
+      kind: "EKSClusterProviderSpec"
+      spec:
+        secretName: eks-cloud-access-secret
+        region: "{{AWS_REGION}}"
+        version: "1.14"
+        nodeType: "t2.small"
+        nodes: 2
+        nodesMin: 2
+        nodesMax: 2

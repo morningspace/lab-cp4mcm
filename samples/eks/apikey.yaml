@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+ name: eks-cloud-access-secret
+ labels:
+   cloud-provider: eks
+   purpose: cloud-connection
+type: Opaque
+data:
+ awsAccessKeyID: {{AWS_ACCESS_KEY_ID}} # printf your-awsAccessKeyID | base64
+ awsSecretAccessKey: {{AWS_SECRET_ACCESS_KEY}} # printf your-awsSecretAccessKey | base64
