@@ -639,6 +639,7 @@ function task4 {
   2) Define and apply a channel
   3) Define and apply a subscription
   4) Define and apply a deployable
+  5) Check results
 
   Estimated time to complete: 15 min
 
@@ -648,6 +649,7 @@ EOF
   task4-step2
   task4-step3
   task4-step4
+  task4-step5
 }
 
 function task4-step1 {
@@ -721,7 +723,7 @@ EOF
   p "To define the subscription, let's use samples/apps/subscription.yaml..."
   pe "cat samples/apps/subscription.yaml"
 
-  p "It specifies the channel to be subscribed, and has label "app" equal to "labs-app", which matches the channel we defined."
+  p "It specifies the channel to be subscribed, and has label \"app\" equal to \"labs-app\", which matches the channel we defined."
   p "Let's apply it to the hub cluster..."
   p "oc apply -f samples/apps/subscription.yaml"
   
@@ -738,8 +740,40 @@ function task4-step4 {
   Instructions
   ============
 
+  Deployables are resources that wrap or represent other resources to prevent them from being deployed on hub 
+  cluster before the resources are placed on managed clusters. Deployables can be directly deployed to one or
+  more managed clusters from the storage locations that include the deployables.
+
+  As an example, in this lab, we will wrap a Deployment Kubernetes resource as a Deployable, and deploy it to
+  the two managed clusters that we provisioned.
 
 EOF
+
+  p "To define the deployable, let's use samples/apps/deployable.yaml..."
+  pe "cat samples/apps/deployable.yaml"
+
+  p "It wraps nginx as a Kubernetes resource Delployment."
+  p "Let's apply it to the hub cluster..."
+  p "oc apply -f samples/apps/deployable.yaml"
+}
+
+function task4-step5 {
+  p "Task 4 - Step 5: Deploy your first application through CP4MCM - Check results"
+
+  cat << EOF
+
+  Instructions
+  ============
+
+  Deployables are resources that wrap or represent other resources to prevent them from being deployed on hub 
+  cluster before the resources are placed on managed clusters. Deployables can be directly deployed to one or
+  more managed clusters from the storage locations that include the deployables.
+
+  As an example, in this lab, we will wrap a Deployment Kubernetes resource as a Deployable, and deploy it to
+  the two managed clusters that we provisioned.
+
+EOF
+
 }
 
 case $1 in

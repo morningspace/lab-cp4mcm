@@ -1,0 +1,33 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  annotations:
+    app.ibm.com/is-local-deployable: "false"
+    dev-ready: approved
+  labels:
+    app: nginx
+  name: deployable-nginx
+  namespace: cp4mcm-lab
+spec:
+  template:
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app: nginx
+      name: nginx-deployment
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: nginx
+      template:
+        metadata:
+          labels:
+            app: nginx
+        spec:
+          containers:
+          - image: nginx:1.7.9
+            name: nginx
+            ports:
+            - containerPort: 80
