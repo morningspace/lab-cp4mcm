@@ -690,7 +690,8 @@ function task4-step2 {
   namespace on hub cluster and point to physical place where resources are stored for deployment.
   
   There're a few types of channels. In this lab, we will use Namespace channel to monitor a specified namespace
-  which is used to maintain custom resources called Deployables.
+  which is used to maintain custom resources called Deployables. Deployables added or updated in this namespace
+  will be promoted to managed clusters through this channel.
 
 EOF
 
@@ -710,8 +711,23 @@ function task4-step3 {
   Instructions
   ============
 
+  Subscription can point to a channel for identifying new and updated Kubernetes resources for deployment.
+
+  As an example, in this lab, we will define subscription that matches the application and channel we defined.
+  It also defines where we want the applications to be deployed.
 
 EOF
+
+  p "To define the subscription, let's use samples/apps/subscription.yaml..."
+  pe "cat samples/apps/subscription.yaml"
+
+  p "It specifies the channel to be subscribed, and has label "app" equal to "labs-app", which matches the channel we defined."
+  p "Let's apply it to the hub cluster..."
+  p "oc apply -f samples/apps/subscription.yaml"
+  
+  cat samples/apps/subscription.yaml | \
+    sed -e "s|{{AWS_CLUSTER_NAME}}|$AWS_CLUSTER_NAME|g" \
+        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g" | oc apply -n cp4mcm-lab -f -
 }
 
 function task4-step4 {
