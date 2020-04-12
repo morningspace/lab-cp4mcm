@@ -754,7 +754,7 @@ EOF
 
   p "It wraps nginx as a Kubernetes resource Delployment."
   p "Let's apply it to the hub cluster..."
-  p "oc apply -f samples/apps/deployable.yaml"
+  pe "oc apply -f samples/apps/deployable.yaml"
 }
 
 function task4-step5 {
@@ -765,15 +765,31 @@ function task4-step5 {
   Instructions
   ============
 
-  Deployables are resources that wrap or represent other resources to prevent them from being deployed on hub 
-  cluster before the resources are placed on managed clusters. Deployables can be directly deployed to one or
-  more managed clusters from the storage locations that include the deployables.
-
-  As an example, in this lab, we will wrap a Deployment Kubernetes resource as a Deployable, and deploy it to
-  the two managed clusters that we provisioned.
-
+  Check from CP4MCM UI
+  Check the two managed clusterss
+  
 EOF
 
+  p "To list applications defined on hub cluster..."
+  pe "oc get applications -n cp4mcm-lab"
+
+  p "To list channels defined on hub cluster..."
+  pe "oc get channel -n cp4mcm-lab"
+
+  p "To list subscriptions defined on hub cluster..."
+  pe "oc get subscription.app.ibm.com -n cp4mcm-lab"
+
+  p "To list deployables defined on hub cluster..."
+  pe "oc get deployable -n cp4mcm-lab"
+
+  p "To check whether application is deployed on managed clusters..."
+  p "Go to check the cluster launched by kind..."
+  pe "oc get ns --kubeconfig $HOME/.kube/kind-kubeconfig"
+  pe "oc get pod -n cp4mcm-lab --kubeconfig $HOME/.kube/kind-kubeconfig"
+
+  p "Go to check the cluster provisioned on AWS..."
+  pe "oc get ns --kubeconfig $HOME/.kube/eks-kubeconfig"
+  pe "oc get pod -n cp4mcm-lab --kubeconfig $HOME/.kube/eks-kubeconfig"
 }
 
 case $1 in
