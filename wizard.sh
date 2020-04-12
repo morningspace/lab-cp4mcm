@@ -444,7 +444,7 @@ function task2-step4 {
 
 EOF
 
-  if oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n cp4mcm-lab >/dev/null 2>&1 then
+  if oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n cp4mcm-lab >/dev/null 2>&1; then
     p "To get the cluster resource defined on CP4MCM Hub..."
     pe "oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n cp4mcm-lab"
 
