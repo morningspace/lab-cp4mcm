@@ -443,6 +443,8 @@ EOF
 
   p "You can also add -f option to keep monitoring the pod logs..."
   p "oc -n cp4mcm-lab logs $cluster_create_job -f"
+
+  exit
 }
 
 function task2-step4 {
@@ -477,7 +479,7 @@ EOF
 
     p "Now, you can use below commands to access the cluster which is running remotely on AWS EKS..."
     pe "oc get node --kubeconfig $HOME/.kube/eks-kubeconfig"
-    pe "oc get pod --all-namespaces --kubeconfig $HOME/.kube/eks-kubeconfig"s
+    pe "oc get pod --all-namespaces --kubeconfig $HOME/.kube/eks-kubeconfig"
   else
     p "Cluster has not been provisioned yet, please try again later..."
   fi
