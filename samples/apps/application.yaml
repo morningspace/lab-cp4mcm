@@ -1,0 +1,15 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  labels:
+    app: nginx
+  name: nginx                     # Required. The name of the application resource to create.
+  namespace: cp4mcm-lab           # Required. The namespace resource to use for the application.
+spec:
+  componentKinds:
+    - group: app.ibm.com
+      kind: Subscription
+  descriptor: {}
+  selector:
+    matchLabels:
+      app: lab-apps
