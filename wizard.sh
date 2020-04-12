@@ -765,9 +765,14 @@ function task4-step5 {
   Instructions
   ============
 
-  Check from CP4MCM UI
-  Check the two managed clusterss
-  
+  After we define applications, channels, subscriptions properly, newly created deployable will be deployed to
+  the managed clusters from hub cluster through the channel and subscription mechanism. Usually, it will take
+  a few minutes to take effect.
+
+  You can check the results by issuing oc command both on hub cluster and managed clusters. You can also check
+  CP4MCM UI by visiting below link:
+  $CP4MCM_BASE_URL/multicloud/applications
+
 EOF
 
   p "To list applications defined on hub cluster..."
