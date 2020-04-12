@@ -806,11 +806,6 @@ EOF
 case $1 in
   "")
     lab-instructions
-    task0
-    task1
-    task2
-    task3
-    task4
 
     # show a prompt so as not to reveal our true nature after
     # the demo has concluded
