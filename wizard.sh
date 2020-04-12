@@ -535,17 +535,27 @@ function task3-step1 {
 
 EOF
 
-  p "Let's use below config file to define the cluster..."
-  pe "cat samples/kind/config.yaml"
+  p "Input the cluster name that you want to launch using kind..."
+  prompt_required "Input cluster name" "KIND_CLUSTER_NAME"
 
-  p "It is a cluster with one master node and two worker nodes."
+  p "Try to detect if cluster has been provisioned..."
+  p "kind get clusters | grep ${KIND_CLUSTER_NAME}"
 
-  p "To launch the cluster, run kind command as below..."
-  pe "kind create cluster --config samples/kind/config.yaml --kubeconfig $HOME/.kube/kind-kubeconfig"
+  if ! kind get clusters | grep ${KIND_CLUSTER_NAME} >/dev/null 2>&1; then
+    p "Let's use below config file to define the cluster..."
+    pe "cat samples/kind/config.yaml"
 
-  p "It also saves the kubeconfig file into $HOME/.kube folder."
-  p "See how the kubeconfig looks like..."
-  pe "cat $HOME/.kube/kind-kubeconfig"
+    p "It is a cluster with one master node and two worker nodes."
+
+    p "To launch the cluster, run kind command as below..."
+    pe "kind create cluster --config samples/kind/config.yaml --kubeconfig $HOME/.kube/kind-kubeconfig --name ${KIND_CLUSTER_NAME}"
+
+    p "It also saves the kubeconfig file into $HOME/.kube folder."
+    p "See how the kubeconfig looks like..."
+    pe "cat $HOME/.kube/kind-kubeconfig"
+  else
+    p "Cluster has been provisioned."
+  fi
 
   p "Now, you can use below commands to access the cluster which is running locally..."
   pe "oc get node --kubeconfig $HOME/.kube/kind-kubeconfig"
@@ -585,7 +595,7 @@ EOF
 
   import_command=${import_command%|*}
   p "Run the command use the kubeconfig $HOME/.kube/kind-kubeconfig..."
-  pe "${import_command} | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
+  pe "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
 }
 
 function task3-step3 {
@@ -596,8 +606,12 @@ function task3-step3 {
   Instructions
   ============
 
+  During the import process, you can track the progress by monitoring the pods status under a namespace called
+  multicluster-endpoint on the cluster being imported. When all pods are 
 
 EOF
+
+
 }
 
 function task-4 {
