@@ -440,6 +440,9 @@ EOF
   p "Then, check the progress by monitoring the running pod..."
   local cluster_create_job=$(oc -n cp4mcm-lab get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep Running | awk '{print $1}')
   pe "oc -n cp4mcm-lab logs $cluster_create_job"
+
+  p "You can also add -f option to keep monitoring the pod logs..."
+  p "oc -n cp4mcm-lab logs $cluster_create_job -f"
 }
 
 function task2-step4 {
