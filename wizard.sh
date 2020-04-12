@@ -607,11 +607,13 @@ function task3-step3 {
   ============
 
   During the import process, you can track the progress by monitoring the pods status under a namespace called
-  multicluster-endpoint on the cluster being imported. When all pods are 
+  multicluster-endpoint on the cluster being imported. When all pods are up and running, the import process is
+  finished
 
 EOF
 
-
+  p "To monitor the pods status under multicluster-endpoint namespace..."
+  pe "oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig"
 }
 
 function task-4 {
