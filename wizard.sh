@@ -36,13 +36,13 @@ function lab-instructions {
 
   In this lab, I will walk you through the steps on how to use IBM CloudPak for Multicloud Management (CP4MCM)
   to manage a local cluster provisioned using kind and a remote cluster provisioned by AWS EKS, then publish a
-  sample application from CP4MCM Hub to the two managed clusters. It gives you a better view of how CP4MCM can
+  sample application from hub cluster to the two managed clusters. It gives you a better view of how CP4MCM can
   manage clusters and applications in a hybrid environment.
 
   Tasks include:
 
   0) Prepare environment
-  1) Configure CP4MCM Hub to be publicly accessible
+  1) Configure hub cluster to be publicly accessible
   2) Manage a cluster provisoned by AWS EKS
   3) Manage a cluster provisoned by kind
   4) Deploy your first application through CP4MCM
@@ -132,7 +132,7 @@ EOF
 }
 
 function task1 {
-  p "Task 1: Configure CP4MCM Hub to be publicly accessible"
+  p "Task 1: Configure hub cluster to be publicly accessible"
 
   cat << EOF
 
@@ -140,8 +140,8 @@ function task1 {
   ============
 
   In this task, we will use IBM Cloud Secure Gateway to expose the local network where your CP4MCM instance is
-  running, to the internet, so that clusters running on AWS can connect back to your CP4MCM Hub from internet. 
-  This is required for CP4MCM Hub to manage your clusters provisioned by AWS EKS.
+  running, to the internet, so that clusters running on AWS can connect back to your hub cluster from internet. 
+  This is required for hub cluster to manage your clusters provisioned by AWS EKS.
 
   Steps include:
 
@@ -159,7 +159,7 @@ EOF
 }
 
 function task1-step1 {
-  p "Task 1 - Step 1: Configure CP4MCM Hub to be publicly accessible - Configure Secure Gateway on IBM Cloud"
+  p "Task 1 - Step 1: Configure hub cluster to be publicly accessible - Configure Secure Gateway on IBM Cloud"
 
   cat << EOF
 
@@ -223,7 +223,7 @@ EOF
 }
 
 function task1-step2 {
-  p "Task 1 - Step 2: Configure CP4MCM Hub to be publicly accessible - Launch and configure Secure Gateway Client from localhost"
+  p "Task 1 - Step 2: Configure hub cluster to be publicly accessible - Launch and configure Secure Gateway Client from localhost"
 
   cat << EOF
 
@@ -236,7 +236,7 @@ function task1-step2 {
   In general, you may need to:
 
   1) Launch Secure Gateway Client if not exists
-  2) Config Secure Gateway ACL for CP4MCM Hub 
+  2) Config Secure Gateway ACL for hub cluster
 
 EOF
 
@@ -267,41 +267,41 @@ EOF
     p "Secure Gateway Client is running..."
   fi
 
-  p "Config Secure Gateway ACL for CP4MCM Hub..."
+  p "Config Secure Gateway ACL for hub cluster..."
 
   cat << EOF
 
   Secure Gateway Client has a dashboard which can be used to manage connections. We will use this dashboard to
-  config ACL for our CP4MCM Hub. Open the link http://127.0.0.1:9003 in web browser, click the "Access Control
+  config ACL for our hub cluster. Open the link http://127.0.0.1:9003 in web browser, click the "Access Control
   List", in the "Allow access" section, input:
 
   1) Resource Hostname: `hostname`
   2) Port: 8443
 
-  Then click plus icon. It allows CP4MCM Hub deployed in your local network to be accessible from internet.
+  Then click plus icon. It allows the hub cluster deployed in your local network to be accessible from internet.
 
 EOF
 }
 
 function task1-step3 {
-  p "Task 1 - Step 3: Configure CP4MCM Hub to be publicly accessible - Configure and test CP4MCM APIServer host and port"
+  p "Task 1 - Step 3: Configure hub cluster to be publicly accessible - Configure and test CP4MCM APIServer host and port"
 
   cat << EOF
 
   Instructions
   ============
 
-  After you expose your CP4MCM Hub to internet, the default CP4MCM APIServer host and port needs to be updated
+  After you expose your hub cluster to internet, the default CP4MCM APIServer host and port needs to be updated
   accordingly to reflect the change.
 
   You may need to:
-  1) Find the public hostname and port for your CP4MCM Hub from IBM Cloud Secure Gateway
+  1) Find the public hostname and port for your hub cluster from IBM Cloud Secure Gateway
   2) Test APIServer connectivity using public hostname and port
-  3) Update the new hostname and port for CP4MCM Hub on localhost
+  3) Update the new hostname and port for hub cluster on localhost
 
 EOF
 
-  p "Find the public hostname and port for your CP4MCM Hub from IBM Cloud Secure Gateway..."
+  p "Find the public hostname and port for your hub cluster from IBM Cloud Secure Gateway..."
 
   cat << EOF
 
@@ -392,7 +392,7 @@ function task2-step2 {
   files: "apikey.yaml" and "cluster.yaml", which are required to provision the cluster with these values along
   with the base64 encoded access key ID and secret access key.
 
-  Then apply the two YAML files on CP4MCM Hub to kick off the provisioning process. Usually, it will take more
+  Then apply the two YAML files on hub cluster to kick off the provisioning process. Usually, it will take more
   than 10 minutes to finish the provisioning. Because it essentially invokes AWS EKS to provision the cluster,
   it depends on how fast AWS EKS provision a cluster.
 
@@ -426,16 +426,16 @@ function task2-step3 {
   Instructions
   ============
 
-  During the provision, you can track the progress either on CP4MCM Hub or on AWS.
+  During the provision, you can track the progress either on hub cluster or on AWS.
 
-  1) On CP4MCM Hub, you can monitor the logs of the pod created for the provisioning job.
+  1) On hub cluster, you can monitor the logs of the pod created for the provisioning job.
   2) On AWS, you can go to https://console.aws.amazon.com/cloudformation, from the Stacks page, find the right
      stack by cluster name being used to provision your cluster, then click the stack and go to the Events tab
      to check the progress.
 
 EOF
 
-  p "To track the progress on CP4MCM Hub, find the pod..."
+  p "To track the progress on hub cluster, find the pod..."
   pe "oc -n cp4mcm-lab get pod -l='job-name=${AWS_CLUSTER_NAME}-create'"
 
   p "Then, check the progress by monitoring the running pod..."
@@ -472,7 +472,7 @@ EOF
   if oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1; then
     p "Cluster has been provisioned successfully, let's continue..."
 
-    p "To get the cluster resource defined on CP4MCM Hub..."
+    p "To get the cluster resource defined on hub cluster..."
     pe "oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n cp4mcm-lab"
 
     p "By describing the cluster resource, you can see a CreateClusterSuccessful event in the Event list when the cluster is created..."
@@ -504,8 +504,8 @@ function task3 {
   Instructions
   ============
 
-  In this task, we will launch a cluster using kind in the same local network along with CP4MCM Hub and import
-  it into CP4MCM Hub as a managed cluster so that can be managed by CP4MCM.
+  In this task, we will launch a cluster using kind in the same local network along with hub cluster and import
+  it into hub cluster as a managed cluster so that can be managed by the hub cluster.
 
   Steps include:
 
@@ -570,7 +570,7 @@ function task3-step2 {
   Instructions
   ============
 
-  To import an existing cluster into CP4MCM Hub, you can go to sCP4MCM UI to generate the import command, then
+  To import an existing cluster into hub cluster, you can go to CP4MCM UI to generate the import command, then
   run the command against your cluster to be imported. To import a local cluster launced by kind is very fast.
   Usually, it will take a few minutes to finish.
   
@@ -629,9 +629,9 @@ function task-4 {
   Instructions
   ============
 
-  In this task, we will deploy a sample application from CP4MCM Hub to the clusters that are managed by CP4MCM
-  Hub using its Application model via channel and subscription mechanism. We will use the two clusters. One is
-  a local cluster created by kind, the other one is a remote cluster provisioned on AWS EKS.
+  In this task, we will deploy nginx as a sample application from hub cluster to the clusters that are managed
+  by the hub using its Application model via channel and subscription mechanism. We will use the two clusters.
+  One is a local cluster created by kind, the other one is a remote cluster provisioned on AWS EKS.
 
   Steps include:
 
@@ -674,7 +674,7 @@ EOF
   pe "cat samples/apps/application.yaml"
 
   p "It indicates that any subscription with label \"app\" equal to \"lab-apps\" will match this application."
-  p "Let's apply it..."
+  p "Let's apply it to the hub cluster..."
   pe "oc apply -f samples/apps/application.yaml"
 }
 
@@ -686,8 +686,20 @@ function task4-step2 {
   Instructions
   ============
 
+  Channel is a custom resource that can help you streamline deployments and separate cluster access. It defines
+  namespace on hub cluster and point to physical place where resources are stored for deployment.
+  
+  There're a few types of channels. In this lab, we will use Namespace channel to monitor a specified namespace
+  which is used to maintain custom resources called Deployables.
 
 EOF
+
+  p "To define the channel, let's use samples/apps/channel.yaml..."
+  pe "cat samples/apps/channel.yaml"
+
+  p "It uses \"spec.sourceNamespaces\" and \"spec.type\" to specify the channel type."
+  p "Let's apply it to the hub cluster..."
+  pe "oc apply -f samples/apps/channel.yaml"
 }
 
 function task4-step3 {

@@ -1,0 +1,13 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Channel
+metadata:
+  name: app-channel
+  namespace: cp4mcm-lab
+spec:
+  gates:
+    annotations:
+      dev-ready: approved
+  pathname: cp4mcm-lab
+  sourceNamespaces:
+  - cp4mcm-lab
+  type: Namespace
