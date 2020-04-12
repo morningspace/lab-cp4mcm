@@ -90,14 +90,14 @@ function task0-step1 {
   Instructions
   ============
 
-  This lab requires below softwares installed on your machine:
+  This lab requires below softwares to be installed on your machine:
 
   1) kind: used to provision a local cluster.
-     Please refer to https://kind.sigs.k8s.io/ for details.
-  2) AWS IAM Authenticator: used to connect your cluster on AWS.
-     Please refer to https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html for details.
+     Please refer to https://kind.sigs.k8s.io/ for detail information.
+  2) AWS IAM Authenticator: used to connect your cluster hosted on AWS EKS.
+     Please refer to https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html for detail information.
   3) IBM Cloud Secure Gateway Client: used to expose your local network to the internet.
-     Please refer to https://cloud.ibm.com/docs/services/SecureGateway?topic=securegateway-add-client for details.
+     Please refer to https://cloud.ibm.com/docs/services/SecureGateway for detail information.
 
 EOF
 
@@ -118,7 +118,7 @@ EOF
 }
 
 function task0-step2 {
-  p "Task 0 - Step 1: Prepare environment - Wait for CP4MCM up and running"
+  p "# Task 0 - Step 1: Prepare environment - Wait for CP4MCM up and running"
 
   cat << EOF
 
