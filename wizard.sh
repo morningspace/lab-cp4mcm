@@ -234,14 +234,18 @@ function task1-step2 {
 
   In general, you may need to:
 
-  1) Launch Secure Gateway Client
+  1) Launch Secure Gateway Client if not exists
   2) Config Secure Gateway ACL for CP4MCM Hub 
 
 EOF
 
-  p "Launch Secure Gateway Client..."
+  p "Try to detect if Secure Gateway Client exists..."
+  pe "docker ps | grep ibmcom/secure-gateway-client"
 
-  cat << EOF
+  if ! docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
+    p "Launch Secure Gateway Client..."
+
+    cat << EOF
 
   On the "Secure Gateway Dashboard" page, click the gateway that we created, click the Clients tab, then click
   the Connect Client button. On the dialog, copy the Gateway ID and Security Token that will be used to launch
@@ -249,15 +253,18 @@ EOF
 
 EOF
 
-  local gateway_id
-  local security_token
+    local gateway_id
+    local security_token
 
-  p "To input the Gateway ID and Security Token..."
-  prompt "Gateway ID" "gateway_id"
-  prompt "Security Token" "security_token"
+    p "To input the Gateway ID and Security Token..."
+    prompt "Gateway ID" "gateway_id"
+    prompt "Security Token" "security_token"
 
-  p "Now, let's launch the client using the above inputs..."
-  pe "docker run -d -p 9003:9003 ibmcom/secure-gateway-client $gateway_id -t $security_token"
+    p "Now, let's launch the client using the above inputs..."
+    pe "docker run -d -p 9003:9003 ibmcom/secure-gateway-client $gateway_id -t $security_token"
+  else
+    p "Secure Gateway Client is running..."
+  fi
 
   p "Config Secure Gateway ACL for CP4MCM Hub..."
 
@@ -366,6 +373,10 @@ EOF
 
   prompt "Input AWS access key ID" "AWS_ACCESS_KEY_ID"
   prompt "Input AWS secret access key" "AWS_SECRET_ACCESS_KEY"
+
+  p "Then encode them into base64 strings..."
+  pe "printf $AWS_ACCESS_KEY_ID | base64"
+  pe "printf $AWS_SECRET_ACCESS_KEY | base64"
 }
 
 function task2-step2 {
@@ -378,7 +389,7 @@ function task2-step2 {
 
   Define the cluster name and the region on AWS where you want to provision your cluster. Fill in the two YAML
   files: "apikey.yaml" and "cluster.yaml", which are required to provision the cluster with these values along
-  with the access key ID and secret access key.
+  with the base64 encoded access key ID and secret access key.
 
   Then apply the two YAML files on CP4MCM Hub to kick off the provisioning process. Usually, it will take more
   than 10 minutes to finish the provisioning. Because it essentially invokes AWS EKS to provision the cluster,
