@@ -23,12 +23,15 @@ function on_exit {
   logger::info "Total elapsed time: $elapsed_time seconds"
 }
 
+function prompt_required {
+  prompt "$@"
+  while [[ -z $(eval echo \$$2) ]]; do
+    prompt "$@"
+  done
+}
+
 function prompt {
-  if [[ $3 == 1 ]]; then
-    echo -n -e "\033[0;36m? \033[0;32m$1\033[0m"
-  else
-    echo -n -e "\033[0;36m? \033[0;37m$1\033[0m"
-  fi
+  echo -n -e "\033[0;36m? \033[0;37m$1\033[0m"
 
   local sample=$(eval echo \$$2)
   if [[ -n $sample ]]; then

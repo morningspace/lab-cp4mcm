@@ -257,8 +257,8 @@ EOF
     local security_token
 
     p "To input the Gateway ID and Security Token..."
-    prompt "Gateway ID" "gateway_id"
-    prompt "Security Token" "security_token"
+    prompt_required "Gateway ID" "gateway_id"
+    prompt_required "Security Token" "security_token"
 
     p "Now, let's launch the client using the above inputs..."
     pe "docker run -d -p 9003:9003 ibmcom/secure-gateway-client $gateway_id -t $security_token"
@@ -312,7 +312,7 @@ EOF
   local hostname_and_port
 
   p "To input the public hostname and port..."
-  prompt "The public hostname and port" "hostname_and_port"
+  prompt_required "The public hostname and port" "hostname_and_port"
 
   p "Before update the hostname and port for CP4MCM, let's check the current APIServer host and port..."
   get-apiserver
@@ -371,8 +371,8 @@ function task2-step1 {
 
 EOF
 
-  prompt "Input AWS access key ID" "AWS_ACCESS_KEY_ID"
-  prompt "Input AWS secret access key" "AWS_SECRET_ACCESS_KEY"
+  prompt_required "Input AWS access key ID" "AWS_ACCESS_KEY_ID"
+  prompt_required "Input AWS secret access key" "AWS_SECRET_ACCESS_KEY"
 
   p "Then encode them into base64 strings..."
   pe "printf $AWS_ACCESS_KEY_ID | base64"
@@ -398,8 +398,8 @@ function task2-step2 {
 EOF
 
   p "To input all the parameters that are required to provision your cluster on AWS..."
-  prompt "Input cluster name" "AWS_CLUSTER_NAME"
-  prompt "Input AWS region" "AWS_REGION"
+  prompt_required "Input cluster name" "AWS_CLUSTER_NAME"
+  prompt_required "Input AWS region" "AWS_REGION"
 
   p "Now, use these values to populate the two YAML files."
   cat << EOF
