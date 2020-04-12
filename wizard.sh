@@ -496,7 +496,7 @@ EOF
   fi
 }
 
-function task-3 {
+function task3 {
   p "Task 3: Manage a cluster provisoned by kind"
 
   cat << EOF
