@@ -37,15 +37,15 @@ function lab-instructions {
   p "# Welcom to \"Lab for IBM CloudPak for Multicloud Management\""
   cat << EOF
 
-  Lab Instructions
-  ================
+  Instructions
+  ============
 
   In this lab, I will walk you through the steps on how to use IBM CloudPak for Multicloud Management (CP4MCM)
   to manage a local cluster provisioned using kind and a remote cluster provisioned by AWS EKS, then publish a
   sample application from hub cluster to the two managed clusters, to give you a better view of how CP4MCM can
   manage clusters and applications in a hybrid environment.
 
-  Tasks include:
+  Tasks:
 
   0) Prepare environment
   1) Configure hub cluster to be publicly accessible
@@ -53,7 +53,7 @@ function lab-instructions {
   3) Manage a cluster provisoned by kind
   4) Deploy your first application through CP4MCM
 
-  Estimated time to complete: 60min
+  Estimated time to complete: 60 min
 
 EOF
 }
@@ -69,12 +69,12 @@ function task0 {
   In this task, we will install all the softwares that are required in this lab, then wait for CP4MCM to be up
   and runing.
   
-  Steps include:
+  Steps:
 
-  1) Install softwares
+  1) Install required softwares
   2) Wait for CP4MCM up and running
   
-  Estimated time to complete: 10min
+  Estimated time to complete: 5 min
 
 EOF
 
@@ -83,16 +83,16 @@ EOF
 }
 
 function task0-step1 {
-  p "# Task 0 - Step 1: Prepare environment - Install softwares"
+  p "# Task 0 - Step 1: Prepare environment - Install required softwares"
 
   cat << EOF
 
   Instructions
   ============
 
-  Softwares included:
+  This lab requires below softwares installed on your machine:
 
-  1) kind: used to launch a local cluster.
+  1) kind: used to provision a local cluster.
      Please refer to https://kind.sigs.k8s.io/ for details.
   2) AWS IAM Authenticator: used to connect your cluster on AWS.
      Please refer to https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html for details.
@@ -149,7 +149,7 @@ function task1 {
   running, to the internet, so that clusters running on AWS can connect back to your hub cluster from internet. 
   This is required for hub cluster to manage your clusters provisioned by AWS EKS.
 
-  Steps include:
+  Steps:
 
   1) Configure Secure Gateway on IBM Cloud
   2) Launch and configure Secure Gateway Client from localhost
@@ -342,12 +342,12 @@ function task2 {
 
   cat << EOF
 
-Instructions
-============
+  Instructions
+  ============
 
   In this task, we will ask CP4MCM to auto-provision a cluster on AWS EKS for us.
 
-  Steps include:
+  Steps:
 
   1) Get your AWS access key ID and secret access key
   2) Apply apikey.yaml and cluster.yaml to kick off the provision
@@ -510,12 +510,12 @@ function task3 {
   Instructions
   ============
 
-  In this task, we will launch a cluster using kind in the same local network along with hub cluster and import
-  it into hub cluster as a managed cluster so that can be managed by the hub cluster.
+  In this task, we will provision a cluster by using kind in the same local network along with the hub cluster
+  and import it into hub cluster as a managed cluster so that can be managed by the hub cluster.
 
-  Steps include:
+  Steps:
 
-  1) Launch a local cluster using kind.
+  1) Provision a local cluster using kind.
   2) Generate the import command from CP4MCM UI and run it locally.
   3) Track progress until the import finished
 
@@ -529,19 +529,19 @@ EOF
 }
 
 function task3-step1 {
-  p "# Task 3 - Step 1: Manage a cluster provisoned by kind - Launch a local cluster using kind"
+  p "# Task 3 - Step 1: Manage a cluster provisoned by kind - Provision a local cluster using kind"
 
   cat << EOF
 
   Instructions
   ============
 
-  To launch a local cluster using kind is very easy. Just tell kind how the cluster will look like by defining
-  a config file. Then run kind command to launch the cluster. Usually, it will take 1 or 2 minutes to finish.
+  To provision a cluster using kind is very easy. Just tell kind how the cluster will look like by defining a 
+  config file. Then run kind command to provision the cluster. Usually, it will take 1 or 2 minutes to finish.
 
 EOF
 
-  p "# Input the cluster name that you want to launch using kind..."
+  p "# Input the cluster name that you want to provision using kind..."
   prompt_required "Input cluster name" "KIND_CLUSTER_NAME"
 
   p "# Try to detect if cluster has been provisioned..."
@@ -553,7 +553,7 @@ EOF
 
     p "# It is a cluster with one master node and two worker nodes."
 
-    p "# To launch the cluster, run kind command as below..."
+    p "# To provision the cluster, run kind command as below..."
     pe "kind create cluster --config samples/kind/config.yaml --kubeconfig $HOME/.kube/kind-kubeconfig --name ${KIND_CLUSTER_NAME}"
 
     p "# It also saves the kubeconfig file into $HOME/.kube folder."
@@ -639,7 +639,7 @@ function task4 {
   by the hub using its Application model via channel and subscription mechanism. We will use the two clusters.
   One is a local cluster created by kind, the other one is a remote cluster provisioned on AWS EKS.
 
-  Steps include:
+  Steps:
 
   1) Define and apply an application
   2) Define and apply a channel
@@ -794,7 +794,7 @@ EOF
   pe "oc get deployable -n cp4mcm-lab"
 
   p "# To check whether application is deployed on managed clusters..."
-  p "# Go to check the cluster launched by kind..."
+  p "# Go to check the cluster provisioned by kind..."
   pe "oc get ns --kubeconfig $HOME/.kube/kind-kubeconfig"
   pe "oc get pod -n cp4mcm-lab --kubeconfig $HOME/.kube/kind-kubeconfig"
 
