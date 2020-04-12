@@ -482,7 +482,7 @@ EOF
     pe "oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME}"
     local cluster_secret=$(oc get secret -n cp4mcm-lab -o name | grep ${AWS_CLUSTER_NAME})
 
-    p "To save as kubeconfig file into $HOME/.kube..."
+    p "To save as kubeconfig file into $HOME/.kube folder..."
     pe "oc get ${cluster_secret} -n cp4mcm-lab -o 'go-template={{index .data \"kubeconfig-eks\"}}' | base64 --decode > $HOME/.kube/eks-kubeconfig"
 
     p "See how the kubeconfig looks like..."
@@ -501,8 +501,8 @@ function task3 {
 
   cat << EOF
 
-Instructions
-============
+  Instructions
+  ============
 
   In this task, we will launch a cluster using kind in the same local network along with CP4MCM Hub and import
   it into CP4MCM Hub as a managed cluster so that can be managed by CP4MCM.
@@ -543,7 +543,7 @@ EOF
   p "To launch the cluster, run kind command as below..."
   pe "kind create cluster --config samples/kind/config.yaml --kubeconfig $HOME/.kube/kind-kubeconfig"
 
-  p "It also saves the kubeconfig file into $HOME/.kube."
+  p "It also saves the kubeconfig file into $HOME/.kube folder."
   p "See how the kubeconfig looks like..."
   pe "cat $HOME/.kube/kind-kubeconfig"
 
@@ -553,15 +553,39 @@ EOF
 }
 
 function task3-step2 {
-  p "Task 3 - Step 2: Manage a cluster provisoned by kind - Generate the import command from CP4MCM UI and run it locallys"
+  p "Task 3 - Step 2: Manage a cluster provisoned by kind - Generate the import command from CP4MCM UI and run it locally"
 
   cat << EOF
 
   Instructions
   ============
 
+  To import an existing cluster into CP4MCM Hub, you can go to sCP4MCM UI to generate the import command, then
+  run the command against your cluster to be imported. To import a local cluster launced by kind is very fast.
+  Usually, it will take a few minutes to finish.
+  
+EOF
+
+  p "To generate the import cluster command from CP4MCM UI..."
+  cat << EOF
+
+  Open below link in web browser:
+  $CP4MCM_BASE_URL/multicloud/clusters
+
+  On the cluster list page, click the "Add cluster" button to open the popup dialog. Choose the option "Import
+  an existing cluster by running a command on your cluster", then click the "Select" button. On the next page,
+  input the name of your cluster that is going to be imported, e.g. $KIND_CLUSTER_NAME, and leave all the other
+  fields without change, then click the "Generate command" button to generate the command and copy it.
 
 EOF
+
+  local import_command
+  p "To run the command against your cluster to be imported..."
+  prompt_required "Paste the import command here" "import_command"
+
+  import_command=${import_command%|*}
+  p "Run the command use the kubeconfig $HOME/.kube/kind-kubeconfig..."
+  pe "${import_command} | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
 }
 
 function task3-step3 {
