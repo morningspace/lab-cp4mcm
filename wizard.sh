@@ -469,6 +469,8 @@ EOF
   pe "oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME}"
 
   if oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1; then
+    p "Cluster has been provisioned successfully, let's continue..."
+
     p "To get the cluster resource defined on CP4MCM Hub..."
     pe "oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n cp4mcm-lab"
 
