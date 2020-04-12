@@ -673,9 +673,9 @@ EOF
   p "To define the application, let's use samples/apps/application.yaml..."
   pe "cat samples/apps/application.yaml"
 
-  p "It indicates that any subscription with label \"app\" equal to lab-apps will match this application"
+  p "It indicates that any subscription with label \"app\" equal to \"lab-apps\" will match this application."
   p "Let's apply it..."
-  pe "oc apply samples/apps/application.yaml"
+  pe "oc apply -f samples/apps/application.yaml"
 }
 
 function task4-step2 {
