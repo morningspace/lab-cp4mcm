@@ -596,7 +596,7 @@ EOF
   import_command=${import_command%|*}
   p "Run the command use the kubeconfig $HOME/.kube/kind-kubeconfig..."
   pe "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
-  evel "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
+  eval "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
   exit
 }
 
