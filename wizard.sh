@@ -36,7 +36,8 @@ function lab-instructions {
 
   In this lab, I will walk you through the steps on how to use IBM CloudPak for Multicloud Management (CP4MCM)
   to manage a local cluster provisioned using kind and a remote cluster provisioned by AWS EKS, then publish a
-  sample application from CP4MCM Hub to the two managed clusters.
+  sample application from CP4MCM Hub to the two managed clusters. It gives you a better view of how CP4MCM can
+  manage applications in a hybrid environment.
 
   Tasks include:
 
@@ -503,10 +504,76 @@ function task-3 {
 Instructions
 ============
 
-TBD
+  In this task, we will launch a cluster using kind in the same local network along with CP4MCM Hub and import
+  it into CP4MCM Hub as a managed cluster so that can be managed by CP4MCM.
+
+  Steps include:
+
+  1) Launch a local cluster using kind.
+  2) Generate the import command from CP4MCM UI and run it locally.
+  3) Track progress until the import finished
+
+Estimated time to complete: 8min
 
 EOF
 
+  task3-step1
+  task3-step2
+  task3-step3
+}
+
+function task3-step1 {
+  p "Task 3 - Step 1: Manage a cluster provisoned by kind - Launch a local cluster using kind"
+
+  cat << EOF
+
+  Instructions
+  ============
+
+  To launch a local cluster using kind is very easy. Just tell kind how the cluster will look like by defining
+  a config file. Then run kind command to launch the cluster. Usually, it will take 1 or 2 minutes to finish.
+
+EOF
+
+  p "Let's use below config file to define the cluster..."
+  pe "cat samples/kind/config.yaml"
+
+  p "It is a cluster with one master node and two worker nodes."
+
+  p "To launch the cluster, run kind command as below..."
+  pe "kind create cluster --config samples/kind/config.yaml --kubeconfig $HOME/.kube/kind-kubeconfig"
+
+  p "It also saves the kubeconfig file into $HOME/.kube."
+  p "See how the kubeconfig looks like..."
+  pe "cat $HOME/.kube/kind-kubeconfig"
+
+  p "Now, you can use below commands to access the cluster which is running locally..."
+  pe "oc get node --kubeconfig $HOME/.kube/kind-kubeconfig"
+  pe "oc get pod --all-namespaces --kubeconfig $HOME/.kube/kind-kubeconfig"
+}
+
+function task3-step2 {
+  p "Task 3 - Step 2: Manage a cluster provisoned by kind - Generate the import command from CP4MCM UI and run it locallys"
+
+  cat << EOF
+
+  Instructions
+  ============
+
+
+EOF
+}
+
+function task3-step3 {
+  p "Task 3 - Step 3: Manage a cluster provisoned by kind - Track progress until the import finished"
+
+  cat << EOF
+
+  Instructions
+  ============
+
+
+EOF
 }
 
 function task-4 {
