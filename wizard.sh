@@ -92,12 +92,12 @@ function task0-step1 {
 
   This lab requires below softwares to be installed on your machine:
 
-  1) kind: used to provision a local cluster.
-     Please refer to https://kind.sigs.k8s.io/ for detail information.
-  2) AWS IAM Authenticator: used to connect your cluster hosted on AWS EKS.
-     Please refer to https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html for detail information.
-  3) IBM Cloud Secure Gateway Client: used to expose your local network to the internet.
-     Please refer to https://cloud.ibm.com/docs/services/SecureGateway for detail information.
+  1) kind - Used to provision a local cluster. Please refer to below link for detail information:
+     https://kind.sigs.k8s.io/
+  2) AWS IAM Authenticator - Used to connect your cluster hosted on AWS. Please refer to below link for detail information.
+     https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
+  3) IBM Cloud Secure Gateway Client - Used to expose your local network to the internet. Please refer to below link for detail information.
+     https://cloud.ibm.com/docs/services/SecureGateway/
 
 EOF
 
