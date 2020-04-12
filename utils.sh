@@ -23,6 +23,89 @@ function on_exit {
   logger::info "Total elapsed time: $elapsed_time seconds"
 }
 
+function prompt {
+  if [[ $3 == 1 ]]; then
+    echo -n -e "\033[0;36m? \033[0;32m$1\033[0m"
+  else
+    echo -n -e "\033[0;36m? \033[0;37m$1\033[0m"
+  fi
+
+  local sample=$(eval echo \$$2)
+  if [[ -n $sample ]]; then
+    echo -n -e "($sample): "
+  else
+    echo -n -e ": "
+  fi
+
+  local input
+  read -r input
+  if [[ -n $input ]]; then
+    eval $2=\'$input\'
+  else
+    return 1
+  fi
+}
+
+function wait-env-ready {
+  oc login -u admin -p Passw0rd! -n kube-system 2>&1 >/dev/null
+
+  logger::info "Waiting IBM CloudPak for Multicloud Management up and running..."
+
+  local pods_not_ready="Pending"
+  local num_tries=200
+  while [[ -n $pods_not_ready ]]; do
+    pods_not_ready=`oc get pods -n kube-system | grep -v -e ibmcloudappmgmt -e import-job | awk '{print $3}' | grep -v -e Running -e Completed -e STATUS`
+    if ((--num_tries == 0)); then
+      logger::error "Error bringing up IBM CloudPak for Multicloud Management"
+      exit 1
+    fi
+    echo -n "." >&2
+    sleep 5
+  done
+  echo "[done]" >&2
+}
+
+function install-kind {
+  logger::info "Install kind..."
+
+  if ! command -v kind >/dev/null 2>&1; then
+    curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64
+    chmod +x ./kind
+    mkdir -p $HOME/.local/bin
+    mv ./kind $HOME/.local/bin/kind
+    # kind version
+    logger::info "kind installed finished"
+  else
+    logger::info "kind has been installed"
+  fi
+}
+
+function install-secure-gateway-client {
+  logger::info "Install IBM Cloud Secure Gateway Client (Docker image)..."
+
+  if [[ "$(docker images -q ibmcom/secure-gateway-client 2> /dev/null)" == "" ]]; then
+    docker pull ibmcom/secure-gateway-client
+    logger::info "Image ibmcom/secure-gateway-client download finished"
+  else
+    logger::info "Image already exists: ibmcom/secure-gateway-client"
+  fi
+}
+
+function install-aws-iam-authenticator {
+  logger::info "Install aws-iam-authenticator..."
+
+  if ! command -v aws-iam-authenticator >/dev/null 2>&1; then
+    curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/aws-iam-authenticator
+    chmod +x ./aws-iam-authenticator
+    mkdir -p $HOME/.local/bin
+    mv ./aws-iam-authenticator $HOME/.local/bin/aws-iam-authenticator
+    # aws-iam-authenticator version
+    logger::info "aws-iam-authenticator installed finished"
+  else
+    logger::info "aws-iam-authenticator has been installed"
+  fi
+}
+
 function get-apiserver {
   local host=$(oc get cm ibmcloud-cluster-info -n kube-public -o='jsonpath={.data.cluster_kube_apiserver_host}')
   local port=$(oc get cm ibmcloud-cluster-info -n kube-public -o='jsonpath={.data.cluster_kube_apiserver_port}')
