@@ -37,7 +37,7 @@ function lab-instructions {
   In this lab, I will walk you through the steps on how to use IBM CloudPak for Multicloud Management (CP4MCM)
   to manage a local cluster provisioned using kind and a remote cluster provisioned by AWS EKS, then publish a
   sample application from CP4MCM Hub to the two managed clusters. It gives you a better view of how CP4MCM can
-  manage applications in a hybrid environment.
+  manage clusters and applications in a hybrid environment.
 
   Tasks include:
 
@@ -149,7 +149,7 @@ function task1 {
   2) Launch and configure Secure Gateway Client from localhost
   3) Configure and test CP4MCM APIServer host and port
 
-Estimated time to complete: 10min
+  Estimated time to complete: 10 min
 
 EOF
 
@@ -348,7 +348,7 @@ Instructions
   3) Track progress until the provission finished
   4) Get the secret to access the newly provisioned cluster
 
-Estimated time to complete: 15min
+  Estimated time to complete: 15 min
 
 EOF
 
@@ -513,7 +513,7 @@ function task3 {
   2) Generate the import command from CP4MCM UI and run it locally.
   3) Track progress until the import finished
 
-Estimated time to complete: 8min
+  Estimated time to complete: 10 min
 
 EOF
 
@@ -596,8 +596,8 @@ EOF
   import_command=${import_command%|*}
   p "Run the command use the kubeconfig $HOME/.kube/kind-kubeconfig..."
   pe "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
-
-  ${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -
+  evel "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
+  exit
 }
 
 function task3-step3 {
@@ -626,13 +626,92 @@ function task-4 {
 
   cat << EOF
 
-Instructions
-============
+  Instructions
+  ============
 
-TBD
+  In this task, we will deploy a sample application from CP4MCM Hub to the clusters that are managed by CP4MCM
+  Hub using its Application model via channel and subscription mechanism. We will use the two clusters. One is
+  a local cluster created by kind, the other one is a remote cluster provisioned on AWS EKS.
+
+  Steps include:
+
+  1) Define and apply an application
+  2) Define and apply a channel
+  3) Define and apply a subscription
+  4) Define and apply a deployable
+
+  Estimated time to complete: 15 min
 
 EOF
 
+  task4-step1
+  task4-step2
+  task4-step3
+  task4-step4
+}
+
+function task4-step1 {
+  p "Task 4 - Step 1: Deploy your first application through CP4MCM - Define and apply an application"
+
+  cat << EOF
+
+  Instructions
+  ============
+
+  CP4MCM provides enhanced application management capabilities through a Kubernetes resource based application
+  model and channel/subscription based deployment options. Applications are composed of multiple resources and
+  defined in YAML.
+
+  As an example, in this lab, we will define nginx as an application and deploy it to managed clusters through
+  the channel and subscription mechanism.
+
+  In the application definition YAML, it includes "spec.componentKinds" to indicate that the application uses a 
+  subscription, and "spec.selector" to define the labels used to match the application with the subscription.
+
+EOF
+
+  p "To define the application, let's use samples/apps/application.yaml..."
+  pe "cat samples/apps/application.yaml"
+
+  p "It indicates that any subscription with label \"app\" equal to lab-apps will match this application"
+  p "Let's apply it..."
+  pe "oc apply samples/apps/application.yaml"
+}
+
+function task4-step2 {
+  p "Task 4 - Step 2: Deploy your first application through CP4MCM - Define and apply a channel"
+
+  cat << EOF
+
+  Instructions
+  ============
+
+
+EOF
+}
+
+function task4-step3 {
+  p "Task 4 - Step 3: Deploy your first application through CP4MCM - Define and apply a subscription"
+
+  cat << EOF
+
+  Instructions
+  ============
+
+
+EOF
+}
+
+function task4-step4 {
+  p "Task 4 - Step 4: Deploy your first application through CP4MCM - Define and apply a deployable"
+
+  cat << EOF
+
+  Instructions
+  ============
+
+
+EOF
 }
 
 case $1 in
