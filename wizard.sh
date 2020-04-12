@@ -458,6 +458,11 @@ function task2-step4 {
   After the cluster is provisioned, you can get the cluster secret and saved as a kubeconfig file which can be
   used to access the cluster.
 
+  You can also go to CP4MCM UI via below link to check the cluster status:
+  $CP4MCM_BASE_URL/multicloud/clusters
+
+  Find the cluster nameed as ${AWS_CLUSTER_NAME} from the cluster list, click to go to the details page.
+
 EOF
 
   p "Try to detect if cluster has been provisioned..."
@@ -476,6 +481,9 @@ EOF
 
     p "To save as kubeconfig file into $HOME/.kube..."
     pe "oc get ${cluster_secret} -n cp4mcm-lab -o 'go-template={{index .data \"kubeconfig-eks\"}}' | base64 --decode > $HOME/.kube/eks-kubeconfig"
+
+    p "See how the kubeconfig looks like..."
+    pe "cat $HOME/.kube/eks-kubeconfig"
 
     p "Now, you can use below commands to access the cluster which is running remotely on AWS EKS..."
     pe "oc get node --kubeconfig $HOME/.kube/eks-kubeconfig"
