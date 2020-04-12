@@ -125,16 +125,16 @@ function task0-step2 {
   Instructions
   ============
 
-  To wait for CP4MCM up and running, let's monitor all CP4MCM pods status periodically. Usually, it will take 
-  5 to 10 minutes to finish.
+  To wait for CP4MCM up and running, let's monitor all CP4MCM pods status periodically. Usually, it takes 5 to
+  10 minutes to finish.
 
 EOF
 
   p "# To monitor all CP4MCM pods status periodically..."
   wait-env-ready
 
-  p "# Create a namespace called for this lab..."
-  oc create ns cp4mcm-lab
+  p "# Create a namespace called $LAB_NAMESPACE for this lab..."
+  pe "oc create ns $LAB_NAMESPACE"
 }
 
 function task1 {
@@ -442,14 +442,14 @@ function task2-step3 {
 EOF
 
   p "# To track the progress on hub cluster, find the pod..."
-  pe "oc -n cp4mcm-lab get pod -l='job-name=${AWS_CLUSTER_NAME}-create'"
+  pe "oc -n $LAB_NAMESPACE get pod -l='job-name=${AWS_CLUSTER_NAME}-create'"
 
   p "# Then, check the progress by monitoring the running pod..."
-  local cluster_create_job=$(oc -n cp4mcm-lab get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep Running | awk '{print $1}')
-  pe "oc -n cp4mcm-lab logs $cluster_create_job"
+  local cluster_create_job=$(oc -n $LAB_NAMESPACE get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep Running | awk '{print $1}')
+  pe "oc -n $LAB_NAMESPACE logs $cluster_create_job"
 
   p "# You can also add -f option to keep monitoring the pod logs..."
-  p "oc -n cp4mcm-lab logs $cluster_create_job -f"
+  p "oc -n $LAB_NAMESPACE logs $cluster_create_job -f"
 
   exit
 }
@@ -473,23 +473,23 @@ function task2-step4 {
 EOF
 
   p "# Try to detect if cluster has been provisioned..."
-  pe "oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME}"
+  pe "oc get secret -n $LAB_NAMESPACE | grep ${AWS_CLUSTER_NAME}"
 
-  if oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1; then
+  if oc get secret -n $LAB_NAMESPACE | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1; then
     p "# Cluster has been provisioned successfully, let's continue..."
 
     p "# To get the cluster resource defined on hub cluster..."
-    pe "oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n cp4mcm-lab"
+    pe "oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n $LAB_NAMESPACE"
 
     p "# By describing the cluster resource, you can see a CreateClusterSuccessful event in the Event list when the cluster is created..."
-    pe "oc describe cluster.cluster.k8s.io/${AWS_CLUSTER_NAME} -n cp4mcm-lab"
+    pe "oc describe cluster.cluster.k8s.io/${AWS_CLUSTER_NAME} -n $LAB_NAMESPACE"
 
     p "# To find the cluster secret..."
-    pe "oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME}"
-    local cluster_secret=$(oc get secret -n cp4mcm-lab -o name | grep ${AWS_CLUSTER_NAME})
+    pe "oc get secret -n $LAB_NAMESPACE | grep ${AWS_CLUSTER_NAME}"
+    local cluster_secret=$(oc get secret -n $LAB_NAMESPACE -o name | grep ${AWS_CLUSTER_NAME})
 
     p "# To save as kubeconfig file into $HOME/.kube folder..."
-    pe "oc get ${cluster_secret} -n cp4mcm-lab -o 'go-template={{index .data \"kubeconfig-eks\"}}' | base64 --decode > $HOME/.kube/eks-kubeconfig"
+    pe "oc get ${cluster_secret} -n $LAB_NAMESPACE -o 'go-template={{index .data \"kubeconfig-eks\"}}' | base64 --decode > $HOME/.kube/eks-kubeconfig"
 
     p "# See how the kubeconfig looks like..."
     pe "cat $HOME/.kube/eks-kubeconfig"
@@ -735,7 +735,7 @@ EOF
   
   cat samples/apps/subscription.yaml | \
     sed -e "s|{{AWS_CLUSTER_NAME}}|$AWS_CLUSTER_NAME|g" \
-        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g" | oc apply -n cp4mcm-lab -f -
+        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g" | oc apply -n $LAB_NAMESPACE -f -
 }
 
 function task4-step4 {
@@ -782,25 +782,25 @@ function task4-step5 {
 EOF
 
   p "# To list applications defined on hub cluster..."
-  pe "oc get applications -n cp4mcm-lab"
+  pe "oc get applications -n $LAB_NAMESPACE"
 
   p "# To list channels defined on hub cluster..."
-  pe "oc get channel -n cp4mcm-lab"
+  pe "oc get channel -n $LAB_NAMESPACE"
 
   p "# To list subscriptions defined on hub cluster..."
-  pe "oc get subscription.app.ibm.com -n cp4mcm-lab"
+  pe "oc get subscription.app.ibm.com -n $LAB_NAMESPACE"
 
   p "# To list deployables defined on hub cluster..."
-  pe "oc get deployable -n cp4mcm-lab"
+  pe "oc get deployable -n $LAB_NAMESPACE"
 
   p "# To check whether application is deployed on managed clusters..."
   p "# Go to check the cluster provisioned by kind..."
   pe "oc get ns --kubeconfig $HOME/.kube/kind-kubeconfig"
-  pe "oc get pod -n cp4mcm-lab --kubeconfig $HOME/.kube/kind-kubeconfig"
+  pe "oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/kind-kubeconfig"
 
   p "# Go to check the cluster provisioned on AWS..."
   pe "oc get ns --kubeconfig $HOME/.kube/eks-kubeconfig"
-  pe "oc get pod -n cp4mcm-lab --kubeconfig $HOME/.kube/eks-kubeconfig"
+  pe "oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/eks-kubeconfig"
 }
 
 case $1 in
