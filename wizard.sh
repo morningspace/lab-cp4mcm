@@ -125,6 +125,9 @@ EOF
 
   p "To monitor all CP4MCM pods status periodically..."
   wait-env-ready
+
+  logger::info "Create a namespace called for this lab..."
+  oc create ns cp4mcm-lab
 }
 
 function task1 {
@@ -423,8 +426,8 @@ EOF
   p "To track the progress on CP4MCM Hub, find the pod..."
   pe "oc -n cp4mcm-lab get pod -l='job-name=${AWS_CLUSTER_NAME}-create'"
 
-  p "Then, check the progress by monitoring this pod..."
-  local cluster_create_job=$(oc -n cp4mcm-lab get pod -l="job-name=${AWS_CLUSTER_NAME}-create" -o name)
+  p "Then, check the progress by monitoring the running pod..."
+  local cluster_create_job=$(oc -n cp4mcm-lab get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep Running | awk '{print $3}')
   pe "oc -n cp4mcm-lab logs $cluster_create_job"
 }
 
