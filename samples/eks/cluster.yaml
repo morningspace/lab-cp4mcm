@@ -20,6 +20,6 @@ spec:
         region: "{{AWS_REGION}}"
         version: "1.14"
         nodeType: "t2.small"
-        nodes: 2
-        nodesMin: 2
-        nodesMax: 2
+        nodes: 3
+        nodesMin: 3
+        nodesMax: 3
