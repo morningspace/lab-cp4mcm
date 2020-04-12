@@ -168,6 +168,4 @@ if [[ $# -gt 0 ]]; then
   else
     logger::warn "Unknown command"
   fi
-else
-  logger::warn "Unknown command"
 fi
