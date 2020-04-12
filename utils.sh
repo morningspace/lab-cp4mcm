@@ -161,11 +161,3 @@ function get-eks-kubeconfig {
 }
 
 start_time=$SECONDS
-
-if [[ $# -gt 0 ]]; then
-  if type $1 &>/dev/null ; then
-    "$@"
-  else
-    logger::warn "Unknown command"
-  fi
-fi

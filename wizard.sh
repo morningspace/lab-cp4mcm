@@ -621,7 +621,7 @@ EOF
   pe "oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig"
 }
 
-function task-4 {
+function task4 {
   p "Task 4: Deploy your first application through CP4MCM"
 
   cat << EOF
