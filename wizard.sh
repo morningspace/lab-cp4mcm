@@ -455,6 +455,9 @@ function task2-step4 {
 
 EOF
 
+  p "Try to detect if cluster has been provisioned..."
+  pe "oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME}"
+
   if oc get secret -n cp4mcm-lab | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1; then
     p "To get the cluster resource defined on CP4MCM Hub..."
     pe "oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n cp4mcm-lab"
@@ -473,7 +476,7 @@ EOF
     pe "oc get node --kubeconfig $HOME/.kube/eks-kubeconfig"
     pe "oc get pod --all-namespaces --kubeconfig $HOME/.kube/eks-kubeconfig"s
   else
-    logger::warn "Cluster has not been provisioned yet"
+    p "Cluster has not been provisioned yet, please try again later..."
   fi
 }
 
