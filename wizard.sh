@@ -596,6 +596,8 @@ EOF
   import_command=${import_command%|*}
   p "Run the command use the kubeconfig $HOME/.kube/kind-kubeconfig..."
   pe "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
+
+  ${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -
 }
 
 function task3-step3 {
@@ -608,7 +610,10 @@ function task3-step3 {
 
   During the import process, you can track the progress by monitoring the pods status under a namespace called
   multicluster-endpoint on the cluster being imported. When all pods are up and running, the import process is
-  finished
+  finished.
+
+  You can also go to CP4MCM UI via below link to check the cluster status:
+  $CP4MCM_BASE_URL/multicloud/clusters
 
 EOF
 
