@@ -1,47 +1,5 @@
 #!/bin/bash
 
-function logger::info {
-  # Cyan
-  printf "\033[0;36mINFO\033[0m $@\n"
-}
-
-function logger::warn {
-  # Yellow
-  printf "\033[0;33mWARN\033[0m $@\n"
-}
-
-function logger::error {
-  # Red
-  printf "\033[0;31mERRO\033[0m $@\n"
-  exit 1
-}
-
-function prompt_required {
-  prompt "$@"
-  while [[ -z $(eval echo \$$2) ]]; do
-    prompt "$@"
-  done
-}
-
-function prompt {
-  echo -n -e "\033[0;36m? \033[0;37m$1\033[0m"
-
-  local sample=$(eval echo \$$2)
-  if [[ -n $sample ]]; then
-    echo -n -e "($sample): "
-  else
-    echo -n -e ": "
-  fi
-
-  local input
-  read -r input
-  if [[ -n $input ]]; then
-    eval $2=\'$input\'
-  else
-    return 1
-  fi
-}
-
 function wait-env-ready {
   oc login -u admin -p Passw0rd! -n kube-system 2>&1 >/dev/null
 
@@ -50,7 +8,7 @@ function wait-env-ready {
   local pods_not_ready="Pending"
   local num_tries=200
   while [[ -n $pods_not_ready ]]; do
-    pods_not_ready=`oc get pods -n kube-system | grep -v -e ibmcloudappmgmt -e import-job | awk '{print $3}' | grep -v -e Running -e Completed -e STATUS`
+    pods_not_ready=`oc get pods -n kube-system | grep -v -e ibmcloudappmgmt -e import-job | awk '{print $3}' | grep -v -e Running -e Completed -e STATUS -e MatchNodeSelector`
     if ((--num_tries == 0)); then
       logger::error "Error bringing up IBM CloudPak for Multicloud Management"
       exit 1
