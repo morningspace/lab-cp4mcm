@@ -480,10 +480,9 @@ function task2-step4 {
   After the cluster is provisioned, you can get the cluster secret and saved as a kubeconfig file which can be
   used to access the cluster.
 
-  You can also go to CP4MCM UI on the hub cluster via below link to check the cluster status:
+  You can also go to CP4MCM UI on the hub cluster via below link to check the cluster status. Find the cluster
+  from the cluster list, then click it to go to the details page:
   $CP4MCM_BASE_URL/multicloud/clusters
-
-  Find the cluster from the cluster list, click it to go to the details page.
 
 EOF
 
@@ -531,8 +530,8 @@ function task3 {
   Steps:
 
   1) Provision a local cluster using kind.
-  2) Generate the import command from CP4MCM UI and run it locally.
-  3) Track progress until the import finished
+  2) Generate the cluster import command from CP4MCM UI and run it.
+  3) Track progress until the import is finished
 
   Estimated time to complete: 10 min
 
@@ -552,11 +551,11 @@ function task3-step1 {
   ============
 
   To provision a cluster using kind is very easy. Just tell kind how the cluster will look like by defining a 
-  config file. Then run kind command to provision the cluster. Usually, it will take 1 or 2 minutes to finish.
+  config file. Then run kind command to provision the cluster. Usually, it takes 1 or 2 minutes to finish.
 
 EOF
 
-  p "# Input the cluster name that you want to provision using kind..."
+  p "# To input the cluster name that you want to provision using kind..."
   prompt_required "Input cluster name" "KIND_CLUSTER_NAME"
 
   p "# Try to detect if cluster has been provisioned..."
@@ -564,9 +563,8 @@ EOF
 
   if ! kind get clusters | grep ${KIND_CLUSTER_NAME} >/dev/null 2>&1; then
     p "# Let's use below config file to define the cluster..."
-    pe "cat samples/kind/config.yaml"
-
     p "# It is a cluster with one master node and two worker nodes."
+    pe "cat samples/kind/config.yaml"
 
     p "# To provision the cluster, run kind command as below..."
     pe "kind create cluster --config samples/kind/config.yaml --kubeconfig $HOME/.kube/kind-kubeconfig --name ${KIND_CLUSTER_NAME}"
@@ -578,13 +576,13 @@ EOF
     p "# Cluster has been provisioned."
   fi
 
-  p "# Now, you can use below commands to access the cluster which is running locally..."
+  p "# Now, you can use below commands to access the cluster which is provisioned by kind..."
   pe "oc get node --kubeconfig $HOME/.kube/kind-kubeconfig"
   pe "oc get pod --all-namespaces --kubeconfig $HOME/.kube/kind-kubeconfig"
 }
 
 function task3-step2 {
-  p "# Task 3 - Step 2: Generate the import command from CP4MCM UI and run it locally"
+  p "# Task 3 - Step 2: Generate the cluster import command from CP4MCM UI and run it"
 
   cat << EOF
 
@@ -593,20 +591,20 @@ function task3-step2 {
 
   To import an existing cluster into hub cluster, you can go to CP4MCM UI to generate the import command, then
   run the command against your cluster to be imported. To import a local cluster launced by kind is very fast.
-  Usually, it will take a few minutes to finish.
+  Usually, it takes a few minutes to finish.
   
 EOF
 
   p "# To generate the import cluster command from CP4MCM UI..."
   cat << EOF
 
-  Open below link in web browser:
+  Open below link in your web browser:
   $CP4MCM_BASE_URL/multicloud/clusters
 
   On the cluster list page, click the "Add cluster" button to open the popup dialog. Choose the option "Import
   an existing cluster by running a command on your cluster", then click the "Select" button. On the next page,
-  input the name of your cluster that is going to be imported, e.g. $KIND_CLUSTER_NAME, and leave all the other
-  fields without change, then click the "Generate command" button to generate the command and copy it.
+  input the name of your cluster that is going to be imported, leave all the other fields without change, then
+  click the "Generate command" button to generate the command and copy it for later use.
 
 EOF
 
@@ -622,7 +620,7 @@ EOF
 }
 
 function task3-step3 {
-  p "# Task 3 - Step 3: Track progress until the import finished"
+  p "# Task 3 - Step 3: Track progress until the import is finished"
 
   cat << EOF
 
