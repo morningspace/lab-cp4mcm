@@ -278,13 +278,14 @@ EOF
   cat << EOF
 
   Secure Gateway Client has a dashboard which can be used to manage connections. We will use this dashboard to
-  config ACL for our hub cluster. Open the link http://127.0.0.1:9003 in web browser, click the "Access Control
-  List", in the "Allow access" section, input:
+  config ACL for our hub cluster. Go to: http://127.0.0.1:9003 in web browser, click the "Access Control List"
+  button, in the "Allow access" section, input:
 
   1) Resource Hostname: `hostname`
   2) Port: 8443
 
-  Then click plus icon. It allows the hub cluster deployed in your local network to be accessible from internet.
+  Then click the plus icon. It allows the hub cluster deployed in your local network to be accessible from the
+  internet.
 
 EOF
 }
@@ -297,13 +298,14 @@ function task1-step3 {
   Instructions
   ============
 
-  After you expose your hub cluster to internet, the default CP4MCM APIServer host and port needs to be updated
-  accordingly to reflect the change.
+  After you expose your hub cluster to the internet, the default API server host and port on hub cluster need
+  to be updated accordingly to reflect the change.
 
   You may need to:
+
   1) Find the public hostname and port for your hub cluster from IBM Cloud Secure Gateway
-  2) Test APIServer connectivity using public hostname and port
-  3) Update the new hostname and port for hub cluster on localhost
+  2) Test API server connectivity using public hostname and port
+  3) Update the hostname and port for your hub cluster
 
 EOF
 
@@ -311,8 +313,8 @@ EOF
 
   cat << EOF
 
-  On the "Secure Gateway Dashboard" page, click the gateway, then the gear icon on the destination we created.
-  On the popup dialog, copy the value of "Cloud Host : Port" field. Input as below...
+  On the "Secure Gateway Dashboard" page, click the gateway that we have created, then click the gear icon for
+  the destination we created. On the popup dialog, copy the value of "Cloud Host : Port" field for later use.
 
 EOF
 
@@ -321,19 +323,19 @@ EOF
   p "# To input the public hostname and port..."
   prompt_required "The public hostname and port" "hostname_and_port"
 
-  p "# Before update the hostname and port for CP4MCM, let's check the current APIServer host and port..."
+  p "# Before update the hostname and port for your hub cluster, let's check the current API server host and port..."
   get-apiserver
 
-  p "# You can test the APIServer connectivity using the current hostname and port..."
+  p "# You can test the API server connectivity using the current hostname and port..."
   pe "curl -kL https://`hostname`:8443"
   
-  p "# You can also test the APIServer connectivity using public hostname and port..."
+  p "# You can also test the API server connectivity using the public hostname and port..."
   pe "curl -kL https://${hostname_and_port}"
 
-  p "# Now, let's update the APIServer host and port..."
+  p "# Now, let's update the API server host and port..."
   set-apiserver $hostname_and_port
 
-  p "# The current APIServer host and port have been changed as below..."
+  p "# The current API server host and port have been changed as below..."
   get-apiserver
 }
 
