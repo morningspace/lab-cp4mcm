@@ -830,7 +830,7 @@ case $1 in
     lab-instructions
     ;;
   *)
-    [[ -z $2 ]] && method_name="$1" || "$1-$2"
+    [[ -z $2 ]] && method_name="$1" || method_name="$1-$2"
     if type $method_name &>/dev/null ; then
       "$method_name"
       # show a prompt so as not to reveal our true nature after
