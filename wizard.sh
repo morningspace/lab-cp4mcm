@@ -638,8 +638,8 @@ EOF
   p "# To monitor the pods status under multicluster-endpoint namespace..."
   pe "oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig"
 
-  p "# Please go to the next task or step until the cluster is provisioned."
-  p "# Before that, you can use this step to keep traking the provision progress."
+  p "# Please go to the next task or step until the cluster is imported."
+  p "# Before that, you can use this step to keep traking the import progress."
   exit
 }
 
@@ -652,8 +652,8 @@ function task4 {
   ============
 
   In this task, we will deploy nginx as a sample application from hub cluster to the clusters that are managed
-  by the hub using its Application model via channel and subscription mechanism. We will use the two clusters.
-  One is a local cluster created by kind, the other one is a remote cluster provisioned on AWS EKS.
+  by the hub cluster using its application model via channel, subscription mechanism. We will use the clusters
+  that are provisioned.
 
   Steps:
 
@@ -687,7 +687,7 @@ function task4-step1 {
   defined in YAML.
 
   As an example, in this lab, we will define nginx as an application and deploy it to managed clusters through
-  the channel and subscription mechanism.
+  the channel, subscription mechanism.
 
   In the application definition YAML, it includes "spec.componentKinds" to indicate that the application uses a 
   subscription, and "spec.selector" to define the labels used to match the application with the subscription.
@@ -695,9 +695,9 @@ function task4-step1 {
 EOF
 
   p "# To define the application, let's use samples/apps/application.yaml..."
+  p "# It indicates that any subscription with label \"app\" equal to \"lab-apps\" will match this application."
   pe "cat samples/apps/application.yaml"
 
-  p "# It indicates that any subscription with label \"app\" equal to \"lab-apps\" will match this application."
   p "# Let's apply it to the hub cluster..."
   pe "oc apply -f samples/apps/application.yaml"
 }
@@ -715,14 +715,14 @@ function task4-step2 {
   
   There're a few types of channels. In this lab, we will use Namespace channel to monitor a specified namespace
   which is used to maintain custom resources called Deployables. Deployables added or updated in this namespace
-  will be promoted to managed clusters through this channel.
+  will be promoted to managed clusters through the channel.
 
 EOF
 
   p "# To define the channel, let's use samples/apps/channel.yaml..."
+  p "# It uses \"spec.type\" and \"spec.sourceNamespaces\" to specify the channel type and where it lives."
   pe "cat samples/apps/channel.yaml"
 
-  p "# It uses \"spec.sourceNamespaces\" and \"spec.type\" to specify the channel type."
   p "# Let's apply it to the hub cluster..."
   pe "oc apply -f samples/apps/channel.yaml"
 }
@@ -743,9 +743,9 @@ function task4-step3 {
 EOF
 
   p "# To define the subscription, let's use samples/apps/subscription.yaml..."
+  p "# It specifies the channel to be subscribed, and has label \"app\" equal to \"labs-app\", which matches the channel we defined."
   pe "cat samples/apps/subscription.yaml"
 
-  p "# It specifies the channel to be subscribed, and has label \"app\" equal to \"labs-app\", which matches the channel we defined."
   p "# Let's apply it to the hub cluster..."
   p "oc apply -f samples/apps/subscription.yaml"
   
@@ -766,7 +766,7 @@ function task4-step4 {
   cluster before the resources are placed on managed clusters. Deployables can be directly deployed to one or
   more managed clusters from the storage locations that include the deployables.
 
-  As an example, in this lab, we will wrap a Deployment Kubernetes resource as a Deployable, and deploy it to
+  As an example, in this lab, we will wrap a Kubernetes resource Deployment as a Deployable, and deploy it to
   the two managed clusters that we provisioned.
 
 EOF
@@ -787,12 +787,13 @@ function task4-step5 {
   Instructions
   ============
 
-  After we define applications, channels, subscriptions properly, newly created deployable will be deployed to
-  the managed clusters from hub cluster through the channel and subscription mechanism. Usually, it will take
+  After we define applications, channels, subscriptions properly, newly created deployable will be deployed on
+  to the managed clusters from the hub cluster through the channel, subscription mechanism. Usually, it takes
   a few minutes to take effect.
 
-  You can check the results by issuing oc command both on hub cluster and managed clusters. You can also check
-  CP4MCM UI by visiting below link:
+  You can check the results by issuing oc command both on hub cluster and managed clusters.
+  
+  You can also check CP4MCM UI by visiting below link:
   $CP4MCM_BASE_URL/multicloud/applications
 
 EOF
