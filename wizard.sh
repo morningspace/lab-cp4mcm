@@ -250,7 +250,7 @@ EOF
   pe "docker ps | grep ibmcom/secure-gateway-client"
 
   if ! docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
-    p "# Launch Secure Gateway Client..."
+    p "# To launch Secure Gateway Client..."
 
     cat << EOF
 
@@ -263,7 +263,7 @@ EOF
     local gateway_id
     local security_token
 
-    p "# To input the Gateway ID and Security Token..."
+    p "# To record the Gateway ID and Security Token..."
     prompt_required "Gateway ID" "gateway_id"
     prompt_required "Security Token" "security_token"
 
@@ -273,7 +273,7 @@ EOF
     p "# Secure Gateway Client is running..."
   fi
 
-  p "# Config Secure Gateway ACL for hub cluster..."
+  p "# To config Secure Gateway ACL for hub cluster..."
 
   cat << EOF
 
