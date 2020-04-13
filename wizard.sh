@@ -46,6 +46,7 @@ clear
 # put your demo awesomeness here
 function lab-instructions {
   p "# Welcom to \"Lab for IBM CloudPak for Multicloud Management\""
+
   cat << EOF
 
   Instructions
@@ -339,9 +340,11 @@ EOF
 
   p "# You can test the API server connectivity using the current hostname and port..."
   pe "curl -kL https://`hostname`:8443"
+  echo
   
   p "# You can also test the API server connectivity using the public hostname and port..."
   pe "curl -kL https://${hostname_and_port}"
+  echo
 
   p "# Now, let's update the API server host and port..."
   set-apiserver $hostname_and_port
