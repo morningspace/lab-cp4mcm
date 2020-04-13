@@ -29,6 +29,17 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
 DEMO_CMD_COLOR="\033[0;37m"
 DEMO_COMMENT_COLOR=$BLUE
 
+trap on_exit exit
+
+function on_exit {
+  # show a prompt so as not to reveal our true nature after
+  # the demo has concluded
+  p "# Press Enter key to exit..."
+
+  elapsed_time=$(($SECONDS - $start_time))
+  logger::info "Total elapsed time: $elapsed_time seconds"
+}
+
 # hide the evidence
 clear
 
@@ -453,6 +464,8 @@ EOF
   p "# You can also add -f option to keep monitoring the pod logs..."
   p "oc -n $LAB_NAMESPACE logs $cluster_create_job -f"
 
+  p "# Please go to the next task or step until the cluster is provisioned."
+  p "# Before that, you can use this step to keep traking the provision progress."
   exit
 }
 
@@ -805,21 +818,15 @@ EOF
   pe "oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/eks-kubeconfig"
 }
 
+start_time=$SECONDS
+
 case $1 in
   "")
     lab-instructions
-
-    # show a prompt so as not to reveal our true nature after
-    # the demo has concluded
-    p "# Press Enter key to exit..."
     ;;
   *)
     if type $1 &>/dev/null ; then
       "$@"
-
-      # show a prompt so as not to reveal our true nature after
-      # the demo has concluded
-      p "# Press Enter key to exit..."
     else
       logger::warn "Unknown task or step"
     fi

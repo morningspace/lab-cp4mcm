@@ -16,13 +16,6 @@ function logger::error {
   exit 1
 }
 
-trap on_exit exit
-
-function on_exit {
-  elapsed_time=$(($SECONDS - $start_time))
-  logger::info "Total elapsed time: $elapsed_time seconds"
-}
-
 function prompt_required {
   prompt "$@"
   while [[ -z $(eval echo \$$2) ]]; do
@@ -159,5 +152,3 @@ function get-eks-kubeconfig {
   local cluster_secret=$(oc get secret -n cp4mcm-lab -o name | grep ${cluster_name})
   oc get ${cluster_secret} -n cp4mcm-lab -o 'go-template={{index .data "kubeconfig-eks"}}' | base64 --decode | tee $HOME/.kube/eks-kubeconfig
 }
-
-start_time=$SECONDS
