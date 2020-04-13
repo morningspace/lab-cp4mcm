@@ -83,7 +83,7 @@ EOF
 }
 
 function task0-step1 {
-  p "# Task 0 - Step 1: Prepare environment - Install required softwares"
+  p "# Task 0 - Step 1: Install required softwares"
 
   cat << EOF
 
@@ -118,7 +118,7 @@ EOF
 }
 
 function task0-step2 {
-  p "# Task 0 - Step 1: Prepare environment - Wait for CP4MCM up and running"
+  p "# Task 0 - Step 1: Wait for CP4MCM up and running"
 
   cat << EOF
 
@@ -165,7 +165,7 @@ EOF
 }
 
 function task1-step1 {
-  p "# Task 1 - Step 1: Configure hub cluster to be publicly accessible - Configure Secure Gateway on IBM Cloud"
+  p "# Task 1 - Step 1: Configure Secure Gateway on IBM Cloud"
 
   cat << EOF
 
@@ -187,7 +187,7 @@ EOF
   p "# To login to IBM Cloud using your IBM Cloud account..."
   cat << EOF
 
-  Please contact the lab owner if you do not have IBM Cloud account yet.
+  Log in to IBM Cloud: https://cloud.ibm.com/. Please contact lab owner if you do not have an account yet.
 
 EOF
 
@@ -196,7 +196,7 @@ EOF
 
   Go to https://cloud.ibm.com/catalog, search by using keywords "Secure Gateway", you can see a service called
   "Secure Gateway" listed in the search results. Click this service and go to its details page, then click the 
-  "Create" button. The resource will be created.
+  "Create" button. The resource will be created then.
 
 EOF
 
@@ -229,7 +229,7 @@ EOF
 }
 
 function task1-step2 {
-  p "# Task 1 - Step 2: Configure hub cluster to be publicly accessible - Launch and configure Secure Gateway Client from localhost"
+  p "# Task 1 - Step 2: Launch and configure Secure Gateway Client from localhost"
 
   cat << EOF
 
@@ -290,7 +290,7 @@ EOF
 }
 
 function task1-step3 {
-  p "# Task 1 - Step 3: Configure hub cluster to be publicly accessible - Configure and test API server host and port on hub cluster"
+  p "# Task 1 - Step 3: Configure and test API server host and port on hub cluster"
 
   cat << EOF
 
@@ -365,7 +365,7 @@ EOF
 }
 
 function task2-step1 { 
-  p "# Task 2 - Step 1: Manage a cluster provisoned by AWS EKS - Get your AWS access key ID and secret access key"
+  p "# Task 2 - Step 1: Get your AWS access key ID and secret access key"
 
   cat << EOF
 
@@ -387,7 +387,7 @@ EOF
 }
 
 function task2-step2 {
-  p "# Task 2 - Step 2: Manage a cluster provisoned by AWS EKS - Apply apikey.yaml and cluster.yaml to kick off the provision"
+  p "# Task 2 - Step 2: Apply apikey.yaml and cluster.yaml to kick off the provision"
 
   cat << EOF
 
@@ -425,7 +425,7 @@ EOF
 }
 
 function task2-step3 {
-  p "# Task 2 - Step 3: Manage a cluster provisoned by AWS EKS - Track progress until the provission finished"
+  p "# Task 2 - Step 3: Track progress until the provission finished"
 
   cat << EOF
 
@@ -455,7 +455,7 @@ EOF
 }
 
 function task2-step4 {
-  p "# Task 2 - Step 4: Manage a cluster provisoned by AWS EKS - Get the secret to access the newly provisioned cluster"
+  p "# Task 2 - Step 4: Get the secret to access the newly provisioned cluster"
 
   cat << EOF
 
@@ -529,7 +529,7 @@ EOF
 }
 
 function task3-step1 {
-  p "# Task 3 - Step 1: Manage a cluster provisoned by kind - Provision a local cluster using kind"
+  p "# Task 3 - Step 1: Provision a local cluster using kind"
 
   cat << EOF
 
@@ -569,7 +569,7 @@ EOF
 }
 
 function task3-step2 {
-  p "# Task 3 - Step 2: Manage a cluster provisoned by kind - Generate the import command from CP4MCM UI and run it locally"
+  p "# Task 3 - Step 2: Generate the import command from CP4MCM UI and run it locally"
 
   cat << EOF
 
@@ -607,7 +607,7 @@ EOF
 }
 
 function task3-step3 {
-  p "# Task 3 - Step 3: Manage a cluster provisoned by kind - Track progress until the import finished"
+  p "# Task 3 - Step 3: Track progress until the import finished"
 
   cat << EOF
 
@@ -659,7 +659,7 @@ EOF
 }
 
 function task4-step1 {
-  p "# Task 4 - Step 1: Deploy your first application through CP4MCM - Define and apply an application"
+  p "# Task 4 - Step 1: Define and apply an application"
 
   cat << EOF
 
@@ -687,7 +687,7 @@ EOF
 }
 
 function task4-step2 {
-  p "# Task 4 - Step 2: Deploy your first application through CP4MCM - Define and apply a channel"
+  p "# Task 4 - Step 2: Define and apply a channel"
 
   cat << EOF
 
@@ -712,7 +712,7 @@ EOF
 }
 
 function task4-step3 {
-  p "# Task 4 - Step 3: Deploy your first application through CP4MCM - Define and apply a subscription"
+  p "# Task 4 - Step 3: Define and apply a subscription"
 
   cat << EOF
 
@@ -739,7 +739,7 @@ EOF
 }
 
 function task4-step4 {
-  p "# Task 4 - Step 4: Deploy your first application through CP4MCM - Define and apply a deployable"
+  p "# Task 4 - Step 4: Define and apply a deployable"
 
   cat << EOF
 
@@ -764,7 +764,7 @@ EOF
 }
 
 function task4-step5 {
-  p "# Task 4 - Step 5: Deploy your first application through CP4MCM - Check results"
+  p "# Task 4 - Step 5: Check results"
 
   cat << EOF
 
