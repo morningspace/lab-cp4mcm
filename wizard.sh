@@ -436,17 +436,17 @@ function task2-step3 {
 
   During the provision, you can track the progress either on hub cluster or on AWS.
 
-  1) On hub cluster, you can monitor the logs of the pod created for the provisioning job.
-  2) On AWS, you can go to https://console.aws.amazon.com/cloudformation, from the Stacks page, find the right
-     stack by cluster name being used to provision your cluster, then click the stack and go to the Events tab
-     to check the progress.
+  1) On hub cluster, you can monitor the logs of the pod created for the provision job.
+  2) On AWS, go to the link: https://console.aws.amazon.com/cloudformation. From the "Stacks" page, choose the
+     right stack by the cluster name being used to provision your cluster, then go to its "Events" tab to find
+     the progress.
 
 EOF
 
   p "# To track the progress on hub cluster, find the pod..."
   pe "oc -n $LAB_NAMESPACE get pod -l='job-name=${AWS_CLUSTER_NAME}-create'"
 
-  p "# Then, check the progress by monitoring the running pod..."
+  p "# Then, check the progress by monitoring the running pod logs..."
   local cluster_create_job=$(oc -n $LAB_NAMESPACE get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep Running | awk '{print $1}')
   pe "oc -n $LAB_NAMESPACE logs $cluster_create_job"
 
@@ -467,10 +467,10 @@ function task2-step4 {
   After the cluster is provisioned, you can get the cluster secret and saved as a kubeconfig file which can be
   used to access the cluster.
 
-  You can also go to CP4MCM UI via below link to check the cluster status:
+  You can also go to CP4MCM UI on the hub cluster via below link to check the cluster status:
   $CP4MCM_BASE_URL/multicloud/clusters
 
-  Find the cluster nameed as ${AWS_CLUSTER_NAME} from the cluster list, click to go to the details page.
+  Find the cluster from the cluster list, click it to go to the details page.
 
 EOF
 
