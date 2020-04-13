@@ -458,10 +458,14 @@ EOF
 
   p "# Then, check the progress by monitoring the running pod logs..."
   local cluster_create_job=$(oc -n $LAB_NAMESPACE get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep -e Running -e Completed | awk '{print $1}')
-  pe "oc -n $LAB_NAMESPACE logs $cluster_create_job"
+  if [[ -n $cluster_create_job ]]; then
+    pe "oc -n $LAB_NAMESPACE logs $cluster_create_job"
 
-  p "# You can also add -f option to keep monitoring the pod logs..."
-  p "oc -n $LAB_NAMESPACE logs $cluster_create_job -f"
+    p "# You can also add -f option to keep monitoring the pod logs..."
+    p "oc -n $LAB_NAMESPACE logs $cluster_create_job -f"
+  else
+    p "# Something wrong with the provision."
+  fi
 
   p "# Please go to the next task or step until the cluster is provisioned."
   p "# Before that, you can use this step to keep traking the provision progress."
