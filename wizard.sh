@@ -309,12 +309,12 @@ function task1-step3 {
 
 EOF
 
-  p "# Find the public hostname and port for your hub cluster from IBM Cloud Secure Gateway..."
+  p "# To find the public hostname and port for your hub cluster from IBM Cloud Secure Gateway..."
 
   cat << EOF
 
-  On the "Secure Gateway Dashboard" page, click the gateway that we have created, then click the gear icon for
-  the destination we created. On the popup dialog, copy the value of "Cloud Host : Port" field for later use.
+  On the "Secure Gateway Dashboard" page, click the gateway that you have created, then click the gear icon of
+  the destination. On the popup dialog, copy the value of "Cloud Host : Port" field for later use.
 
 EOF
 
@@ -353,8 +353,8 @@ function task2 {
 
   1) Get your AWS access key ID and secret access key
   2) Apply apikey.yaml and cluster.yaml to kick off the provision
-  3) Track progress until the provission finished
-  4) Get the secret to access the newly provisioned cluster
+  3) Track progress until the provission is finished
+  4) Get the cluster secret to access the provisioned cluster
 
   Estimated time to complete: 15 min
 
@@ -380,6 +380,7 @@ function task2-step1 {
 
 EOF
 
+  p "# To input your AWS access key ID and secret access key..."
   prompt_required "Input AWS access key ID" "AWS_ACCESS_KEY_ID"
   prompt_required "Input AWS secret access key" "AWS_SECRET_ACCESS_KEY"
 
@@ -427,7 +428,7 @@ EOF
 }
 
 function task2-step3 {
-  p "# Task 2 - Step 3: Track progress until the provission finished"
+  p "# Task 2 - Step 3: Track progress until the provission is finished"
 
   cat << EOF
 
@@ -457,7 +458,7 @@ EOF
 }
 
 function task2-step4 {
-  p "# Task 2 - Step 4: Get the secret to access the newly provisioned cluster"
+  p "# Task 2 - Step 4: Get the cluster secret to access the provisioned cluster"
 
   cat << EOF
 
