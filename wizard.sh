@@ -92,11 +92,11 @@ function task0-step1 {
 
   This lab requires below softwares to be installed on your machine:
 
-  1) kind - Used to provision a local cluster. Please refer to below link for detail information:
+  1) kind: Used to provision a local cluster. Please refer to below link for detail information:
      https://kind.sigs.k8s.io/
-  2) AWS IAM Authenticator - Used to connect your cluster hosted on AWS. Please refer to below link for detail information.
+  2) AWS IAM Authenticator: Used to connect your cluster hosted on AWS. Please refer to below link for detail information.
      https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
-  3) IBM Cloud Secure Gateway Client - Used to expose your local network to the internet. Please refer to below link for detail information.
+  3) IBM Cloud Secure Gateway Client: Used to expose your local network to the internet. Please refer to below link for detail information.
      https://cloud.ibm.com/docs/services/SecureGateway/
 
 EOF
@@ -375,8 +375,8 @@ function task2-step1 {
   ============
 
   Login to Amazon Console https://console.aws.amazon.com/ using your Amazon account. Click the user account on
-  top navigation bar, and choose My Security Credentials. Click the "Create access key" button to generate new
-  Access key ID and Secret access key for you. Remember the two valuess for later use.
+  top navigation bar, and choose "My Security Credentials". Click the "Create access key" button to generate a
+  new access key ID and a secret access key for you. Record the two values for later use.
 
 EOF
 
@@ -401,9 +401,8 @@ function task2-step2 {
   files: "apikey.yaml" and "cluster.yaml", which are required to provision the cluster with these values along
   with the base64 encoded access key ID and secret access key.
 
-  Then apply the two YAML files on hub cluster to kick off the provisioning process. Usually, it will take more
-  than 10 minutes to finish the provisioning. Because it essentially invokes AWS EKS to provision the cluster,
-  it depends on how fast AWS EKS provision a cluster.
+  Then apply the above YAML files on the hub cluster to kick off the provision. Usually, it takes more than 10
+  minutes to finish. As it essentially invokes AWS EKS, it depends on how fast AWS EKS provisions a cluster.
 
 EOF
 
@@ -414,8 +413,8 @@ EOF
   p "# Now, use these values to populate the two YAML files."
   cat << EOF
 
-  1) samples/eks/apikey.yaml:   used to create the secret for AWS accesss
-  2) samples/eks/clusters.yaml: used to define how the cluster will look like
+  1) samples/eks/apikey.yaml: Used to create the secret for AWS accesss.
+  2) samples/eks/clusters.yaml: Used to define how the cluster will look like.
 
 EOF
 
@@ -423,7 +422,7 @@ EOF
   pe "cat samples/eks/apikey.yaml"
   pe "cat samples/eks/cluster.yaml"
 
-  p "# Now, let's start to provision the cluster on AWS by applying these two YAML files..."
+  p "# Now, let's start to provision the cluster on AWS by applying the above YAML files..."
   provision-eks $AWS_CLUSTER_NAME $AWS_REGION $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY
 }
 
