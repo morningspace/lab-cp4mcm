@@ -27,15 +27,11 @@ DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
 # custom colors
 #
 DEMO_CMD_COLOR="\033[0;37m"
-DEMO_COMMENT_COLOR=$BLUE
+DEMO_COMMENT_COLOR=$CYAN
 
 trap on_exit exit
 
 function on_exit {
-  # show a prompt so as not to reveal our true nature after
-  # the demo has concluded
-  p "# Press Enter key to exit..."
-
   elapsed_time=$(($SECONDS - $start_time))
   logger::info "Total elapsed time: $elapsed_time seconds"
 }
@@ -606,8 +602,8 @@ EOF
 
   On the cluster list page, click the "Add cluster" button to open the popup dialog. Choose the option "Import
   an existing cluster by running a command on your cluster", then click the "Select" button. On the next page,
-  input the name of your cluster that is going to be imported, leave all the other fields without change, then
-  click the "Generate command" button to generate the command and copy it for later use.
+  input the name of your cluster that is going to be imported, e.g. ${KIND_CLUSTER_NAME}, leave all the other fields
+  without change, then click the "Generate command" button to generate the command and copy it for later use.
 
 EOF
 
@@ -830,8 +826,12 @@ case $1 in
     lab-instructions
     ;;
   *)
-    if type $1 &>/dev/null ; then
-      "$@"
+    method_name="$1-$2"
+    if type $method_name &>/dev/null ; then
+      "$method_name"
+      # show a prompt so as not to reveal our true nature after
+      # the demo has concluded
+      p "# Press Enter key to exit..."
     else
       logger::warn "Unknown task or step"
     fi
