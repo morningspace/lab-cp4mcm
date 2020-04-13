@@ -613,10 +613,9 @@ EOF
   prompt_required "Paste the import command here" "import_command"
 
   import_command=${import_command%|*}
-  p "# Run the command use the kubeconfig $HOME/.kube/kind-kubeconfig..."
+  p "# Run the command by using the kubeconfig $HOME/.kube/kind-kubeconfig..."
   pe "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
   eval "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
-  exit
 }
 
 function task3-step3 {
@@ -638,6 +637,10 @@ EOF
 
   p "# To monitor the pods status under multicluster-endpoint namespace..."
   pe "oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig"
+
+  p "# Please go to the next task or step until the cluster is provisioned."
+  p "# Before that, you can use this step to keep traking the provision progress."
+  exit
 }
 
 function task4 {
