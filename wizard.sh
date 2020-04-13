@@ -456,9 +456,9 @@ EOF
   p "# To track the progress on hub cluster, find the pod..."
   pe "oc -n $LAB_NAMESPACE get pod -l='job-name=${AWS_CLUSTER_NAME}-create'"
 
-  p "# Then, check the progress by monitoring the running pod logs..."
   local cluster_create_job=$(oc -n $LAB_NAMESPACE get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep -e Running -e Completed | awk '{print $1}')
   if [[ -n $cluster_create_job ]]; then
+    p "# Then, check the progress by monitoring the running pod logs..."
     pe "oc -n $LAB_NAMESPACE logs $cluster_create_job"
 
     p "# You can also add -f option to keep monitoring the pod logs..."
