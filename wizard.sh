@@ -145,15 +145,15 @@ function task1 {
   Instructions
   ============
 
-  In this task, we will use IBM Cloud Secure Gateway to expose the local network where your CP4MCM instance is
-  running, to the internet, so that clusters running on AWS can connect back to your hub cluster from internet. 
+  In this task, we will leverage IBM Cloud Secure Gateway to expose your local network to the internet, where
+  the hub cluster is running so that clusters run on AWS can connect back to the hub cluster from the internet.
   This is required for hub cluster to manage your clusters provisioned by AWS EKS.
 
   Steps:
 
   1) Configure Secure Gateway on IBM Cloud
   2) Launch and configure Secure Gateway Client from localhost
-  3) Configure and test CP4MCM APIServer host and port
+  3) Configure and test API server host and port on hub cluster
 
   Estimated time to complete: 10 min
 
@@ -165,14 +165,14 @@ EOF
 }
 
 function task1-step1 {
-  p "Task 1 - Step 1: Configure hub cluster to be publicly accessible - Configure Secure Gateway on IBM Cloud"
+  p "# Task 1 - Step 1: Configure hub cluster to be publicly accessible - Configure Secure Gateway on IBM Cloud"
 
   cat << EOF
 
   Instructions
   ============
 
-  Please refer to below link to learn details on how to configure Secure Gateway using your IBM Cloud account:
+  Please refer to below link to learn detail information to configure Secure Gateway using IBM Cloud account:
   https://cloud.ibm.com/docs/services/SecureGateway?topic=securegateway-getting-started-with-sg&locale=en#getting-started-with-sg
 
   In general, you may need to:
@@ -184,14 +184,14 @@ function task1-step1 {
 
 EOF
 
-  p "# Login to IBM Cloud using your IBM Cloud account..."
+  p "# To login to IBM Cloud using your IBM Cloud account..."
   cat << EOF
 
   Please contact the lab owner if you do not have IBM Cloud account yet.
 
 EOF
 
-  p "# Create a Secure Gateway resource..."
+  p "# To create a Secure Gateway resource..."
   cat << EOF
 
   Go to https://cloud.ibm.com/catalog, search by using keywords "Secure Gateway", you can see a service called
@@ -200,7 +200,7 @@ EOF
 
 EOF
 
-  p "# Add a gateway..."
+  p "# To add a gateway..."
 
   cat << EOF
 
@@ -209,7 +209,7 @@ EOF
 
 EOF
 
-  p "# Add a destination..."
+  p "# To add a destination..."
 
   cat << EOF
 
@@ -290,7 +290,7 @@ EOF
 }
 
 function task1-step3 {
-  p "# Task 1 - Step 3: Configure hub cluster to be publicly accessible - Configure and test CP4MCM APIServer host and port"
+  p "# Task 1 - Step 3: Configure hub cluster to be publicly accessible - Configure and test API server host and port on hub cluster"
 
   cat << EOF
 
