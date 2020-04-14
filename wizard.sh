@@ -167,7 +167,7 @@ function task2-step3 {
   p "# To track the progress on hub cluster, find the pod..."
   pe "oc -n $LAB_NAMESPACE get pod -l='job-name=${AWS_CLUSTER_NAME}-create'"
 
-  local cluster_create_job=$(oc -n $LAB_NAMESPACE get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep -e Running -e Completed | awk '{print $1}')
+  local cluster_create_job=$(oc -n $LAB_NAMESPACE get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep -e Running -e Completed -e ContainerCreating | awk '{print $1}')
   if [[ -n $cluster_create_job ]]; then
     p "# Then, check the progress by monitoring the running pod logs..."
     pe "oc -n $LAB_NAMESPACE logs $cluster_create_job"
@@ -185,7 +185,7 @@ function task2-step3 {
 function task2-step4-before {
   p "# Detect if cluster ${AWS_CLUSTER_NAME} has been provisioned..."
   pe "oc get secret -n ${LAB_NAMESPACE} | grep ${AWS_CLUSTER_NAME}"
-  return oc get secret -n ${LAB_NAMESPACE} | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1
+  oc get secret -n ${LAB_NAMESPACE} | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1 || return 1
 }
 
 function task2-step4 {

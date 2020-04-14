@@ -121,7 +121,7 @@ function e {
     # the demo has concluded
     # p "# Press Enter key to exit..."
   else
-    logger::warn "Unknown task or step: ${POSITIONAL[@]}"
+    logger::warn "Unknown task or step: $task $step"
   fi
 }
 
