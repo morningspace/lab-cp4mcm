@@ -57,12 +57,15 @@ function i {
     file="docs/$task/$step.md"
   fi
 
-  p "$(head -n 1 $file)"
-
-  eval "cat <<EOF
+  if [[ -f $file ]]; then
+    p "$(head -n 1 $file)"
+    eval "cat <<EOF
 $(<$file)
 
 EOF" | sed -e '1d'
+  else
+    p "## $1"
+  fi
 }
 
 function e {
