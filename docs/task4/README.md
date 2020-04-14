@@ -9,10 +9,10 @@
 
   Steps:
 
-  1) Define and apply an application
-  2) Define and apply a channel
-  3) Define and apply a subscription
-  4) Define and apply a deployable
-  5) Check results
+  1) [Define and apply an application](step1.md)
+  2) [Define and apply a channel](step2.md)
+  3) [Define and apply a subscription](step3.md)
+  4) [Define and apply a deployable](step4.md)
+  5) [Check results](step5.md)
 
   Estimated time to complete: 15 min

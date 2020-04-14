@@ -1,4 +1,4 @@
-# Task 3: Manage a cluster provisoned by kind
+# Task 3: Manage a cluster provisioned by kind
 
   Instructions
   ============
@@ -8,8 +8,8 @@
 
   Steps:
 
-  1) Provision a local cluster using kind.
-  2) Generate the cluster import command from CP4MCM UI and run it.
-  3) Track progress until the import is finished
+  1) [Provision a local cluster using kind](step1.md)
+  2) [Generate the cluster import command from CP4MCM UI and run it](step2.md)
+  3) [Track progress until the import is finished](step3.md)
 
   Estimated time to complete: 10 min

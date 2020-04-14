@@ -3,8 +3,8 @@
   Instructions
   ============
 
-  CP4MCM provides enhanced application management capabilities through a Kubernetes resource based application
-  model and channel/subscription based deployment options. Applications are composed of multiple resources and
+  CP4MCM provides enhanced application management capabilities through a Kubernetes resource-based application
+  model and channel/subscription-based deployment options. Applications are composed of multiple resources and
   defined in YAML.
 
   As an example, in this lab, we will define nginx as an application and deploy it to managed clusters through

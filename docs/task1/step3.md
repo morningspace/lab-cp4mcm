@@ -8,6 +8,6 @@
 
   You may need to:
 
-  1) Find the public hostname and port for your hub cluster from IBM Cloud Secure Gateway
+  1) [Find the public hostname and port for your hub cluster from IBM Cloud Secure Gateway](step3.1.md)
   2) Test API server connectivity using public hostname and port
   3) Update the hostname and port for your hub cluster

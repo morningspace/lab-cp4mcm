@@ -8,5 +8,5 @@
 
   In general, you may need to:
 
-  1) Launch Secure Gateway Client if not exists
-  2) Config Secure Gateway ACL for hub cluster
+  1) [Launch Secure Gateway Client if not exists](step2.1.md)
+  2) [Config Secure Gateway ACL for hub cluster](step2.2.md)

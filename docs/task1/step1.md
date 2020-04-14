@@ -8,7 +8,7 @@
 
   In general, you may need to:
 
-  1) Login to IBM Cloud using your IBM Cloud account
-  2) Create a Secure Gateway resource
-  3) Add a gateway
-  4) Add a destination
+  1) [Login to IBM Cloud using your IBM Cloud account](step1.1.md)
+  2) [Create a Secure Gateway resource](step1.2.md)
+  3) [Add a gateway](step1.3.md)
+  4) [Add a destination](step1.4.md)

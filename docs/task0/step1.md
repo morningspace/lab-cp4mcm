@@ -1,9 +1,9 @@
-# Task 0 - Step 1: Install required softwares
+# Task 0 - Step 1: Install required software
 
   Instructions
   ============
 
-  This lab requires below softwares to be installed on your machine:
+  This lab requires below software to be installed on your machine:
 
   1) kind: Used to provision a local cluster. Please refer to below link for detail information:
      https://kind.sigs.k8s.io/
