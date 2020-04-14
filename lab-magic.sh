@@ -100,7 +100,7 @@ function e {
 
       if cat .lab.states | grep -q -e "^.\? $task $step"; then
         sed -e "s/^? $task $step/* $task $step/g" \
-            -e "s/^√ $task $step/* $task $step/g" \
+            -e "s/^v $task $step/* $task $step/g" \
           .lab.states > .lab.states.tmp
         mv .lab.states{.tmp,}
       else
@@ -113,7 +113,7 @@ function e {
     fi
 
     if $method && [[ -n $task && -n $step ]]; then
-      sed -e "s/^* $task $step/√ $task $step/g" .lab.states > .lab.states.tmp
+      sed -e "s/^* $task $step/v $task $step/g" .lab.states > .lab.states.tmp
       mv .lab.states{.tmp,}
     fi
 
@@ -205,7 +205,7 @@ function print_state {
     case $state in
     "*")
       echo -e "$CURR_COLOR$head_line$COLOR_RESET";;
-    "√")
+    "v")
       echo -e "$DONE_COLOR$head_line$COLOR_RESET";;
     "?")
       echo -e "$QUES_COLOR$head_line$COLOR_RESET";;
