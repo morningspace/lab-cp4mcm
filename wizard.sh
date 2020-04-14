@@ -77,15 +77,12 @@ function task1-step2 {
   if ! docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
     i task1 step2.1
 
-    local gateway_id
-    local security_token
-
     p "# To record the Gateway ID and Security Token..."
-    a "Gateway ID" "gateway_id"
-    a "Security Token" "security_token"
+    a "Gateway ID" "GATEWAY_ID"
+    a "Security Token" "GATEWAY_SECURITY_TOKEN"
 
     p "# Now, let's launch the client using the above inputs..."
-    pe "docker run -d -p 9003:9003 ibmcom/secure-gateway-client $gateway_id -t $security_token"
+    pe "docker run -d -p 9003:9003 ibmcom/secure-gateway-client $gateway_id -t $GATEWAY_SECURITY_TOKEN"
   else
     p "# Secure Gateway Client is running..."
   fi
