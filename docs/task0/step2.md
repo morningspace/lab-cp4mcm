@@ -1,4 +1,4 @@
-# Task 0 - Step 1: Wait for CP4MCM up and running
+# Task 0 - Step 2: Wait for CP4MCM up and running
 
   Instructions
   ============
