@@ -257,7 +257,9 @@ function task3-step2 {
   local import_command=${KIND_IMPORT_COMMAND%|*}
   p "# Run the command by using the kubeconfig $HOME/.kube/kind-kubeconfig..."
   pe "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
-  eval "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
+
+  sleep 3
+  eval "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f - >/dev/null 2>&1"
 }
 
 function task3-step3 {
