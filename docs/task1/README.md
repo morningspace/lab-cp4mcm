@@ -9,8 +9,8 @@
 
   Steps:
 
-  1) Configure Secure Gateway on IBM Cloud
-  2) Launch and configure Secure Gateway Client from localhost
-  3) Configure and test API server host and port on hub cluster
+  1) [Configure Secure Gateway on IBM Cloud](step1.md)
+  2) [Launch and configure Secure Gateway Client from localhost](step1.md)
+  3) [Configure and test API server host and port on hub cluster](step1.md)
 
   Estimated time to complete: 10 min
