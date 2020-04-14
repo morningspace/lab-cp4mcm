@@ -36,7 +36,12 @@ function on_exit {
 
 function s {
   local task_dirs=($(ls -d -1 docs/*/))
-  
+
+  echo
+  echo "Please check the task states listed as below"
+  echo "To run a specific task or step, find the task or step id, and run $0 <task> <step>."
+  echo
+
   for task_dir in ${task_dirs[@]}; do
     print_state $task_dir
     #
@@ -45,6 +50,8 @@ function s {
       print_state $step_dir
     done
   done
+
+  echo
 }
 
 function i {
@@ -62,7 +69,8 @@ function i {
     eval "cat <<EOF
 $(<$file)
 
-EOF" | sed -e '1d'
+EOF" | sed -e '1d' -e 's%!\[\(.*\)\](.*)%\1 (See online version of the lab instructions)%g' \
+           -e 's%\[\(.*\)\](.*)%\1%g'
   else
     p "## $1"
   fi
@@ -184,7 +192,7 @@ function store_settings {
 
 DONE_COLOR="\033[0;36m"
 QUES_COLOR="\033[0;33m"
-CURR_COLOR="\033[1;37m"
+CURR_COLOR="\033[0;37m"
 
 function print_state {
   local task=${1#*/}
@@ -195,30 +203,32 @@ function print_state {
 
   local file=$1
   if [[ -n $task && -z $step ]]; then
-    file="$1/README.md"
+    file="$1README.md"
   fi
 
-  local head_line="$(head -n 1 $file)"
+  if [[ -f $file ]]; then
+    local head_line="$(head -n 1 $file)"
 
-  if [[ $head_line =~ ^#" " ]]; then
-    local state
-    if [[ -n $task && -n $step ]] && cat .lab.states | grep -q -e "^.\? $task $step"; then
-      state=$(cat .lab.states | grep -e "^.\? $task $step")
-      state=${state% $task $step}
-      head_line=$(echo $head_line | sed -e "s/^#/$state/g")
-    else
-      head_line=$(echo $head_line | sed -e "s/^#/ /g")
+    if [[ $head_line =~ ^#" " ]]; then
+      local state
+      if [[ -n $task && -n $step ]] && cat .lab.states | grep -q -e "^.\? $task $step"; then
+        state=$(cat .lab.states | grep -e "^.\? $task $step")
+        state=${state% $task $step}
+        head_line=$(echo $head_line | sed -e "s/^#/$state/g")
+      else
+        head_line=$(echo $head_line | sed -e "s/^#/ /g")
+      fi
+
+      case $state in
+      "*")
+        echo -e "$CURR_COLOR$head_line$COLOR_RESET";;
+      "v")
+        echo -e "$DONE_COLOR$head_line$COLOR_RESET";;
+      "?")
+        echo -e "$QUES_COLOR$head_line$COLOR_RESET";;
+      *)
+        echo "$head_line";;
+      esac
     fi
-
-    case $state in
-    "*")
-      echo -e "$CURR_COLOR$head_line$COLOR_RESET";;
-    "v")
-      echo -e "$DONE_COLOR$head_line$COLOR_RESET";;
-    "?")
-      echo -e "$QUES_COLOR$head_line$COLOR_RESET";;
-    *)
-      echo "$head_line";;
-    esac
   fi
 }
