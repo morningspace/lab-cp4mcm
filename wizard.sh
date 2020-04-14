@@ -251,11 +251,10 @@ function task3-step2 {
   i task3 step2
   i task3 step2.1
 
-  local import_command
   p "# To run the command against your cluster to be imported..."
-  a "Paste the import command here" "import_command"
+  a "Paste the import command here" "KIND_IMPORT_COMMAND"
 
-  import_command=${import_command%|*}
+  local import_command=${KIND_IMPORT_COMMAND%|*}
   p "# Run the command by using the kubeconfig $HOME/.kube/kind-kubeconfig..."
   pe "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
   eval "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
