@@ -6,12 +6,22 @@
 . ./demo-magic.sh
 . ./lab-magic.sh
 . ./utils.sh
-. ./conf.sh
+. ./.lab.settings
+
+# The Kubernetes namespace used for this lab
+LAB_NAMESPACE="cp4mcm-lab"
+
+# AWS settings
+AWS_REGION=${AWS_REGION:-"us-east-2"}
+AWS_CLUSTER_NAME=${AWS_CLUSTER_NAME:-"my-cluster-eks-$((1 + RANDOM % 100))"}
+
+# kind settings
+KIND_CLUSTER_NAME=${KIND_CLUSTER_NAME:-"my-cluster-kind"}
 
 function task0 {
   i task0
-  task0-step1
-  task0-step2
+  e task0 step1
+  e task0 step2
 }
 
 function task0-step1 {
@@ -23,7 +33,7 @@ function task0-step1 {
   pe "kind version"
 
   p "# To install AWS IAM Authenticator..."
-  install-aws-iam-authenticator 
+  install-aws-iam-authenticator
   p "# To verify if AWS IAM Authenticator is installed successfully..."
   pe "aws-iam-authenticator version"
 
@@ -45,9 +55,9 @@ function task0-step2 {
 
 function task1 {
   i task1
-  task1-step1
-  task1-step2
-  task1-step3
+  e task1 step1
+  e task1 step2
+  e task1 step3
 }
 
 function task1-step1 {
@@ -112,10 +122,10 @@ function task1-step3 {
 
 function task2 {
   i task2
-  task2-step1
-  task2-step2
-  task2-step3
-  task2-step4
+  e task2 step1
+  e task2 step2
+  e task2 step3
+  e task2 step4
 }
 
 function task2-step1 { 
@@ -140,8 +150,15 @@ function task2-step2 {
   i task2 step2.1
 
   p "# Let's see how they look like..."
-  pe "cat samples/eks/apikey.yaml"
-  pe "cat samples/eks/cluster.yaml"
+  p "cat samples/eks/apikey.yaml"
+  cat samples/eks/apikey.yaml | \
+    sed -e "s|{{AWS_ACCESS_KEY_ID}}|$(printf $AWS_ACCESS_KEY_ID | base64)|g" \
+        -e "s|{{AWS_SECRET_ACCESS_KEY}}|$(printf $AWS_SECRET_ACCESS_KEY | base64)|g"
+
+  p "cat samples/eks/cluster.yaml"
+  cat samples/apps/subscription.yaml | \
+    sed -e "s|{{AWS_CLUSTER_NAME}}|$AWS_CLUSTER_NAME|g" \
+        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g"
 
   p "# Now, let's start to provision the cluster on AWS by applying the above YAML files..."
   provision-eks $AWS_CLUSTER_NAME $AWS_REGION $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY
@@ -166,7 +183,6 @@ function task2-step3 {
 
   p "# Please go to the next task or step until the cluster is provisioned."
   p "# Before that, you can use this step to keep traking the provision progress."
-  exit
 }
 
 function task2-step4 {
@@ -204,9 +220,9 @@ function task2-step4 {
 
 function task3 {
   i task3
-  task3-step1
-  task3-step2
-  task3-step3
+  e task3 step1
+  e task3 step2
+  e task3 step3
 }
 
 function task3-step1 {
@@ -264,11 +280,11 @@ function task3-step3 {
 
 function task4 {
   i task4
-  task4-step1
-  task4-step2
-  task4-step3
-  task4-step4
-  task4-step5
+  e task4 step1
+  e task4 step2
+  e task4 step3
+  e task4 step4
+  e task4 step5
 }
 
 function task4-step1 {
@@ -343,4 +359,4 @@ function task4-step5 {
   pe "oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/eks-kubeconfig"
 }
 
-launch "$@"
+[[ $1 == -s ]] && s || e "$@" --clean
