@@ -278,6 +278,9 @@ function task4-before {
   ! task2-step4-before && return 1
 
   p "# Detect if cluster ${KIND_CLUSTER_NAME} has been imported..."
+  pe "oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig"
+  pods_not_ready=`oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig | awk '{print $3}' | grep -v -e Running -e Completed -e STATUS`
+  return [[ -n $pods_not_ready ]]
 }
 
 function task4 {
