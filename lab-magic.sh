@@ -172,7 +172,7 @@ function prompt {
 }
 
 function store_settings {
-  sed -e "s#^$1=.*#$1=$2#g" .lab.settings > .lab.settings.tmp
+  sed -e "s#^$1=.*#$1='$2'#g" .lab.settings > .lab.settings.tmp
   mv .lab.settings{.tmp,}
 }
 

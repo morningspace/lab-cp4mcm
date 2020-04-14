@@ -259,7 +259,7 @@ function task3-step2 {
   pe "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
 
   sleep 3
-  eval "${import_command}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f - >/dev/null 2>&1"
+  eval "${import_command} -s | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f - >/dev/null 2>&1"
 }
 
 function task3-step3 {
@@ -278,7 +278,7 @@ function task4-before {
   p "# Detect if cluster ${KIND_CLUSTER_NAME} has been imported..."
   pe "oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig"
   pods_not_ready=`oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig | awk '{print $3}' | grep -v -e Running -e Completed -e STATUS`
-  return [[ -n $pods_not_ready ]]
+  [[ -n $pods_not_ready ]] && return 1
 }
 
 function task4 {
