@@ -278,7 +278,7 @@ function task4-before {
   p "# Detect if cluster ${KIND_CLUSTER_NAME} has been imported..."
   pe "oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig"
   pods_not_ready=`oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig | awk '{print $3}' | grep -v -e Running -e Completed -e STATUS`
-  [[ -n $pods_not_ready ]] && return 1
+  [[ -n $pods_not_ready ]] && return 1 || return 0
 }
 
 function task4 {
@@ -317,7 +317,10 @@ function task4-step3 {
 
   p "# To define the subscription, let's use samples/apps/subscription.yaml..."
   p "# It specifies the channel to be subscribed, and has label \"app\" equal to \"labs-app\", which matches the channel we defined."
-  pe "cat samples/apps/subscription.yaml"
+  p "cat samples/apps/subscription.yaml"
+  cat samples/apps/subscription.yaml | \
+    sed -e "s|{{AWS_CLUSTER_NAME}}|$AWS_CLUSTER_NAME|g" \
+        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g"
 
   p "# Let's apply it to the hub cluster..."
   p "oc apply -f samples/apps/subscription.yaml"
