@@ -295,10 +295,15 @@ function task4-step1 {
 
   p "# To define the application, let's use samples/apps/application.yaml..."
   p "# It indicates that any subscription with label \"app\" equal to \"lab-apps\" will match this application."
-  pe "cat samples/apps/application.yaml"
+  p "cat samples/apps/application.yaml"
+  cat samples/apps/application.yaml | \
+    sed -e "s|{{LAB_NAMESPACE}}|$LAB_NAMESPACE|g"
 
   p "# Let's apply it to the hub cluster..."
-  pe "oc apply -f samples/apps/application.yaml"
+  p "oc apply -f samples/apps/application.yaml"
+  cat samples/apps/application.yaml | \
+    sed -e "s|{{LAB_NAMESPACE}}|$LAB_NAMESPACE|g" | oc apply -n $LAB_NAMESPACE -f -
+      
 }
 
 function task4-step2 {
@@ -306,10 +311,14 @@ function task4-step2 {
 
   p "# To define the channel, let's use samples/apps/channel.yaml..."
   p "# It uses \"spec.type\" and \"spec.sourceNamespaces\" to specify the channel type and where it lives."
-  pe "cat samples/apps/channel.yaml"
+  p "cat samples/apps/channel.yaml"
+  cat samples/apps/channel.yaml | \
+    sed -e "s|{{LAB_NAMESPACE}}|$LAB_NAMESPACE|g"
 
   p "# Let's apply it to the hub cluster..."
-  pe "oc apply -f samples/apps/channel.yaml"
+  p "oc apply -f samples/apps/channel.yaml"
+  cat samples/apps/channel.yaml | \
+    sed -e "s|{{LAB_NAMESPACE}}|$LAB_NAMESPACE|g" | oc apply -n $LAB_NAMESPACE -f -
 }
 
 function task4-step3 {
@@ -320,13 +329,15 @@ function task4-step3 {
   p "cat samples/apps/subscription.yaml"
   cat samples/apps/subscription.yaml | \
     sed -e "s|{{AWS_CLUSTER_NAME}}|$AWS_CLUSTER_NAME|g" \
-        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g"
+        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g" \
+        -e "s|{{LAB_NAMESPACE}}|$LAB_NAMESPACE|g"
 
   p "# Let's apply it to the hub cluster..."
   p "oc apply -f samples/apps/subscription.yaml"
   cat samples/apps/subscription.yaml | \
     sed -e "s|{{AWS_CLUSTER_NAME}}|$AWS_CLUSTER_NAME|g" \
-        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g" | oc apply -n $LAB_NAMESPACE -f -
+        -e "s|{{KIND_CLUSTER_NAME}}|$KIND_CLUSTER_NAME|g" \
+        -e "s|{{LAB_NAMESPACE}}|$LAB_NAMESPACE|g" | oc apply -n $LAB_NAMESPACE -f -
 }
 
 function task4-step4 {
@@ -334,10 +345,14 @@ function task4-step4 {
 
   p "# To define the deployable, let's use samples/apps/deployable.yaml..."
   p "# It wraps nginx as a Kubernetes resource Delployment."
-  pe "cat samples/apps/deployable.yaml"
+  p "cat samples/apps/deployable.yaml"
+  cat samples/apps/deployable.yaml | \
+    sed -e "s|{{LAB_NAMESPACE}}|$LAB_NAMESPACE|g"
 
   p "# Let's apply it to the hub cluster..."
-  pe "oc apply -f samples/apps/deployable.yaml"
+  p "oc apply -f samples/apps/deployable.yaml"
+  cat samples/apps/deployable.yaml | \
+    sed -e "s|{{LAB_NAMESPACE}}|$LAB_NAMESPACE|g" | oc apply -n $LAB_NAMESPACE -f -
 }
 
 function task4-step5 {

@@ -3,10 +3,10 @@ kind: Subscription
 metadata:
   labels:
     app: lab-apps
-  name: app-subscription            # Required. The name of the subscription resource to create.
-  namespace: cp4mcm-lab             # Required. The namespace resource to use for the subscription.
+  name: app-subscription                  # Required. The name of the subscription resource to create.
+  namespace: {{LAB_NAMESPACE}}            # Required. The namespace resource to use for the subscription.
 spec:
-  channel: cp4mcm-lab/app-channel   # Required. The namespace/name of the channel for the subscription.
+  channel: {{LAB_NAMESPACE}}/app-channel  # Required. The namespace/name of the channel for the subscription.
   placement:
     clusters:
     - name: {{KIND_CLUSTER_NAME}}
