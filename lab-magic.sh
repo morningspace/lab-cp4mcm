@@ -57,8 +57,6 @@ function i {
     file="docs/$task/$step.md"
   fi
 
-  NO_WAIT=true
-
   if [[ -f $file ]]; then
     p "$(head -n 1 $file)"
     eval "cat <<EOF
@@ -68,8 +66,6 @@ EOF" | sed -e '1d'
   else
     p "## $1"
   fi
-
-  NO_WAIT=false
 }
 
 function e {
