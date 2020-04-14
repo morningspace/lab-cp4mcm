@@ -58,8 +58,11 @@ function i {
   fi
 
   p "$(head -n 1 $file)"
-  sed -e '1d' < $file
-  echo
+
+  eval "cat <<EOF
+$(<$file)
+
+EOF" | sed -e '1d'
 }
 
 function e {
