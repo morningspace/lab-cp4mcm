@@ -3,8 +3,10 @@ kind: Application
 metadata:
   labels:
     app: nginx
-  name: nginx                     # Required. The name of the application resource to create.
-  namespace: {{LAB_NAMESPACE}}    # Required. The namespace resource to use for the application.
+  # Required. The name of the application resource to create.
+  name: nginx
+  # Required. The namespace resource to use for the application.
+  namespace: {{LAB_NAMESPACE}}
 spec:
   componentKinds:
     - group: app.ibm.com

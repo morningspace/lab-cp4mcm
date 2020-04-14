@@ -3,10 +3,13 @@ kind: Subscription
 metadata:
   labels:
     app: lab-apps
-  name: app-subscription                  # Required. The name of the subscription resource to create.
-  namespace: {{LAB_NAMESPACE}}            # Required. The namespace resource to use for the subscription.
+  # Required. The name of the subscription resource to create.
+  name: app-subscription
+  # Required. The namespace resource to use for the subscription.
+  namespace: {{LAB_NAMESPACE}}
 spec:
-  channel: {{LAB_NAMESPACE}}/app-channel  # Required. The namespace/name of the channel for the subscription.
+  # Required. The namespace/name of the channel for the subscription.
+  channel: {{LAB_NAMESPACE}}/app-channel
   placement:
     clusters:
     - name: {{KIND_CLUSTER_NAME}}
