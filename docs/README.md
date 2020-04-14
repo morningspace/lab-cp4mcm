@@ -1,7 +1,8 @@
 # Welcom to "Lab for IBM CloudPak for Multicloud Management"
 
   Instructions
-  ------------
+  
+  ============
 
   In this lab, I will walk you through the steps on how to use IBM CloudPak for Multicloud Management (CP4MCM)
   to manage a local cluster provisioned using kind and a remote cluster provisioned by AWS EKS, then publish a
