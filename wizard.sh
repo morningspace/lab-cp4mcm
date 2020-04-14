@@ -71,7 +71,7 @@ function task1-step1 {
 function task1-step2 {
   i task1 step2
 
-  p "# Try to detect if Secure Gateway Client exists..."
+  p "# Detect if Secure Gateway Client is running..."
   pe "docker ps | grep ibmcom/secure-gateway-client"
 
   if ! docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
@@ -185,37 +185,34 @@ function task2-step3 {
   p "# Before that, you can use this step to keep traking the provision progress."
 }
 
+function task2-step4-before {
+  p "# Detect if cluster ${AWS_CLUSTER_NAME} has been provisioned..."
+  pe "oc get secret -n ${LAB_NAMESPACE} | grep ${AWS_CLUSTER_NAME}"
+  return oc get secret -n ${LAB_NAMESPACE} | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1
+}
+
 function task2-step4 {
   i task2 step4
 
-  p "# Try to detect if cluster has been provisioned..."
+  p "# To get the cluster resource defined on hub cluster..."
+  pe "oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n $LAB_NAMESPACE"
+
+  p "# By describing the cluster resource, you can see a CreateClusterSuccessful event in the Event list when the cluster is created..."
+  pe "oc describe cluster.cluster.k8s.io/${AWS_CLUSTER_NAME} -n $LAB_NAMESPACE"
+
+  p "# To find the cluster secret..."
   pe "oc get secret -n $LAB_NAMESPACE | grep ${AWS_CLUSTER_NAME}"
+  local cluster_secret=$(oc get secret -n $LAB_NAMESPACE -o name | grep ${AWS_CLUSTER_NAME})
 
-  if oc get secret -n $LAB_NAMESPACE | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1; then
-    p "# Cluster has been provisioned successfully, let's continue..."
+  p "# To save as kubeconfig file into $HOME/.kube folder..."
+  pe "oc get ${cluster_secret} -n $LAB_NAMESPACE -o 'go-template={{index .data \"kubeconfig-eks\"}}' | base64 --decode > $HOME/.kube/eks-kubeconfig"
 
-    p "# To get the cluster resource defined on hub cluster..."
-    pe "oc get cluster.cluster.k8s.io ${AWS_CLUSTER_NAME} -n $LAB_NAMESPACE"
+  p "# See how the kubeconfig looks like..."
+  pe "cat $HOME/.kube/eks-kubeconfig"
 
-    p "# By describing the cluster resource, you can see a CreateClusterSuccessful event in the Event list when the cluster is created..."
-    pe "oc describe cluster.cluster.k8s.io/${AWS_CLUSTER_NAME} -n $LAB_NAMESPACE"
-
-    p "# To find the cluster secret..."
-    pe "oc get secret -n $LAB_NAMESPACE | grep ${AWS_CLUSTER_NAME}"
-    local cluster_secret=$(oc get secret -n $LAB_NAMESPACE -o name | grep ${AWS_CLUSTER_NAME})
-
-    p "# To save as kubeconfig file into $HOME/.kube folder..."
-    pe "oc get ${cluster_secret} -n $LAB_NAMESPACE -o 'go-template={{index .data \"kubeconfig-eks\"}}' | base64 --decode > $HOME/.kube/eks-kubeconfig"
-
-    p "# See how the kubeconfig looks like..."
-    pe "cat $HOME/.kube/eks-kubeconfig"
-
-    p "# Now, you can use below commands to access the cluster which is running remotely on AWS EKS..."
-    pe "oc get node --kubeconfig $HOME/.kube/eks-kubeconfig"
-    pe "oc get pod --all-namespaces --kubeconfig $HOME/.kube/eks-kubeconfig"
-  else
-    p "# Cluster has not been provisioned yet, please try again later..."
-  fi
+  p "# Now, you can use below commands to access the cluster which is running remotely on AWS EKS..."
+  pe "oc get node --kubeconfig $HOME/.kube/eks-kubeconfig"
+  pe "oc get pod --all-namespaces --kubeconfig $HOME/.kube/eks-kubeconfig"
 }
 
 function task3 {
@@ -231,9 +228,8 @@ function task3-step1 {
   p "# To input the cluster name that you want to provision using kind..."
   a "Input cluster name" "KIND_CLUSTER_NAME"
 
-  p "# Try to detect if cluster has been provisioned..."
+  p "# Detect if cluster has been provisioned..."
   p "kind get clusters | grep ${KIND_CLUSTER_NAME}"
-
   if ! kind get clusters | grep ${KIND_CLUSTER_NAME} >/dev/null 2>&1; then
     p "# Let's use below config file to define the cluster..."
     p "# It is a cluster with one master node and two worker nodes."
@@ -276,6 +272,12 @@ function task3-step3 {
 
   p "# Please go to the next task or step until the cluster is imported."
   p "# Before that, you can use this step to keep traking the import progress."
+}
+
+function task4-before {
+  ! task2-step4-before && return 1
+
+  p "# Detect if cluster ${KIND_CLUSTER_NAME} has been imported..."
 }
 
 function task4 {

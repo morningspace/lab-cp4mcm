@@ -108,6 +108,10 @@ function e {
       fi
     fi
 
+    if type $method-before &>/dev/null && ! $method-before; then
+      logger::error "Start task or step failed because it does not pass the pre-condition check!"
+    fi
+
     if $method && [[ -n $task && -n $step ]]; then
       sed -e "s/^* $task $step/√ $task $step/g" .lab.states > .lab.states.tmp
       mv .lab.states{.tmp,}
