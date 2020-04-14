@@ -63,6 +63,8 @@ function i {
 }
 
 function e {
+  [[ $1 == "tasks" ]] && s && return
+
   local need_clean=0
   local POSITIONAL=()
 
@@ -170,7 +172,7 @@ function prompt {
 }
 
 function store_settings {
-  sed -e "s/^$1=.*/$1=$2/g" .lab.settings > .lab.settings.tmp
+  sed -e "s#^$1=.*#$1=$2#g" .lab.settings > .lab.settings.tmp
   mv .lab.settings{.tmp,}
 }
 

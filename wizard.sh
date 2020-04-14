@@ -362,4 +362,4 @@ function task4-step5 {
   pe "oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/eks-kubeconfig"
 }
 
-[[ $1 == -s ]] && s || e "$@" --clean
+e "$@"
