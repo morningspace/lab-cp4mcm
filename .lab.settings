@@ -1,3 +1,7 @@
+# OCP settings
+OCP_USER=admin
+OCP_PASSWORD=Passw0rd!
+
 # The CP4MCM URL, usually points to the master node
 CP4MCM_BASE_URL="https://icp-console.10.0.10.2.nip.io"
 
