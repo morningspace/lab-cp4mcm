@@ -31,7 +31,7 @@ var::save "GATEWAY_SECURITY_TOKEN"
 Then, launch the client using the above Gateway ID and Security Token:
 
 ```shell
-docker run -d -p 9003:9003 ibmcom/secure-gateway-client $gateway_id -t $GATEWAY_SECURITY_TOKEN
+docker run -d -p 9003:9003 ibmcom/secure-gateway-client $GATEWAY_ID -t $GATEWAY_SECURITY_TOKEN
 ```
 
 ## Config Secure Gateway ACL for hub cluster
@@ -40,7 +40,7 @@ Secure Gateway Client has a dashboard which can be used to manage connections. W
 config ACL for our hub cluster. Go to: http://127.0.0.1:9003 in web browser, click the "Access Control List"
 button, in the "Allow access" section, input:
 
-1) Resource Hostname: `hostname`
+1) Resource Hostname: ${HOSTNAME}
 2) Port: 8443
 
 Then click the plus icon. It allows the hub cluster deployed in your local network to be accessible from the

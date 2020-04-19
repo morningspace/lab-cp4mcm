@@ -261,7 +261,7 @@ function task::run-file {
           eval "$line"
         # print normal text
         else
-          echo -e "\033[0;33m  $line\033[0m"
+          echo -e "\033[0;33m  $(eval "echo $line")\033[0m"
         fi
       fi
     done
