@@ -171,6 +171,14 @@ function task::run-with-logs {
     fi
   fi
 
+  local method_prefix=$task
+  if [[ -n $task && -n $step ]]; then
+    method_prefix="$task::$step"
+  fi
+  if type ${method_prefix}::before &>/dev/null && ! ${method_prefix}::before; then
+    logger::error "Start task or step failed because it does not pass the pre-condition check!"
+  fi
+
   if task::run-file $file && [[ -n $task && -n $step ]]; then
     sed -e "s/^* $task $step/v $task $step/g" .lab.states > .lab.states.tmp
     mv .lab.states{.tmp,}
@@ -248,6 +256,7 @@ function task::run-file {
         # print code
         elif [[ $code == 1 ]]; then
           echo "$line"
+        # run code implicitly
         elif [[ $hidden == 1 ]]; then
           eval "$line"
         # print normal text
