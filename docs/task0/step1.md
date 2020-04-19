@@ -14,41 +14,53 @@ This lab requires below software to be installed on your machine:
 
 ---
 
+## Install kind
+
 Make sure $HOME/.local/bin exists and included in $PATH.
+
 ```shell
 mkdir -p $HOME/.local/bin
 ```
 
-To install kind...
+Then run below commands to install kind:
+
 ```shell
 curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64
 chmod +x ./kind
 mv ./kind $HOME/.local/bin/kind
 ```
 
-To verify if kind is installed successfully...
+To verify if kind is installed successfully:
+
 ```shell
 kind version
 ```
+## Install AWS IAM Authenticator
 
-To install AWS IAM Authenticator...
+To install AWS IAM Authenticator:
+
 ```shell
 curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/aws-iam-authenticator
 chmod +x ./aws-iam-authenticator
 mv ./aws-iam-authenticator $HOME/.local/bin/aws-iam-authenticator
 ```
 
-To verify if AWS IAM Authenticator is installed successfully...
+To verify if AWS IAM Authenticator is installed successfully:
+
 ```shell
 aws-iam-authenticator version
 ```
 
-To install IBM Cloud Secure Gateway Client...
+## Install IBM Cloud Secure Gateway Client
+
+To install IBM Cloud Secure Gateway Client:
+
 ```shell
 docker pull ibmcom/secure-gateway-client
 ```
 
-To verify if IBM Cloud Secure Gateway Client is installed successfully...
+To verify if IBM Cloud Secure Gateway Client is installed successfully:
+
 ```shell
 docker images ibmcom/secure-gateway-client
 ```
