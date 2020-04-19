@@ -261,7 +261,8 @@ function task::run-file {
           eval "$line"
         # print normal text
         else
-          echo -e "\033[0;33m  $line\033[0m"
+          # echo -e "\033[0;33m  $line\033[0m"
+          pp "$line"
         fi
       fi
     done
@@ -341,4 +342,18 @@ function var::save {
   local value="$(eval echo \$${field})"
   sed -e "s#^${field}=.*#${field}='${value}'#g" .lab.settings > .lab.settings.tmp
   mv .lab.settings{.tmp,}
+}
+
+function pp {
+  if [[ -n $1 ]]; then
+    local origin_color=$DEMO_CMD_COLOR
+    DEMO_CMD_COLOR=$BROWN
+    p "$1"
+    DEMO_CMD_COLOR=$origin_color
+  else
+    local origin_wait=$NO_WAIT
+    NO_WAIT=true
+    p "$1"
+    NO_WAIT=$origin_wait
+  fi
 }
