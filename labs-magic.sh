@@ -63,7 +63,7 @@ function task::print-all {
 
     task::print $task_dir && has_task_or_step=1
 
-    local step_files=($(find -s ${task_dir%/} -name "*.md" -type f -maxdepth 1 | grep -v README))
+    local step_files=($(find ${task_dir%/} -maxdepth 1 -name "*.md" -type f | sort | grep -v README))
     for step_file in ${step_files[@]}; do
       task::print $step_file && has_task_or_step=1
     done
@@ -144,7 +144,7 @@ function task::run {
 
   local task_dir=$(dirname $file)
   if [[ -z $step && -d $task_dir ]]; then
-    local step_files=($(find -s $task_dir -name "*.md" -type f -maxdepth 1 | grep -v README))
+    local step_files=($(find ${task_dir} -maxdepth 1 -name "*.md" -type f | sort | grep -v README))
     for file in ${step_files[@]}; do
       step=${file##*/}
       step=${step%.md}
