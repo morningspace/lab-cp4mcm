@@ -40,3 +40,9 @@ Secure Gateway Client has a dashboard which can be used to manage connections. W
 2) Port: 8443
 
 Then click the plus icon. It allows the hub cluster deployed in your local network to be accessible from the internet.
+
+Here, $HOSTNAME is the host name of your host machine. You can get the value as below:
+
+```shell
+echo $HOSTNAME
+```
