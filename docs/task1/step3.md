@@ -24,7 +24,7 @@ the destination. On the popup dialog, copy the value of "Cloud Host : Port" fiel
 Save the public hostname and port into $HOSTNAME_AND_PORT...
 
 <!--
-var::set "The public hostname and port" "HOSTNAME_AND_PORT"
+var::set-required "The public hostname and port" "HOSTNAME_AND_PORT"
 var::save "HOSTNAME_AND_PORT"
 -->
 

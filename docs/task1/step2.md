@@ -22,8 +22,8 @@ the Secure Gateway Client
 Let's save the Gateway ID and Security Token...
 
 <!--
-var::set "Gateway ID" "GATEWAY_ID"
-var::set "Security Token" "GATEWAY_SECURITY_TOKEN"
+var::set-required "Gateway ID" "GATEWAY_ID"
+var::set-required "Security Token" "GATEWAY_SECURITY_TOKEN"
 var::save "GATEWAY_ID"
 var::save "GATEWAY_SECURITY_TOKEN"
 -->
