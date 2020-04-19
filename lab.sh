@@ -86,4 +86,15 @@ function task1::step2::before {
   fi
 }
 
+function task2::step4::before {
+  logger::info "Detect if cluster ${AWS_CLUSTER_NAME} has been provisioned..."
+  if oc get secret -n ${LAB_NAMESPACE} | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1; then
+    logger::info "Cluster has been provisioned..."
+    return 0
+  else
+    logger::info "Cluster has not been provisioned..."
+    return 1
+  fi
+}
+
 task::main "$@"
