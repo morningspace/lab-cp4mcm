@@ -1,4 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+########################
+# include the magic
+########################
+. ./demo-magic.sh
+. ./labs-magic.sh
+. ./.lab.settings
+
+# The Kubernetes namespace used for this lab
+LAB_NAMESPACE="cp4mcm-lab"
+
+# AWS settings
+AWS_REGION=${AWS_REGION:-"us-east-2"}
+AWS_CLUSTER_NAME=${AWS_CLUSTER_NAME:-"my-cluster-eks-$((1 + RANDOM % 100))"}
+
+# kind settings
+KIND_CLUSTER_NAME=${KIND_CLUSTER_NAME:-"my-cluster-kind"}
 
 function wait-env-ready {
   oc login -u admin -p Passw0rd! -n kube-system 2>&1 >/dev/null
@@ -17,47 +34,6 @@ function wait-env-ready {
     sleep 5
   done
   echo "[done]" >&2
-}
-
-function install-kind {
-  logger::info "Install kind..."
-
-  if ! command -v kind >/dev/null 2>&1; then
-    curl -Lo ./kind https://github.com/kubernetes-sigs/kind/releases/download/v0.7.0/kind-$(uname)-amd64
-    chmod +x ./kind
-    mkdir -p $HOME/.local/bin
-    mv ./kind $HOME/.local/bin/kind
-    # kind version
-    logger::info "kind installed finished"
-  else
-    logger::info "kind has been installed"
-  fi
-}
-
-function install-secure-gateway-client {
-  logger::info "Install IBM Cloud Secure Gateway Client (Docker image)..."
-
-  if [[ "$(docker images -q ibmcom/secure-gateway-client 2> /dev/null)" == "" ]]; then
-    docker pull ibmcom/secure-gateway-client
-    logger::info "Image ibmcom/secure-gateway-client download finished"
-  else
-    logger::info "Image already exists: ibmcom/secure-gateway-client"
-  fi
-}
-
-function install-aws-iam-authenticator {
-  logger::info "Install aws-iam-authenticator..."
-
-  if ! command -v aws-iam-authenticator >/dev/null 2>&1; then
-    curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/linux/amd64/aws-iam-authenticator
-    chmod +x ./aws-iam-authenticator
-    mkdir -p $HOME/.local/bin
-    mv ./aws-iam-authenticator $HOME/.local/bin/aws-iam-authenticator
-    # aws-iam-authenticator version
-    logger::info "aws-iam-authenticator installed finished"
-  else
-    logger::info "aws-iam-authenticator has been installed"
-  fi
 }
 
 function get-apiserver {
@@ -99,14 +75,4 @@ function provision-eks {
       -e "s|{{AWS_REGION}}|$aws_region|g" | oc apply -n cp4mcm-lab -f -
 }
 
-function cluster-create-job-logs {
-  local cluster_name=${1:-"my-cluster-eks"}
-  local cluster_create_job=$(oc -n cp4mcm-lab get pod -l="job-name=${cluster_name}-create" -o name)
-  oc -n cp4mcm-lab logs $cluster_create_job
-}
-
-function get-eks-kubeconfig {
-  local cluster_name=${1:-"my-cluster-eks"}
-  local cluster_secret=$(oc get secret -n cp4mcm-lab -o name | grep ${cluster_name})
-  oc get ${cluster_secret} -n cp4mcm-lab -o 'go-template={{index .data "kubeconfig-eks"}}' | base64 --decode | tee $HOME/.kube/eks-kubeconfig
-}
+task::main "$@"
