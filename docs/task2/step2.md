@@ -27,7 +27,7 @@ Then, use these values to populate the two YAML files.
 2) samples/eks/cluster.yaml: Used to define how the cluster will look like.
 
 Let's see how they look like...
-```
+```shell
 cat samples/eks/apikey.yaml
 cat samples/eks/cluster.yaml
 ```
