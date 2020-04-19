@@ -75,4 +75,12 @@ function provision-eks {
       -e "s|{{AWS_REGION}}|$aws_region|g" | oc apply -n cp4mcm-lab -f -
 }
 
+function task1::step2::before {
+  logger::info "Detect if Secure Gateway Client is running..."
+  if docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
+    logger::info "Secure Gateway Client is running..."
+    return 1
+  fi
+}
+
 task::main "$@"
