@@ -191,6 +191,7 @@ function task::run-file {
 
     # print content
     local summary=1
+    local title=0
     local code=0
     local shell=0
     local hidden=0
@@ -198,6 +199,7 @@ function task::run-file {
     for line in "${lines[@]:1}"; do
       # reach the end of summary
       if [[ $line == --- && $summary == 1 ]]; then
+        echo "  $line"
         summary=0
         continue
       fi
@@ -209,12 +211,10 @@ function task::run-file {
               -e 's%\[\(.*\)\](.*)%\1%g'
       # print details
       else
-        # skip empty line
-        if [[ -z $line ]]; then
-          continue;
-        fi
-
-        if [[ $line == \`\`\` ]]; then
+        # reach title
+        if [[ $line =~ ^## ]]; then
+          title=1
+        elif [[ $line == \`\`\` ]]; then
           # reach the start of code
           if [[ $code == 0 && $shell == 0 ]]; then
             code=1
@@ -238,8 +238,12 @@ function task::run-file {
           continue
         fi
 
+        # print title
+        if [[ $title == 1 ]]; then
+          p "$line"
+          title=0
         # print shell
-        if [[ $shell == 1 ]]; then
+        elif [[ $shell == 1 ]]; then
           pe "$line"
         # print code
         elif [[ $code == 1 ]]; then
@@ -248,7 +252,7 @@ function task::run-file {
           eval "$line"
         # print normal text
         else
-          p "## $line"
+          echo "  $line"
         fi
       fi
     done
