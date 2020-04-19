@@ -21,6 +21,7 @@ oc get pods -n kube-system | grep -v -e ibmcloudappmgmt -e import-job
 ```
 
 Now, let's wait for all pods ready...
+
 <!--
 wait-env-ready
 -->
