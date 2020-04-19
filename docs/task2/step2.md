@@ -15,8 +15,8 @@ minutes to finish. As it essentially invokes AWS EKS, it depends on how fast AWS
 Firstly, let's input all the parameters that are required to provision your cluster on AWS, e.g.: the cluster
 name, the region used to provision the cluster, ...
 <!--
-var::set "Input cluster name" "AWS_CLUSTER_NAME"
-var::set "Input AWS region" "AWS_REGION"
+var::set-required "Input cluster name" "AWS_CLUSTER_NAME"
+var::set-required "Input AWS region" "AWS_REGION"
 var::save "AWS_CLUSTER_NAME"
 var::save "AWS_REGION"
 -->

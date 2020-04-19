@@ -11,8 +11,8 @@ new access key ID and a secret access key for you. Record the two values for lat
 
 Save your AWS access key ID and secret access key...
 <!--
-var::set "Input AWS access key ID" "AWS_ACCESS_KEY_ID"
-var::set "Input AWS secret access key" "AWS_SECRET_ACCESS_KEY"
+var::set-required "Input AWS access key ID" "AWS_ACCESS_KEY_ID"
+var::set-required "Input AWS secret access key" "AWS_SECRET_ACCESS_KEY"
 var::save "AWS_ACCESS_KEY_ID"
 var::save "AWS_SECRET_ACCESS_KEY"
 -->
