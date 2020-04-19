@@ -15,26 +15,23 @@ In general, you may need to:
 
 ---
 
-To login to IBM Cloud using your IBM Cloud account...
-```
-Log in to IBM Cloud: https://cloud.ibm.com/. Please contact lab owner if you do not have an account yet.
-```
+## Login to IBM Cloud using your IBM Cloud account
 
-To create a Secure Gateway resource...
-```
+Log in to IBM Cloud: https://cloud.ibm.com/. Please contact lab owner if you do not have an account yet.
+
+## Create a Secure Gateway resource
+
 Go to https://cloud.ibm.com/catalog, search by using keywords "Secure Gateway", you can see a service called
 "Secure Gateway" listed in the search results. Click this service and go to its details page, then click the 
 "Create" button. The resource will be created then.
-```
 
-To add a gateway...
-```
+## Add a gateway
+
 On the "Secure Gateway Dashboard" page, click the plus icon to add a gateway. Give your gateway a name, e.g.
 my-cp4mcm-gateway and leave all the other fields without change.
-```
 
-To add a destination...
-```
+## Add a destination
+
 On the "Secure Gateway Dashboard" page, click the gateway that we created just now, then click the plus icon
 to add a destination for your gateway. Answer the questions on the dialog wizard with below suggested values
 one by one:
@@ -46,4 +43,3 @@ one by one:
 3) What protocol will the User/Application use to connect to your destination? TCP
 4) What kind of authentication does your destination enforce? None
 5) What would you like to name this destination? e.g. my-cp4mcm-destination
-```
