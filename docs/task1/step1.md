@@ -33,8 +33,14 @@ On the "Secure Gateway Dashboard" page, click the gateway that we created just n
 
 1) Where is your resource located? On-Premises
 2) What is the host and port of your destination? 
-   Resource Hostname: `hostname`
+   Resource Hostname: $HOSTNAME
    Resource Port: 8443
 3) What protocol will the User/Application use to connect to your destination? TCP
 4) What kind of authentication does your destination enforce? None
 5) What would you like to name this destination? e.g. my-cp4mcm-destination
+
+Here, $HOSTNAME is the host name of your host machine. You can get the value as below:
+
+```shell
+echo $HOSTNAME
+```
