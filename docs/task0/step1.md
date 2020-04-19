@@ -35,6 +35,7 @@ To verify if kind is installed successfully:
 ```shell
 kind version
 ```
+
 ## Install AWS IAM Authenticator
 
 To install AWS IAM Authenticator:

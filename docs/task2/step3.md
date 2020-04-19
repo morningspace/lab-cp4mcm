@@ -12,7 +12,7 @@ During the provision, you can track the progress either on hub cluster or on AWS
 
 ---
 
-To track the progress on hub cluster, let's find the pod at first and save to CLUSTER_CREATE_JOB...
+To track the progress on hub cluster, let's find the pod at first and save to $CLUSTER_CREATE_JOB...
 
 ```shell
 CLUSTER_CREATE_JOB=$(oc -n $LAB_NAMESPACE get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | awk '{print $1}')
@@ -34,5 +34,4 @@ You can also add -f option to keep monitoring the pod logs...
 oc -n $LAB_NAMESPACE logs $CLUSTER_CREATE_JOB -f
 ```
 
-Please go to the next task or step if the cluster is provisioned. Before that, you can use this step to keep
-traking the provision progress.
+Please go to the next task or step if the cluster is provisioned. Before that, you can use this step to keep traking the provision progress.
