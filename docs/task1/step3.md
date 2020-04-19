@@ -38,15 +38,19 @@ You can test the API server connectivity using the current hostname and port:
 
 ```shell
 curl -kL https://${HOSTNAME}:8443
-echo
 ```
+<!--
+echo
+-->
 
 You can also test the API server connectivity using the public hostname and port:
 
 ```shell
 curl -kL https://${HOSTNAME_AND_PORT}
-echo
 ```
+<!--
+echo
+-->
 
 ## Update the hostname and port for your hub cluster
 
