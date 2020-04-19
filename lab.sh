@@ -80,6 +80,9 @@ function task1::step2::before {
   if docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
     logger::info "Secure Gateway Client is running..."
     return 1
+  else
+    logger::info "Secure Gateway Client is not running..."
+    return 0
   fi
 }
 
