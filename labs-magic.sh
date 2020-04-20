@@ -180,8 +180,9 @@ function task::run-with-logs {
     display_name="$task $step"
   fi
   if type ${method_prefix}::before &>/dev/null && ! ${method_prefix}::before; then
-    logger::warn "Start [$display_name] failed because it does not pass the pre-condition check."
-    logger::warn "Please try again later by running: $0 $display_name."
+    logger::warn "Start [$display_name] failed because it does not pass the pre-condition check"
+    logger::warn "Please try again later by running: $0 $display_name"
+    logger::warn "Or list all tasks and their states by running: $0 -l"
     exit 0
   fi
 
