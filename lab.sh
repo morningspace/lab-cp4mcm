@@ -3,7 +3,6 @@
 ########################
 # include the magic
 ########################
-. ./demo-magic.sh
 . ./labs-magic.sh
 . ./.lab.settings
 

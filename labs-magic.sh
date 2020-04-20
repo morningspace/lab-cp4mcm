@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ./demo-magic.sh
+
 ########################
 # Configure the options
 ########################
