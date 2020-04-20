@@ -13,6 +13,8 @@ Usually, it takes a few minutes to finish.
 
 Open the link in your web browser: $CP4MCM_BASE_URL/multicloud/clusters
 
+![Figure: CP4MCM Navigation Menu](../images/cp4mcm-nav-menu.png)
+
 Here, $CP4MCM_BASE_URL is the pre-defined base URL for CP4MCM. You can set this value if not yet, or print the actual value that you set as below:
 
 ```shell
@@ -21,7 +23,15 @@ echo $CP4MCM_BASE_URL
 
 On the cluster list page, click the "Add cluster" button to open the popup dialog. Choose the option "Import an existing cluster by running a command on your cluster", then click the "Select" button.
 
-On the next page, input the name of your cluster that is going to be imported, e.g. ${KIND_CLUSTER_NAME}, leave all the other fields without change, then click the "Generate command" button to generate the command and copy it for later use.
+![Figure: Import Cluster Dialog](../images/import-cluster-dialog.png)
+
+On the next page, input the name of your cluster that is going to be imported, e.g. ${KIND_CLUSTER_NAME}, leave all the other fields without change
+
+![Figure: Import Cluster Form](../images/import-cluster-form.png)
+
+Then click the "Generate command" button to generate the command and copy it for later use.
+
+![Figure: Generated Import Command](../images/generated-import-command.png)
 
 <!--
 var::set-required "Paste the import command here" "KIND_IMPORT_COMMAND"
@@ -34,6 +44,7 @@ Let's use `oc` and the kubeconfig for kind instead:
 
 ```shell
 ACTUAL_IMPORT_COMMAND=${KIND_IMPORT_COMMAND%|*}
+echo $ACTUAL_IMPORT_COMMAND
 ${ACTUAL_IMPORT_COMMAND}| oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -
 ```
 
