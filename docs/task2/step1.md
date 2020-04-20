@@ -7,6 +7,8 @@ Login to Amazon Console https://console.aws.amazon.com/ using your Amazon accoun
 top navigation bar and choose "My Security Credentials". Click the "Create access key" button to generate a
 new access key ID and a secret access key for you. Record the two values for later use.
 
+![AWS Security Credentials](../images/aws-security-credentials.png)
+
 ---
 
 Save your AWS access key ID and secret access key...
