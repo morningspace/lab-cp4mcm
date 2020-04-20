@@ -6,7 +6,7 @@ Introduction
 This lab will walk you through the steps to use IBM Cloud Pak for Multicloud Management (CP4MCM) to manage a
 local cluster which is provisioned using kind and a remote cluster which is provisioned using AWS EKS, then
 deploy a sample application from hub cluster to the two managed clusters. This gives you a better view of how
-CP4MCM can manage clusters and applications in a hybrid environment easily.
+CP4MCM can manage clusters and applications in a hybrid environment efficiently.
 
 The lab also demonstrates the way to use IBM Cloud Secure Gateway to establish connections between hub cluster
 deployed in private network and managed cluster deployed on internet.
