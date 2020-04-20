@@ -10,6 +10,8 @@ During the provision, you can track the progress either on hub cluster or on AWS
    right stack by the cluster name being used to provision your cluster, then go to its "Events" tab to find
    the progress.
 
+![Figure: AWS CloudFormation UI](../images/aws-cloudformation.png)
+
 ---
 
 To track the progress on hub cluster, let's find the pod at first and save to $CLUSTER_CREATE_JOB...
