@@ -270,7 +270,7 @@ function task::run-file {
     p "## $@"
   fi
   
-  echo
+  pp
 }
 
 function task::main {
