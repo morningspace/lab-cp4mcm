@@ -28,10 +28,6 @@ Then, check the progress by monitoring the running pod logs...
 oc -n $LAB_NAMESPACE logs $CLUSTER_CREATE_JOB
 ```
 
-You can also add -f option to keep monitoring the pod logs...
-
-```
-oc -n $LAB_NAMESPACE logs $CLUSTER_CREATE_JOB -f
-```
+You can also add -f option to keep monitoring the pod logs.
 
 Please go to the next task or step if the cluster is provisioned. Before that, you can use this step to keep traking the provision progress.

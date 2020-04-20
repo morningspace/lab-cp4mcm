@@ -44,7 +44,14 @@ cat $HOME/.kube/eks-kubeconfig
 
 Now, you can use below commands to access the cluster which is running remotely on AWS EKS...
 
+To list the nodes:
+
 ```shell
 oc get node --kubeconfig $HOME/.kube/eks-kubeconfig
+```
+
+And all pods running on these nodes:
+
+```shell
 oc get pod --all-namespaces --kubeconfig $HOME/.kube/eks-kubeconfig
 ```
