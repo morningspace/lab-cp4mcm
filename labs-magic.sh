@@ -174,11 +174,15 @@ function task::run-with-logs {
   fi
 
   local method_prefix=$task
+  local display_name="[$task]"
   if [[ -n $task && -n $step ]]; then
     method_prefix="$task::$step"
+    display_name="[$task $step]"
   fi
   if type ${method_prefix}::before &>/dev/null && ! ${method_prefix}::before; then
-    logger::error "Start task or step failed because it does not pass the pre-condition check!"
+    logger::warn "Start $display_name failed because it does not pass the pre-condition check."
+    logger::warn "Please try again later."
+    exit 0
   fi
 
   if task::run-file $file && [[ -n $task && -n $step ]]; then
