@@ -13,6 +13,12 @@ Usually, it takes a few minutes to finish.
 
 Open the link in your web browser: $CP4MCM_BASE_URL/multicloud/clusters
 
+Here, $CP4MCM_BASE_URL is the pre-defined base URL for CP4MCM. You can set this value if not yet, or print the actual value that you set as below:
+
+```shell
+echo $CP4MCM_BASE_URL
+```
+
 On the cluster list page, click the "Add cluster" button to open the popup dialog. Choose the option "Import an existing cluster by running a command on your cluster", then click the "Select" button.
 
 On the next page, input the name of your cluster that is going to be imported, e.g. ${KIND_CLUSTER_NAME}, leave all the other fields without change, then click the "Generate command" button to generate the command and copy it for later use.
