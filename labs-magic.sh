@@ -181,7 +181,7 @@ function task::run-with-logs {
   fi
   if type ${method_prefix}::before &>/dev/null && ! ${method_prefix}::before; then
     logger::warn "Start $display_name failed because it does not pass the pre-condition check."
-    logger::warn "Please try again later."
+    logger::warn "Please try again later by running: $0 $display_name."
     exit 0
   fi
 
