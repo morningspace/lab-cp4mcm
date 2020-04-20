@@ -15,7 +15,7 @@ Open the link in your web browser: $CP4MCM_BASE_URL/multicloud/clusters
 
 ![Figure: CP4MCM Navigation Menu](../images/cp4mcm-nav-menu.png)
 
-Here, $CP4MCM_BASE_URL is the pre-defined base URL for CP4MCM. You can set this value if not yet, or print the actual value that you set as below:
+Here, $CP4MCM_BASE_URL is the pre-defined base URL for CP4MCM. You can set the value if not set yet, or print it as below:
 
 ```shell
 echo $CP4MCM_BASE_URL
