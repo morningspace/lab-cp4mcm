@@ -53,5 +53,5 @@ cat samples/eks/apikey.yaml | sed -e "s|{{AWS_ACCESS_KEY_ID}}|$ID|g" -e "s|{{AWS
 Apply cluster.yaml...
 
 ```shell
-cat samples/eks/cluster.yaml | sed -e "s|{{CLUSTER_NAME}}|$CLUSTER_NAME|g" -e "s|{{AWS_REGION}}|$AWS_REGION|g" | oc apply -n $LAB_NAMESPACE -f -
+cat samples/eks/cluster.yaml | sed -e "s|{{CLUSTER_NAME}}|$AWS_CLUSTER_NAME|g" -e "s|{{AWS_REGION}}|$AWS_REGION|g" | oc apply -n $LAB_NAMESPACE -f -
 ```
