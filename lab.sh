@@ -59,22 +59,6 @@ function set-apiserver {
   fi
 }
 
-function provision-eks {
-  local cluster_name=${1:-"my-cluster-eks"}
-  local aws_region=${2:-"us-east-2"}
-  local aws_access_key_id=$(printf $3 | base64)
-  local aws_secret_access_key=$(printf $4 | base64)
-
-  logger::info "Apply apikey.yaml..."
-  cat samples/eks/apikey.yaml | \
-    sed -e "s|{{AWS_ACCESS_KEY_ID}}|$aws_access_key_id|g" \
-        -e "s|{{AWS_SECRET_ACCESS_KEY}}|$aws_secret_access_key|g" | oc apply -n cp4mcm-lab -f -
-  logger::info "Apply cluster.yaml..."
-  cat samples/eks/cluster.yaml | \
-    sed -e "s|{{CLUSTER_NAME}}|$cluster_name|g" \
-      -e "s|{{AWS_REGION}}|$aws_region|g" | oc apply -n cp4mcm-lab -f -
-}
-
 function task1::step2::before {
   logger::info "Detect if Secure Gateway Client is running..."
   if docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
@@ -89,11 +73,22 @@ function task1::step2::before {
 function task2::step4::before {
   logger::info "Detect if cluster ${AWS_CLUSTER_NAME} has been provisioned..."
   if oc get secret -n ${LAB_NAMESPACE} | grep ${AWS_CLUSTER_NAME} >/dev/null 2>&1; then
-    logger::info "Cluster has been provisioned..."
+    logger::info "Cluster has been provisioned."
     return 0
   else
-    logger::info "Cluster has not been provisioned..."
+    logger::info "Cluster has not been provisioned."
     return 1
+  fi
+}
+
+function task3::step1::before {
+  logger::info "Detect if cluster ${KIND_CLUSTER_NAME} has been provisioned..."
+  if kind get clusters | grep ${KIND_CLUSTER_NAME} >/dev/null 2>&1; then
+    logger::info "Cluster has been provisioned."
+    return 1
+  else
+    logger::info "Cluster has not been provisioned."
+    return 0
   fi
 }
 
