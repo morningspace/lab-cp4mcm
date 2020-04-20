@@ -51,6 +51,8 @@ Go to: http://127.0.0.1:9003 in web browser, click the "Access Control List" but
 
 Then click the plus icon. It allows the hub cluster deployed in your local network to be accessible from the internet.
 
+![Config ACL](../images/gateway-config.acl.png)
+
 Here, $HOSTNAME is the host name of your host machine. You can get the value as below:
 
 ```shell
