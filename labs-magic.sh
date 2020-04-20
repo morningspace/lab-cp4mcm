@@ -270,7 +270,7 @@ function task::run-file {
     p "## $@"
   fi
   
-  pp
+  pn
 }
 
 function task::main {
@@ -342,6 +342,33 @@ function var::save {
   local value="$(eval echo \$${field})"
   sed -e "s#^${field}=.*#${field}='${value}'#g" .lab.settings > .lab.settings.tmp
   mv .lab.settings{.tmp,}
+}
+
+function wait() {
+  if [[ $WAIT_COUNTER == 0 && $NO_WAIT_BEFORE == 1 ]]; then
+    return
+  fi
+
+  if [[ $WAIT_COUNTER == 1 && $NO_WAIT_AFTER == 1 ]]; then
+    WAIT_COUNTER=0
+    return
+  fi
+  
+  if [[ "$PROMPT_TIMEOUT" == "0" ]]; then
+    read -rs
+  else
+    read -rst "$PROMPT_TIMEOUT"
+  fi
+
+  if [[ $WAIT_COUNTER == 0 ]]; then
+    WAIT_COUNTER=1
+  else
+    WAIT_COUNTER=0
+  fi
+}
+
+function pn {
+  NO_WAIT_BEFORE=1 && p && NO_WAIT_BEFORE=0
 }
 
 function pp {
