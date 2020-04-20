@@ -17,11 +17,11 @@ In general, you may need to:
 
 On the "Secure Gateway Dashboard" page, click the gateway that we created, click the Clients tab, then click the Connect Client button.
 
-![Figure: Connect Client](../images/connect-client)
+![Figure: Connect Client](../images/connect-client.png)
 
 On the dialog, copy the Gateway ID and Security Token that will be used to launch the Secure Gateway Client
 
-![Figure: Connect Client Dialog](../images/connect-client-dialog)
+![Figure: Connect Client Dialog](../images/connect-client-dialog.png)
 
 Let's save the Gateway ID and Security Token...
 
