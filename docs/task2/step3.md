@@ -24,6 +24,12 @@ sleep 3
 CLUSTER_CREATE_JOB=$(oc -n $LAB_NAMESPACE get pod -l="job-name=${AWS_CLUSTER_NAME}-create" | grep -e Running -e Completed -e ContainerCreating | awk '{print $1}')
 -->
 
+See what the value of $CLUSTER_CREATE_JOB is:
+
+```shell
+echo $CLUSTER_CREATE_JOB
+```
+
 Then, check the progress by monitoring the running pod logs...
 
 ```shell
