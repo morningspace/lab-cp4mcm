@@ -44,11 +44,22 @@ Let's use `oc` and the kubeconfig for kind instead:
 
 ```shell
 ACTUAL_IMPORT_COMMAND=${KIND_IMPORT_COMMAND%|*}
-echo "${ACTUAL_IMPORT_COMMAND}" | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -
 ```
 
-As above, we run the `oc` command by using the kubeconfig $HOME/.kube/kind-kubeconfig.
+This is the actual command to dump the import.yaml file:
+
+```shell
+echo "${ACTUAL_IMPORT_COMMAND}"
+```
+
+Now, let's apply it using `oc` and the kubeconfig for kind:
+
+```shell
+eval "${ACTUAL_IMPORT_COMMAND} | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
+```
 <!--
 sleep 3
-eval "echo \"${ACTUAL_IMPORT_COMMAND}\" -s | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f - >/dev/null 2>&1"
+eval "${ACTUAL_IMPORT_COMMAND} -s | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f - >/dev/null 2>&1"
 -->
+
+As above, we run the `oc` command by using the kubeconfig $HOME/.kube/kind-kubeconfig.
