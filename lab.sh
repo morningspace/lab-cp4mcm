@@ -6,6 +6,9 @@
 . ./labs-magic.sh
 . ./.lab.settings
 
+# speed at which to simulate typing. bigger num = faster
+TYPE_SPEED=
+
 # The Kubernetes namespace used for this lab
 LAB_NAMESPACE="cp4mcm-lab"
 
