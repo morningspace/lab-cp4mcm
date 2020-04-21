@@ -27,5 +27,6 @@ Estimated time to complete: 60 min
 See Also
 ========
 
-Online version of lab instructions: https://github.com/morningspace/lab-cp4mcm/tree/master/docs
-
+- Online version of lab instructions: https://github.com/morningspace/lab-cp4mcm/tree/master/docs
+- How to run this lab: https://github.com/morningspace/lab-cp4mcm/blob/dev/HOWTO.md
+- Lab specific tips: https://github.com/morningspace/lab-cp4mcm/blob/dev/TIPS.md
