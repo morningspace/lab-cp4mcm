@@ -1,64 +1,33 @@
 #!/bin/bash
 
-. ./demo-magic.sh
-
 ########################
-# Configure the options
+# Need before demo magic
 ########################
 
-#
-# speed at which to simulate typing. bigger num = faster
-#
-TYPE_SPEED=100
-
-#
-# custom prompt
-#
-# see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html for escape sequences
-#
-DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
-
-#
-# custom colors
-#
-DEMO_CMD_COLOR="\033[0;37m"
-DEMO_COMMENT_COLOR=$CYAN
+function usage {
+  echo -e ""
+  echo -e "Usage: $0 [options] [task_id] [step_id]"
+  echo -e ""
+  echo -e "\tWhere options is one or more of:"
+  echo -e "\t-h\tPrints Help text"
+  echo -e "\t-d\tDebug mode. Disables simulated typing"
+  echo -e "\t-n\tNo wait"
+  echo -e "\t-w\tWaits max the given amount of seconds before proceeding with demo (e.g. '-w5')"
+  echo -e "\t-l\tList all tasks and steps with their states, titles and ids"
+  echo -e ""
+}
 
 DOCS_PATH=docs
-START_TIME=$SECONDS
-
-# put your demo awesomeness here
-touch .lab.states
-
-trap on_exit exit
-
-function on_exit {
-  elapsed_time=$(($SECONDS - $START_TIME))
-  logger::info "Total elapsed time: $elapsed_time seconds"
-}
-
-function logger::info {
-  # Cyan
-  printf "\033[0;36mINFO\033[0m $@\n"
-}
-
-function logger::warn {
-  # Yellow
-  printf "\033[0;33mWARN\033[0m $@\n"
-}
-
-function logger::error {
-  # Red
-  printf "\033[0;31mERRO\033[0m $@\n"
-  exit 1
-}
 
 DONE_COLOR="\033[0;36m"
 QUES_COLOR="\033[0;33m"
 CURR_COLOR="\033[0;37m"
+NORM_COLOR="\033[0m"
 
 function task::print-all {
   local task_dirs=($(ls -d -1 $DOCS_PATH/*/))
+
+  echo
 
   for task_dir in ${task_dirs[@]}; do
     local has_task_or_step=0
@@ -102,13 +71,13 @@ function task::print {
 
       case $state in
       "*")
-        head_line="${CURR_COLOR}$(echo $head_line | sed -e "s/^#/ ➞ /g")${COLOR_RESET}"
+        head_line="${CURR_COLOR}$(echo $head_line | sed -e "s/^#/ ➞ /g")${NORM_COLOR}"
         ;;
       "v")
-        head_line="${DONE_COLOR}$(echo $head_line | sed -e "s/^#/[✓]/g")${COLOR_RESET}"
+        head_line="${DONE_COLOR}$(echo $head_line | sed -e "s/^#/[✓]/g")${NORM_COLOR}"
         ;;
       "?")
-        head_line="${QUES_COLOR}$(echo $head_line | sed -e "s/^#/[?]/g")${COLOR_RESET}"
+        head_line="${QUES_COLOR}$(echo $head_line | sed -e "s/^#/[?]/g")${NORM_COLOR}"
         ;;
       *)
         if [[ -n $task && -n $step ]]; then
@@ -128,6 +97,71 @@ function task::print {
   else
     return 1
   fi
+}
+
+case "$1" in
+-h)
+  usage
+  exit
+  ;;
+-l)
+  task::print-all
+  exit
+  ;;
+esac
+
+########################
+# Load demo magic
+########################
+
+. ./demo-magic.sh
+
+########################
+# Configure demo magic
+########################
+
+#
+# custom prompt
+#
+# see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html for escape sequences
+#
+DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
+
+#
+# custom colors
+#
+DEMO_CMD_COLOR="\033[0;37m"
+DEMO_COMMENT_COLOR=$CYAN
+
+########################
+# Start labs magic
+########################
+
+START_TIME=$SECONDS
+
+touch .lab.states
+
+trap on_exit exit
+
+function on_exit {
+  elapsed_time=$(($SECONDS - $START_TIME))
+  logger::info "Total elapsed time: $elapsed_time seconds"
+}
+
+function logger::info {
+  # Cyan
+  printf "\033[0;36mINFO\033[0m $@\n"
+}
+
+function logger::warn {
+  # Yellow
+  printf "\033[0;33mWARN\033[0m $@\n"
+}
+
+function logger::error {
+  # Red
+  printf "\033[0;31mERRO\033[0m $@\n"
+  exit 1
 }
 
 function task::run {
@@ -279,29 +313,14 @@ function task::run-file {
     p "## $@"
   fi
   
-  pn
+  echo
 }
 
 function task::main {
   local POSITIONAL=()
-  local print_all=0
   while [[ $# -gt 0 ]]; do
     case "$1" in
-    -l)
-      print_all=1
-      shift
-      ;;
-    -c)
-      clear
-      shift
-      ;;
-    -d)
-      DOCS_PATH=$2
-      shift
-      shift
-      ;;
-    -g)
-      NO_WAIT=true
+    -d|-n|-c|-w*)
       shift
       ;;
     *)
@@ -311,11 +330,8 @@ function task::main {
     esac
   done
 
-  if [[ $print_all == 1 ]]; then
-    task::print-all
-  else
-    task::run "${POSITIONAL[@]}"
-  fi
+  clear
+  task::run "${POSITIONAL[@]}"
 }
 
 function var::set {
