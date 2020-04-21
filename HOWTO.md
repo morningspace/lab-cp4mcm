@@ -42,14 +42,16 @@ task by specifying both a task id and a step id:
 ## Run interactively or automatically
 
 By default, tasks or steps will run interactively, which means it will stop at each step so that you can read
-instructions line by line, run specific commands, then check results carefully. Also, most tasks or steps can
-be run repeatedly. So, if you want to revisit some tasks or steps to better understand them, you can run them
-many times.
+instructions line by line, run specific commands, then check results carefully. To move to the next step, you
+can press ENTER key.
+
+Most tasks or steps can be run repeatedly. As a result, if you want to revisit those tasks or steps to better
+understand them, you can run them many times.
 
 On the other hand, you can also run tasks or steps automatically when needed. This is useful if you have gone
 through the task or step content already and just want to rerun it to apply whatever changes made by the task
-or step. This can be done by adding option `-g` when run the task or step:
+or step. This can be done by adding option `-n` without waiting for user key press when run the task or step:
 
 ```
-./lab.sh task0 -g
+./lab.sh task0 -n
 ```
