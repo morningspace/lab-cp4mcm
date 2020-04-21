@@ -53,5 +53,6 @@ through the task or step content already and just want to rerun it to apply what
 or step. This can be done by adding option `-n` without waiting for user key press when run the task or step:
 
 ```
-./lab.sh task0 -n
+./lab.sh -n task0
+./lab.sh -n task0 step1
 ```
