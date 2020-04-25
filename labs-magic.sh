@@ -24,8 +24,11 @@ QUES_COLOR="\033[0;33m"
 CURR_COLOR="\033[0;37m"
 NORM_COLOR="\033[0m"
 
+touch .lab.states
+touch .lab.settings
+
 function task::print-all {
-  local task_dirs=($(ls -d -1 $DOCS_PATH/*/))
+  local task_dirs=($(find $DOCS_PATH -maxdepth 1 -type d | sort))
 
   echo
 
@@ -47,8 +50,8 @@ function task::print-all {
 }
 
 function task::print {
-  local task=${1#*/}
-  task=${task%/*}
+  local task=${1%/*}
+  task=${task##*/}
 
   local step=${1##*/}
   step=${step%.md}
@@ -139,8 +142,6 @@ DEMO_COMMENT_COLOR=$CYAN
 
 START_TIME=$SECONDS
 
-touch .lab.states
-
 trap on_exit exit
 
 function on_exit {
@@ -193,6 +194,7 @@ function task::run-with-logs {
   local file=$1
   local task=$2
   local step=$3
+  local path=`pwd`
   if [[ -n $task && -n $step ]]; then
     sed -e "s/^*/?/g" .lab.states > .lab.states.tmp
     mv .lab.states{.tmp,}
@@ -200,6 +202,7 @@ function task::run-with-logs {
     if cat .lab.states | grep -q -e "^.\? $task $step"; then
       sed -e "s/^? $task $step/* $task $step/g" \
           -e "s/^v $task $step/* $task $step/g" \
+          -e "s/^  $task $step/* $task $step/g" \
         .lab.states > .lab.states.tmp
       mv .lab.states{.tmp,}
     else
@@ -221,6 +224,7 @@ function task::run-with-logs {
   fi
 
   if task::run-file $file && [[ -n $task && -n $step ]]; then
+    cd $path
     sed -e "s/^* $task $step/v $task $step/g" .lab.states > .lab.states.tmp
     mv .lab.states{.tmp,}
   fi
@@ -255,7 +259,7 @@ function task::run-file {
 
       line=$(echo "$line" | \
         sed -e 's%!\[\(.*\)\](.*)%\1 (See online version of the lab instructions)%g' \
-            -e 's%\[\(.*\)\](.*)%\1%g')
+            -e 's%\[\([^]]*\)\]([^)]*)%\1%g')
 
       # print summary
       if [[ $summary == 1 ]]; then
@@ -314,6 +318,20 @@ function task::run-file {
   fi
   
   echo
+}
+
+function c {
+  IN_TASK_CMD_LOOP=0
+}
+
+function task::cmd {
+  pp "You are still in Labs Magic but can run shell command now, e.g. to check something manually."
+  pp "To continue to the next step, type 'c' and press Enter key."
+
+  IN_TASK_CMD_LOOP=1
+  while [[ $IN_TASK_CMD_LOOP == 1 ]]; do
+    cmd
+  done
 }
 
 function task::main {
