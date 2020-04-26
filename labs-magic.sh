@@ -24,8 +24,14 @@ QUES_COLOR="\033[0;33m"
 CURR_COLOR="\033[0;37m"
 NORM_COLOR="\033[0m"
 
-touch .lab.states
-touch .lab.settings
+LAB_HOME=$HOME/.labs-magic
+LAB_PROFILE=${LAB_PROFILE:-default}
+LAB_STATES_FILE=$LAB_HOME/$LAB_PROFILE.states
+LAB_CONFIG_FILE=$LAB_HOME/$LAB_PROFILE.config
+
+mkdir -p $LAB_HOME
+touch $LAB_STATES_FILE
+touch $LAB_CONFIG_FILE
 
 function task::print-all {
   local task_dirs=($(find $DOCS_PATH -maxdepth 1 -type d | sort))
@@ -67,8 +73,8 @@ function task::print {
     if [[ $head_line =~ ^#" " ]]; then
       local state
 
-      if [[ -n $task && -n $step ]] && cat .lab.states | grep -q -e "^.\? $task $step"; then
-        state=$(cat .lab.states | grep -e "^.\? $task $step")
+      if [[ -n $task && -n $step ]] && cat $LAB_STATES_FILE | grep -q -e "^.\? $task $step"; then
+        state=$(cat $LAB_STATES_FILE | grep -e "^.\? $task $step")
         state=${state% $task $step}
       fi
 
@@ -196,17 +202,17 @@ function task::run-with-logs {
   local step=$3
   local path=`pwd`
   if [[ -n $task && -n $step ]]; then
-    sed -e "s/^*/?/g" .lab.states > .lab.states.tmp
-    mv .lab.states{.tmp,}
+    sed -e "s/^*/?/g" $LAB_STATES_FILE > $LAB_STATES_FILE.tmp
+    mv $LAB_STATES_FILE{.tmp,}
 
-    if cat .lab.states | grep -q -e "^.\? $task $step"; then
+    if cat $LAB_STATES_FILE | grep -q -e "^.\? $task $step"; then
       sed -e "s/^? $task $step/* $task $step/g" \
           -e "s/^v $task $step/* $task $step/g" \
           -e "s/^  $task $step/* $task $step/g" \
-        .lab.states > .lab.states.tmp
-      mv .lab.states{.tmp,}
+        $LAB_STATES_FILE > $LAB_STATES_FILE.tmp
+      mv $LAB_STATES_FILE{.tmp,}
     else
-      echo "* $task $step" >> .lab.states
+      echo "* $task $step" >> $LAB_STATES_FILE
     fi
   fi
 
@@ -225,8 +231,8 @@ function task::run-with-logs {
 
   if task::run-file $file && [[ -n $task && -n $step ]]; then
     cd $path
-    sed -e "s/^* $task $step/v $task $step/g" .lab.states > .lab.states.tmp
-    mv .lab.states{.tmp,}
+    sed -e "s/^* $task $step/v $task $step/g" $LAB_STATES_FILE > $LAB_STATES_FILE.tmp
+    mv $LAB_STATES_FILE{.tmp,}
   fi
 }
 
@@ -383,8 +389,12 @@ function var::set-required {
 function var::save {
   local field=$1
   local value="$(eval echo \$${field})"
-  sed -e "s#^${field}=.*#${field}='${value}'#g" .lab.settings > .lab.settings.tmp
-  mv .lab.settings{.tmp,}
+  if cat $LAB_CONFIG_FILE | grep -q -e "^${field}="; then
+    sed -e "s#^${field}=.*#${field}='${value}'#g" $LAB_CONFIG_FILE > $LAB_CONFIG_FILE.tmp
+    mv $LAB_CONFIG_FILE{.tmp,}
+  else
+    echo "${field}='${value}'" >> $LAB_CONFIG_FILE
+  fi
 }
 
 function wait() {
