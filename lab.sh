@@ -4,7 +4,8 @@
 # include the magic
 ########################
 . ./labs-magic.sh
-. ./.lab.settings
+. ./lab.config
+. $LAB_CONFIG_FILE
 
 # speed at which to simulate typing. bigger num = faster
 TYPE_SPEED=
