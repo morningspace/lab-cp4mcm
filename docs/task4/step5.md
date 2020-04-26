@@ -50,6 +50,6 @@ oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/kind-kubeconfig
 Go to check the cluster provisioned on AWS...
 
 ```shell
-oc get ns --kubeconfig $HOME/.kube/eks-kubeconfig
-oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/eks-kubeconfig
+oc get ns --kubeconfig $HOME/.kube/${AWS_CLUSTER_NAME}
+oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/${AWS_CLUSTER_NAME}
 ```

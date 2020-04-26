@@ -55,11 +55,11 @@ echo "${ACTUAL_IMPORT_COMMAND}"
 Now, let's apply it using `oc` and the kubeconfig for kind:
 
 ```shell
-eval "${ACTUAL_IMPORT_COMMAND} | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f -"
+eval "${ACTUAL_IMPORT_COMMAND} | oc apply --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME} -f -"
 ```
 <!--
 sleep 3
-eval "${ACTUAL_IMPORT_COMMAND} -s | oc apply --kubeconfig $HOME/.kube/kind-kubeconfig -f - >/dev/null 2>&1"
+eval "${ACTUAL_IMPORT_COMMAND} -s | oc apply --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME} -f - >/dev/null 2>&1"
 -->
 
-As above, we run the `oc` command by using the kubeconfig $HOME/.kube/kind-kubeconfig.
+As above, we run the `oc` command by using the kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME}.

@@ -24,13 +24,13 @@ cat samples/kind/config.yaml
 To provision the cluster, run kind command as below...
 
 ```shell
-kind create cluster --config samples/kind/config.yaml --kubeconfig $HOME/.kube/kind-kubeconfig --name ${KIND_CLUSTER_NAME}
+kind create cluster --config samples/kind/config.yaml --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME} --name ${KIND_CLUSTER_NAME}
 ```
 
 It also saves the kubeconfig file into $HOME/.kube folder. See how the kubeconfig looks like...
 
 ```shell
-cat $HOME/.kube/kind-kubeconfig
+cat $HOME/.kube/${KIND_CLUSTER_NAME}
 ```
 
 Now, you can use below commands to access the cluster which is provisioned by kind...
@@ -38,11 +38,11 @@ Now, you can use below commands to access the cluster which is provisioned by ki
 To list the nodes:
 
 ```shell
-oc get node --kubeconfig $HOME/.kube/kind-kubeconfig
+oc get node --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME}
 ```
 
 And all pods running on these nodes:
 
 ```shell
-oc get pod --all-namespaces --kubeconfig $HOME/.kube/kind-kubeconfig
+oc get pod --all-namespaces --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME}
 ```

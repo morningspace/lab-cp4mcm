@@ -33,7 +33,7 @@ CLUSTER_SECRET=$(oc get secret -n $LAB_NAMESPACE -o name | grep ${AWS_CLUSTER_NA
 To save as kubeconfig file into $HOME/.kube folder...
 
 ```shell
-oc get ${CLUSTER_SECRET} -n $LAB_NAMESPACE -o 'go-template={{index .data "kubeconfig-eks"}}' | base64 --decode > $HOME/.kube/eks-kubeconfig
+oc get ${CLUSTER_SECRET} -n $LAB_NAMESPACE -o 'go-template={{index .data "kubeconfig-eks"}}' | base64 --decode > $HOME/.kube/${AWS_CLUSTER_NAME}
 ```
 
 See how the kubeconfig looks like...

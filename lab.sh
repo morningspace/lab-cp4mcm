@@ -99,7 +99,7 @@ function task4::before {
   task2::step4::before || return 1
 
   logger::info "Detect if cluster ${KIND_CLUSTER_NAME} has been imported..."
-  if [[ -n `oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/kind-kubeconfig | awk '{print $3}' | grep -v -e Running -e Completed -e STATUS` ]]; then
+  if [[ -n `oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME} | awk '{print $3}' | grep -v -e Running -e Completed -e STATUS` ]]; then
     logger::info "Cluster has not been imported."
     return 1
   else
