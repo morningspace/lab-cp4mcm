@@ -62,16 +62,16 @@ function set-apiserver {
   fi
 }
 
-function task1::step2::before {
-  logger::info "Detect if Secure Gateway Client is running..."
-  if docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
-    logger::info "Secure Gateway Client is running..."
-    return 1
-  else
-    logger::info "Secure Gateway Client is not running..."
-    return 0
-  fi
-}
+# function task1::step2::before {
+#   logger::info "Detect if Secure Gateway Client is running..."
+#   if docker ps | grep ibmcom/secure-gateway-client >/dev/null 2>&1; then
+#     logger::info "Secure Gateway Client is running..."
+#     return 1
+#   else
+#     logger::info "Secure Gateway Client is not running..."
+#     return 0
+#   fi
+# }
 
 function task2::step4::before {
   logger::info "Detect if cluster ${AWS_CLUSTER_NAME} has been provisioned..."
