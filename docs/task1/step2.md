@@ -35,14 +35,23 @@ var::save "GATEWAY_SECURITY_TOKEN"
 Then, launch the client using the above Gateway ID and Security Token:
 
 ```shell
-docker run -d -p 9003:9003 ibmcom/secure-gateway-client $GATEWAY_ID -t $GATEWAY_SECURITY_TOKEN
+docker run -d -p 9003 --name gateway-client-${LAB_PROFILE} ibmcom/secure-gateway-client $GATEWAY_ID -t $GATEWAY_SECURITY_TOKEN
 ```
 
 ## Config Secure Gateway ACL for hub cluster
 
 Secure Gateway Client has a dashboard which can be used to manage connections. We will use this dashboard to config ACL for our hub cluster.
 
-Go to: http://127.0.0.1:9003 in web browser, click the "Access Control List" button, in the "Allow access" section, input:
+The dashboard listens at port 9003 by default in the Docker container. We have exposed the port to the host machine when launched the container.
+
+Run below command to get the host port for the dashboard:
+
+```shell
+DASHBOARD_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "9003/tcp") 0).HostPort}}' gateway-client-${LAB_PROFILE})
+echo $DASHBOARD_PORT
+```
+
+Go to: http://127.0.0.1:$DASHBOARD_PORT in web browser, click the "Access Control List" button, in the "Allow access" section, input:
 
 ```
 1) Resource Hostname: $HOSTNAME
