@@ -11,7 +11,7 @@
 TYPE_SPEED=
 
 # The Kubernetes namespace used for this lab
-LAB_NAMESPACE="cp4mcm-lab"
+LAB_NAMESPACE="lab-cp4mcm-${LAB_PROFILE}"
 
 # AWS settings
 AWS_REGION=${AWS_REGION:-"us-east-2"}
