@@ -39,7 +39,7 @@ oc get ${CLUSTER_SECRET} -n $LAB_NAMESPACE -o 'go-template={{index .data "kubeco
 See how the kubeconfig looks like...
 
 ```shell
-cat $HOME/.kube/eks-kubeconfig
+cat $HOME/.kube/${AWS_CLUSTER_NAME}
 ```
 
 Now, you can use below commands to access the cluster which is running remotely on AWS EKS...
@@ -47,11 +47,11 @@ Now, you can use below commands to access the cluster which is running remotely 
 To list the nodes:
 
 ```shell
-oc get node --kubeconfig $HOME/.kube/eks-kubeconfig
+oc get node --kubeconfig $HOME/.kube/${AWS_CLUSTER_NAME}
 ```
 
 And all pods running on these nodes:
 
 ```shell
-oc get pod --all-namespaces --kubeconfig $HOME/.kube/eks-kubeconfig
+oc get pod --all-namespaces --kubeconfig $HOME/.kube/${AWS_CLUSTER_NAME}
 ```

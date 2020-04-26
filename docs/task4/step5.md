@@ -43,8 +43,8 @@ To check whether application is deployed on managed clusters...
 Go to check the cluster provisioned by kind...
 
 ```shell
-oc get ns --kubeconfig $HOME/.kube/kind-kubeconfig
-oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/kind-kubeconfig
+oc get ns --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME}
+oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME}
 ```
 
 Go to check the cluster provisioned on AWS...
