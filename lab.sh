@@ -17,7 +17,7 @@ AWS_REGION=${AWS_REGION:-"us-east-2"}
 AWS_CLUSTER_NAME=${AWS_CLUSTER_NAME:-"my-cluster-eks-$((1 + RANDOM % 100))"}
 
 # kind settings
-KIND_CLUSTER_NAME=${KIND_CLUSTER_NAME:-"my-cluster-kind"}
+KIND_CLUSTER_NAME=${KIND_CLUSTER_NAME:-"my-cluster-kind-$((1 + RANDOM % 100))"}
 
 function wait-env-ready {
   oc login -u admin -p Passw0rd! -n kube-system 2>&1 >/dev/null
