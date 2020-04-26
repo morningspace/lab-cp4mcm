@@ -21,7 +21,6 @@ oc get pods -n kube-system | grep -v -e ibmcloudappmgmt -e import-job
 ```
 
 Now, let's wait for all pods ready...
-
 <!--
 wait-env-ready
 -->
@@ -31,3 +30,6 @@ Finally, create a namespace called $LAB_NAMESPACE for this lab...
 ```shell
 oc create ns $LAB_NAMESPACE
 ```
+<!--
+var::save "LAB_NAMESPACE"
+-->
