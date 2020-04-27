@@ -14,6 +14,7 @@ function usage {
   echo -e "\t-n\tNo wait"
   echo -e "\t-w\tWaits max the given amount of seconds before proceeding with demo (e.g. '-w5')"
   echo -e "\t-l\tList all tasks and steps with their states, titles and ids"
+  echo -e "\t-c\tPrint lab config for current lab profile, specified by \$LAB_PROFILE (default value: default)"
   echo -e ""
 }
 
@@ -51,7 +52,8 @@ function task::print-all {
     [[ $has_task_or_step == 1 ]] && echo
   done
 
-  echo "To run a specific task or step, find the task or step id, and run $0 <task> <step>."
+  echo "To run a specific task step, find the [task step] at the end of each line, then run $0 task step."
+  echo "To run all steps of a task one by one, run $0 task."
   echo
 }
 
@@ -108,6 +110,11 @@ function task::print {
   fi
 }
 
+function task::print-config {
+  echo "LAB_PROFILE=$LAB_PROFILE"
+  cat $LAB_CONFIG_FILE
+}
+
 case "$1" in
 -h)
   usage
@@ -115,6 +122,10 @@ case "$1" in
   ;;
 -l)
   task::print-all
+  exit
+  ;;
+-c)
+  task::print-config
   exit
   ;;
 esac
@@ -355,7 +366,8 @@ function task::main {
   done
 
   clear
-  pn "Press Enter key to start..."
+  pn "Press Enter key to start and on each step to continue..."
+  pn "Press Ctrl + C to cancel at any time..."
   task::run "${POSITIONAL[@]}"
 }
 
