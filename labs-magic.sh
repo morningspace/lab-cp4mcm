@@ -331,7 +331,7 @@ function c {
 }
 
 function task::cmd {
-  pp "You are still in Labs Magic but can run shell command now, e.g. to check something manually."
+  pp "You are still in Labs Magic but can run shell commands now, e.g. to check something manually."
   pp "To continue to the next step, type 'c' and press Enter key."
 
   IN_TASK_CMD_LOOP=1
@@ -355,6 +355,7 @@ function task::main {
   done
 
   clear
+  pn "Press Enter key to start..."
   task::run "${POSITIONAL[@]}"
 }
 
@@ -421,7 +422,7 @@ function wait() {
 }
 
 function pn {
-  NO_WAIT_BEFORE=1 && p && NO_WAIT_BEFORE=0
+  NO_WAIT=true && p "$@" && NO_WAIT=false
 }
 
 function pp {
