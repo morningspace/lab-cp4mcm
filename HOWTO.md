@@ -12,18 +12,12 @@ cd $HOME/lab-cp4mcm
 git pull
 ```
 
-## Run the lab
+## Run lab task and step
 
 You can run different commands to launch the lab as needed. For example, To view the lab main page:
 
 ```
 ./lab.sh
-```
-
-To list all available tasks and steps with their states, titles and ids:
-
-```
-./lab.sh -l
 ```
 
 To start a particular task by specifying a task id:
@@ -38,6 +32,43 @@ task by specifying both a task id and a step id:
 ```
 ./lab.sh task0 step1
 ```
+
+## Track lab progress
+
+To list all available tasks and steps with their states, titles and ids:
+
+```
+./lab.sh -l
+```
+
+By checking the list, you will be able to know:
+
+* Which is the current step being processed? (marked as '➞')
+* Which tasks and steps are completed (marked as '✓')
+* Which tasks and steps are stopped unexpectedly for some reason (marked as '?')
+* Which tasks and steps are not processed yet. (marked as ' ')
+
+## Print lab config
+
+The lab environment has a config file including all required settings that will be used during the launch.
+
+To print the lab config:
+
+```
+./lab.sh -c
+```
+
+The same lab environment cab be run by multiple people simultaneously and each person has his or her own lab 
+config. This is controlled by an environment variable called $LAB_PROFILE, e.g.:
+
+```
+export LAB_PROFILE=alice
+./lab.sh -c
+export LAB_PROFILE=bob
+./lab.sh -c
+```
+
+The lab config output for bob will be different from that for alice.
 
 ## Run interactively or automatically
 
