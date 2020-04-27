@@ -9,9 +9,6 @@ a bookmark called "IBM Cloud Pak for Multicloud Management" on Bookmarks Bar. Cl
 login page, use credential `admin/Passw0rd!` to login CP4MCM. Note: you may need to click the bookmark again
 after login in order to bring you to the CP4MCM welcome page.
 
-There is also another bookmark for you to access the dashboard of IBM Cloud Secure Gateway Client, which can
-be used to manage connections between local network and internet. The bookmark is called "Secure Gateway Client".
-
 ## Time consuming task
 
 When you run [Task 2: Manage a cluster provisioned by AWS EKS](docs/task2/), usually it will take a bit long time to finish
