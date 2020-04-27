@@ -53,3 +53,6 @@ Go to check the cluster provisioned on AWS...
 oc get ns --kubeconfig $HOME/.kube/${AWS_CLUSTER_NAME}
 oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/${AWS_CLUSTER_NAME}
 ```
+<!--
+task::cmd
+-->
