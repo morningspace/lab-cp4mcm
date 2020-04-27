@@ -39,3 +39,5 @@ oc -n $LAB_NAMESPACE logs $CLUSTER_CREATE_JOB
 You can also add -f option to keep monitoring the pod logs.
 
 Please go to the next task or step if the cluster is provisioned. Before that, you can use this step to keep traking the provision progress.
+
+Because the provision on AWS usually takes time, you can also go to the next task [Task 3: Manage a cluster provisioned by kind](../task3/README.md) and run that task simultaneously when the provision is ongoing, and go back to this step to keep traking the provision progress from time to time.
