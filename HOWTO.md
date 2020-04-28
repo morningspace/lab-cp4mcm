@@ -77,10 +77,10 @@ Here is a sample output:
 
 By checking the list, you will be able to know:
 
-* Which is the current step being processed? (marked as '➞')
-* Which tasks and steps are completed (marked as '✓')
-* Which tasks and steps are stopped unexpectedly for some reason (marked as '?')
-* Which tasks and steps are not processed yet. (marked as ' ')
+* Which is the current step being processed? (marked as '[➞]')
+* Which tasks and steps are completed (marked as '[✓]')
+* Which tasks and steps are stopped unexpectedly for some reason (marked as '[?]')
+* Which tasks and steps are not processed yet. (marked as '[ ]')
 
 ## Run interactively or automatically
 
