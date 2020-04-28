@@ -15,3 +15,26 @@ When you run [Task 2: Manage a cluster provisioned by AWS EKS](docs/task2/), usu
 the cluster provision process on AWS. After you finish kicking off the provision, you can go to run the next
 task [Task 3: Manage a cluster provisioned by kind](docs/task3/), then go back and check the provision progress on AWS from
 time to time until it is finished.
+
+## Define your lab profile
+
+This lab may be used by multiple people simultaneously. Each person has his or her own lab config which can be
+found at $HOME/.labs-magic directory by running below command:
+
+```
+ls -1 ~/.labs-magic/*.config
+/home/morningspace/.labs-magic/alice.config
+/home/morningspace/.labs-magic/bob.config
+/home/morningspace/.labs-magic/default.config
+```
+
+To avoid conflict with other people's lab config, please define your own by specifying an environment variable 
+called $LAB_PROFILE. e.g. morningspace, then you will see a new config file called morningspace.config created
+under $HOME/.labs-magic directory when you launch the lab for the next time.
+
+```
+export LAB_PROFILE=morningspace
+```
+
+Note: When you define $LAB_PROFILE, please check $HOME/.labs-magic directory first, to make sure the value you
+choose is not used by others.
