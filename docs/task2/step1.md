@@ -17,7 +17,7 @@ Or, you can contact the lab owner for any help.
 
 Then, save your AWS access key ID and secret access key...
 
-s<!--
+<!--
 var::set-required "Input AWS access key ID" "AWS_ACCESS_KEY_ID"
 var::set-required "Input AWS secret access key" "AWS_SECRET_ACCESS_KEY"
 var::save "AWS_ACCESS_KEY_ID"
