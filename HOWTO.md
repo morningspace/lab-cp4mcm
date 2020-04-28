@@ -68,7 +68,7 @@ Here is a sample output:
 
 ```
 [✓] Task 1 - Step 1: Install required software [task1 step1]
-[?] Task 1 - Step 2: Wait for application up and running [task1 step2]
+[?] Task 1 - Step 2: Wait for system up and running [task1 step2]
 
 [✓] Task 2 - Step 1: Configure application [task2 step1]
  ➞  Task 2 - Step 2: Launch application [task2 step2]
