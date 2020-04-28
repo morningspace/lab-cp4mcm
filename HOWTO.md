@@ -64,34 +64,23 @@ To list all available tasks and steps with their states, titles and ids:
 ./lab.sh -l
 ```
 
+Here is a sample output:
+
+```
+[✓] Task 1 - Step 1: Install required software [task1 step1]
+[?] Task 1 - Step 2: Wait for application up and running [task1 step2]
+
+[✓] Task 2 - Step 1: Configure application [task2 step1]
+ ➞  Task 2 - Step 2: Launch application [task2 step2]
+[ ] Task 2 - Step 3: Clean up [task2 step3]
+```
+
 By checking the list, you will be able to know:
 
 * Which is the current step being processed? (marked as '➞')
 * Which tasks and steps are completed (marked as '✓')
 * Which tasks and steps are stopped unexpectedly for some reason (marked as '?')
 * Which tasks and steps are not processed yet. (marked as ' ')
-
-## Print lab config
-
-The lab environment has a config file including all required settings that will be used during the launch.
-
-To print the lab config:
-
-```
-./lab.sh -c
-```
-
-The same lab environment cab be run by multiple people simultaneously and each person has his or her own lab 
-config. This is controlled by an environment variable called $LAB_PROFILE, e.g.:
-
-```
-export LAB_PROFILE=alice
-./lab.sh -c
-export LAB_PROFILE=bob
-./lab.sh -c
-```
-
-The lab config output for bob will be different from that for alice.
 
 ## Run interactively or automatically
 
