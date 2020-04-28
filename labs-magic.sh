@@ -14,7 +14,6 @@ function usage {
   echo -e "\t-n\tNo wait"
   echo -e "\t-w\tWaits max the given amount of seconds before proceeding with demo (e.g. '-w5')"
   echo -e "\t-l\tList all tasks and steps with their states, titles and ids"
-  echo -e "\t-c\tPrint lab config for current lab profile, specified by \$LAB_PROFILE (default value: default)"
   echo -e ""
 }
 
@@ -426,7 +425,8 @@ function wait() {
 }
 
 function pn {
-  NO_WAIT=true && p "$@" && NO_WAIT=false
+  local origin=$NO_WAIT
+  NO_WAIT=true && p "$@" && NO_WAIT=$origin
 }
 
 function pp {
