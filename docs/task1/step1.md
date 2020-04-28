@@ -17,7 +17,11 @@ In general, you may need to:
 
 ## Login to IBM Cloud using your IBM Cloud account
 
-Log in to IBM Cloud: https://cloud.ibm.com/. Please contact lab owner if you do not have an account yet.
+If you do not have IBM Cloud account yet, you can sign up by yourself to register a free account which should be sufficient for you to finish this lab.
+
+Or, you can contact the lab owner for any help.
+
+Then, log in to IBM Cloud: https://cloud.ibm.com/ using your account.
 
 ## Create a Secure Gateway resource
 
