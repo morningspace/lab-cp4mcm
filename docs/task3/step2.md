@@ -34,7 +34,7 @@ Then click the "Generate command" button to generate the command and copy it for
 ![Figure: Generated Import Command](../images/generated-import-command.png)
 
 <!--
-var::set-required "Paste the import command here" "KIND_IMPORT_COMMAND"
+var::set-required "Paste the import command here for ${KIND_CLUSTER_NAME}" "KIND_IMPORT_COMMAND"
 var::save "KIND_IMPORT_COMMAND"
 -->
 
