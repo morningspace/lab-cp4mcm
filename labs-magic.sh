@@ -366,6 +366,7 @@ function task::main {
   done
 
   clear
+  pn "Your current lab profile is $LAB_PROFILE, please define your own if it's not yours using export LAB_PROFILE=<lab_profile>."
   pn "Press Enter key to start and on each step to continue..."
   pn "Press Ctrl + C to cancel at any time..."
   task::run "${POSITIONAL[@]}"
