@@ -110,11 +110,6 @@ function task::print {
   fi
 }
 
-function task::print-config {
-  echo "LAB_PROFILE=$LAB_PROFILE"
-  cat $LAB_CONFIG_FILE
-}
-
 case "$1" in
 -h)
   usage
@@ -122,10 +117,6 @@ case "$1" in
   ;;
 -l)
   task::print-all
-  exit
-  ;;
--c)
-  task::print-config
   exit
   ;;
 esac
@@ -366,8 +357,8 @@ function task::main {
   done
 
   clear
-  pn "Your current lab profile is $LAB_PROFILE, please define your own if it's not yours using export LAB_PROFILE=<lab_profile>."
-  pn "Press Enter key to start and on each step to continue..."
+  pn "Use export LAB_PROFILE=... to define your lab profile, current: $LAB_PROFILE."
+  pn "Press Enter key to start, and on each step to continue..."
   pn "Press Ctrl + C to cancel at any time..."
   task::run "${POSITIONAL[@]}"
 }
