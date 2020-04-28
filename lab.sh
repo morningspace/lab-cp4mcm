@@ -14,7 +14,7 @@ TYPE_SPEED=
 LAB_NAMESPACE="lab-cp4mcm-${LAB_PROFILE}"
 
 # AWS settings
-AWS_REGION=${AWS_REGION:-"us-east-2"}
+AWS_REGION=${AWS_REGION:-"us-east-1"}
 AWS_CLUSTER_NAME=${AWS_CLUSTER_NAME:-"my-cluster-eks-$((1 + RANDOM % 100))"}
 
 # kind settings
