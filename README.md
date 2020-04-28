@@ -10,7 +10,7 @@ in a hybrid environment efficiently.
 ## Must Read
 
 * See [Lab Instructions](docs/) for detailed lab instructions step by step.
-* This lab is powered by a tool built on top of [demo-magic](https://github.com/paxtonhare/demo-magic), so the [Lab Instructions](docs/) written in Markdown can be
+* This lab is powered by [labs-magic](https://github.com/morningspace/labs-magic) which is a tool built on top of [demo-magic](https://github.com/paxtonhare/demo-magic), so the [Lab Instructions](docs/) written in Markdown can be
 run interactively in terminal! To learn how to run this lab in a terminal, see [How to Run This Lab](HOWTO.md).
 * In order to run this lab more efficiently, there are some specific tips, please read [Lab Specific Tips](TIPS.md) for more details.
 
