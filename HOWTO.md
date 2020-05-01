@@ -33,6 +33,18 @@ task by specifying both a task id and a step id:
 ./lab.sh task0 step1
 ```
 
+## User input during lab run
+
+During the lab runs, sometimes it may need user inputs to control how the lab goes. For example, to ask what
+the cluster name is before launch a cluster as below:
+
+```
+Input cluster name(my-cluster-eks-18): 
+```
+
+Along with the prompt text, there could be a default value appeared in the brackets after the prompt text if
+it has default value. You can input whatever value as you wish or press Enter key to use the default one.
+
 ## Track lab progress
 
 To list all available tasks and steps with their states, titles and ids:
