@@ -21,11 +21,11 @@ If you do not have IBM Cloud account yet, you can sign up by yourself to registe
 
 To register an account, go to https://www.ibm.com/cloud, and click "Sign up or log in" button, then on the sign up page, input your email address and password. IBM Cloud will send a verification code to you. Check your mail to find the code, input the code on the sign up page, and fill in the personal information, then create account.
 
-![Create an IBM Cloud Account](../images/ibm-cloud-account-1.png)
+![Figure: Create an IBM Cloud Account](../images/ibm-cloud-account-1.png)
 
-After that, log in to IBM Cloud: https://cloud.ibm.com/ using your account.
+After then, log in to IBM Cloud: https://cloud.ibm.com/ using your account.
 
-![Login IBM Cloud](../images/ibm-cloud-account-2.png)
+![Figure: Login IBM Cloud](../images/ibm-cloud-account-2.png)
 
 ## Create a Secure Gateway resource
 
