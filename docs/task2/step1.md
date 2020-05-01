@@ -8,17 +8,15 @@ access key, otherwise, you can contact the lab owner for access credentials:
 
 Login to Amazon Console https://console.aws.amazon.com/ using your Amazon account. Click the user account on
 top navigation bar and choose "My Security Credentials". Click the "Create access key" button to generate a
-new access key ID and a secret access key for you. Record the two values for later use.
+new access key ID and a secret access key for you. Remember the two values for later use.
 
 ![Figure: AWS Security Credentials](../images/aws-security-credentials.png)
 
 ---
 
-If you do not have AWS account yet, you can sign up by yourself to register a free account which should be sufficient for you to finish this lab.
+If you do not have AWS account yet, you can sign up by yourself, or you can contact the lab owner for any help.
 
-Or, you can contact the lab owner for any help.
-
-Then, save your AWS access key ID and secret access key...
+Save your AWS access key ID and secret access key...
 
 <!--
 var::set-required "Input AWS access key ID" "AWS_ACCESS_KEY_ID"
