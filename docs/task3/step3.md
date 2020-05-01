@@ -19,6 +19,3 @@ oc get pod -n multicluster-endpoint --kubeconfig $HOME/.kube/${KIND_CLUSTER_NAME
 ```
 
 Please go to the next task or step until the cluster is imported. Before that, you can use this step to keep traking the import progress.
-<!--
-task::cmd
--->

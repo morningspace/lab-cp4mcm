@@ -29,7 +29,7 @@ On the next page, input the name of your cluster that is going to be imported, e
 
 ![Figure: Import Cluster Form](../images/import-cluster-form.png)
 
-Then click the "Generate command" button to generate the command and copy it for later use.
+Then click the "Generate command" button to generate the command and use the copy icon after the command to copy it for later use.
 
 ![Figure: Generated Import Command](../images/generated-import-command.png)
 
@@ -38,7 +38,7 @@ var::set-required "Paste the import command here for ${KIND_CLUSTER_NAME}" "KIND
 var::save "KIND_IMPORT_COMMAND"
 -->
 
-The generated command uses `kubectl` and the default kubeconfig file in $HOME/.kube to apply the import YAML file.
+The generated command downloads the import YAML file from hub cluster, then uses `kubectl` and the default kubeconfig file in $HOME/.kube to apply the file.
 
 Let's use `oc` and the kubeconfig for kind instead:
 
@@ -46,7 +46,7 @@ Let's use `oc` and the kubeconfig for kind instead:
 ACTUAL_IMPORT_COMMAND=${KIND_IMPORT_COMMAND%|*}
 ```
 
-This is the actual command to dump the import.yaml file:
+This is the actual command to download the import.yaml file from hub cluster:
 
 ```shell
 echo "${ACTUAL_IMPORT_COMMAND}"
