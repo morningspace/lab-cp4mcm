@@ -12,29 +12,6 @@ cd $HOME/lab-cp4mcm
 git pull
 ```
 
-## Define your lab profile
-
-This lab may be used by multiple people simultaneously. Each person has his or her own lab config which can be
-found at $HOME/.labs-magic directory by running below command:
-
-```
-ls -1 ~/.labs-magic/*.config
-/home/morningspace/.labs-magic/alice.config
-/home/morningspace/.labs-magic/bob.config
-/home/morningspace/.labs-magic/default.config
-```
-
-To avoid conflict with other people's lab config, please define your own by specifying an environment variable 
-called $LAB_PROFILE. e.g. morningspace, then you will see a new config file called morningspace.config created
-under $HOME/.labs-magic directory when you launch the lab for the next time.
-
-```
-export LAB_PROFILE=morningspace
-```
-
-Note: When you define $LAB_PROFILE, please check $HOME/.labs-magic directory first, to make sure the value you
-choose is not used by others
-
 ## Run lab task and step
 
 You can run different commands to launch the lab as needed. For example, To view the lab main page:
