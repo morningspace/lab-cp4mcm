@@ -13,6 +13,16 @@ There is also another bookmark for you to access the dashboard of IBM Cloud Secu
 be used to manage connections between the local network and internet. The bookmark is called "Secure Gateway
 Client".
 
+## Lab VM clipboard
+
+If you want to copy and paste text between your local machine and the lab VMs, you can use the lab VM clipboard.
+This can be found on the lab toolbar docked on top of the lab environment window.
+
+![Figure: Lab VM Clipboard](docs/images/lab-vm-clipboard.png)
+
+For example, to copy and paste text from local machine into lab VM. Paste the content from your local machine to
+the copy/paste area. Then you can paste that content within the VM.
+
 ## Time consuming task
 
 When you run [Task 2: Manage a cluster provisioned by AWS EKS](docs/task2/), usually it will take a bit long time to finish
