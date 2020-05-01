@@ -51,12 +51,12 @@ Go to: http://127.0.0.1:9300 in web browser, click the "Access Control List" but
 2) Port: 8443
 ```
 
-Then click the plus icon. It allows the hub cluster deployed in your local network to be accessible from the internet.
-
-![Figure: Config ACL](../images/gateway-config.acl.png)
-
 Here, $HOSTNAME is the host name of your host machine. You can get the value as below:
 
 ```shell
 echo $HOSTNAME
 ```
+
+Then click the plus icon. It allows the hub cluster deployed in your local network to be accessible from the internet.
+
+![Figure: Config ACL](../images/gateway-config.acl.png)

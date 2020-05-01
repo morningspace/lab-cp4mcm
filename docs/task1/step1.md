@@ -49,7 +49,7 @@ Give your gateway a name, e.g. my-cp4mcm-gateway and leave all the other fields 
 
 ## Add a destination
 
-On the "Secure Gateway Dashboard" page, click the gateway that we created just now, then click the plus icon to add a destination for your gateway.
+On the "Secure Gateway Dashboard" page, click the gateway that we created, then click the plus icon to add a destination for your gateway.
 
 ![Figure: Add Destination](../images/add-destination.png)
 
@@ -62,7 +62,7 @@ Answer the questions on the dialog wizard with below suggested values one by one
    Resource Port: 8443
 3) What protocol will the User/Application use to connect to your destination? TCP
 4) What kind of authentication does your destination enforce? None
-5) If you would like to make your destination private, add IP table rules below. Click Next
+5) If you would like to make your destination private, add IP table rules below. Just click Next
 6) What would you like to name this destination? e.g. my-cp4mcm-destination
 ```
 
