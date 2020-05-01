@@ -265,7 +265,7 @@ function task::run-file {
       fi
 
       line=$(echo "$line" | \
-        sed -e 's%!\[\(.*\)\](.*)%\1 (See online version of the lab instructions)%g' \
+        sed -e 's%!\[\(.*\)\](.*)%\1 (See online lab instructions for the figure)%g' \
             -e 's%\[\([^]]*\)\]([^)]*)%\1%g')
 
       # print summary
