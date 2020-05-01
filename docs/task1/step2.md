@@ -60,7 +60,7 @@ Go to: http://127.0.0.1:$DASHBOARD_PORT in web browser, click the "Access Contro
 
 Then click the plus icon. It allows the hub cluster deployed in your local network to be accessible from the internet.
 
-![Config ACL](../images/gateway-config.acl.png)
+![Figure: Config ACL](../images/gateway-config.acl.png)
 
 Here, $HOSTNAME is the host name of your host machine. You can get the value as below:
 

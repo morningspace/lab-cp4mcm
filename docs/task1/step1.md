@@ -17,9 +17,11 @@ In general, you may need to:
 
 ## Login to IBM Cloud using your IBM Cloud account
 
-If you do not have IBM Cloud account yet, you can sign up by yourself to register a free account which should be sufficient for you to finish this lab. Or, you can contact the lab owner for any help.
+If you do not have IBM Cloud account yet, you can sign up by yourself to register an account. Or, you can contact the lab owner for any help.
 
-To register an account, go to https://www.ibm.com/cloud, and click "Sign up or log in" button, then on the sign up page, input your email address and password. IBM Cloud will send a verification code to you. Check your mail to find the code, input the code on the sign up page, and fill in the personal information, then create account.
+To register an account, go to https://www.ibm.com/cloud, and click "Sign up or log in" button
+
+Then on the sign up page, input your email address and password. IBM Cloud will send a verification code to you. Check your mail to find the code, input the code on the sign up page, and fill in the personal information, then create account.
 
 ![Figure: Create an IBM Cloud Account](../images/ibm-cloud-account-1.png)
 
@@ -60,7 +62,8 @@ Answer the questions on the dialog wizard with below suggested values one by one
    Resource Port: 8443
 3) What protocol will the User/Application use to connect to your destination? TCP
 4) What kind of authentication does your destination enforce? None
-5) What would you like to name this destination? e.g. my-cp4mcm-destination
+5) If you would like to make your destination private, add IP table rules below. Click Next
+6) What would you like to name this destination? e.g. my-cp4mcm-destination
 ```
 
 Here, $HOSTNAME is the host name of your host machine. You can get the value as below:

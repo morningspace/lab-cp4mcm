@@ -18,7 +18,7 @@ You may need to:
 
 On the "Secure Gateway Dashboard" page, click the gateway that you have created, then click the gear icon of the destination. On the popup dialog, copy the value of "Cloud Host : Port" field for later use.
 
-![Find Public Hostname and Port](../images/public-hostname-port.png)
+![Figure: Find Public Hostname and Port](../images/public-hostname-port.png)
 
 ## Test API server connectivity using public hostname and port
 
