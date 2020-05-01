@@ -44,13 +44,13 @@ ID=$(printf $AWS_ACCESS_KEY_ID | base64)
 KEY=$(printf $AWS_SECRET_ACCESS_KEY | base64)
 ```
 
-Apply apikey.yaml...
+Apply apikey.yaml and replace all placeholders appeared in the file with actual values...
 
 ```shell
 cat samples/eks/apikey.yaml | sed -e "s|{{AWS_ACCESS_KEY_ID}}|$ID|g" -e "s|{{AWS_SECRET_ACCESS_KEY}}|$KEY|g" | oc apply -n $LAB_NAMESPACE -f -
 ```
 
-Apply cluster.yaml...
+Apply cluster.yaml and replace all placeholders appeared in the file with actual values...
 
 ```shell
 cat samples/eks/cluster.yaml | sed -e "s|{{CLUSTER_NAME}}|$AWS_CLUSTER_NAME|g" -e "s|{{AWS_REGION}}|$AWS_REGION|g" | oc apply -n $LAB_NAMESPACE -f -
