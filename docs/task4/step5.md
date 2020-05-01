@@ -5,7 +5,7 @@ Instructions
 
 After we define applications, channels, subscriptions properly, newly created deployable will be deployed on
 to the managed clusters from the hub cluster through the channel, subscription mechanism. Usually, it takes
-a few minutes to take effect.
+a few minutes to finish the whole process.
 
 You can check the results by issuing oc command both on hub cluster and managed clusters.
 
@@ -53,6 +53,9 @@ Go to check the cluster provisioned on AWS...
 oc get ns --kubeconfig $HOME/.kube/${AWS_CLUSTER_NAME}
 oc get pod -n $LAB_NAMESPACE --kubeconfig $HOME/.kube/${AWS_CLUSTER_NAME}
 ```
-<!--
-task::cmd
--->
+
+Finally, you should be able to see the nginx pod named as nginx-deployment-xxx-yyy both appeared on your local managed cluster provisioned by kind and the remote managed cluster running on AWS.
+
+If you see that, it means you have successfully deployed the sample application from hub cluster to the two managed clusters in your hybrid environment.
+
+Then you have finished all the tasks defined in this lab! Congratulations!

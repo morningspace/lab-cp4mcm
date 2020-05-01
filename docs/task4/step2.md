@@ -14,7 +14,7 @@ will be promoted to managed clusters through the channel.
 
 To define the channel, let's use samples/apps/channel.yaml.
 
-It uses "spec.type" and "spec.sourceNamespaces" to specify the channel type and where it lives.
+It uses "spec.type" and "spec.sourceNamespaces" to specify the channel type and where the channel lives.
 
 ```shell
 cat samples/apps/channel.yaml
