@@ -22,7 +22,11 @@ run interactively in terminal! To learn how to run this lab in a terminal, see [
 
 * In order to run this lab more efficiently, there are some specific tips, please read [Lab Specific Tips](TIPS.md) for more details.
 
+Figure: The Lab Architecture
 ![Figure: The Lab Architecture](docs/images/lab-architecture.png)
+
+Figure: How To Run This Lab
+![Figure: How To Run This Lab](docs/images/how-to-run.png)
 
 ## More On This Lab
 
