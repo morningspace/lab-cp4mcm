@@ -26,7 +26,7 @@ Figure: The Lab Architecture
 ![Figure: The Lab Architecture](docs/images/lab-architecture.png)
 
 Figure: How To Run This Lab
-![Figure: How To Run This Lab](docs/images/how-to-run.png)
+![Figure: How To Run This Lab](docs/images/how-to-run.gif)
 
 ## More On This Lab
 
