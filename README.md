@@ -29,4 +29,4 @@ run interactively in terminal! To learn how to run this lab in a terminal, see [
 This lab is designed to demonstrate all cool features that IBM Cloud Pak for Multicloud Management provides. It
 will continuously be updated to include more features. As an example, other than Kubernetes cluster, CP4MCM can 
 also be used to manage VM by integrating with [Red Hat CloudForms](https://access.redhat.com/products/red-hat-cloudforms). If you are interested in this lab, welcome to 
-watch it and give it a star, so that you will be notified for any new updates in future.
+watch it and give it a star, so that you will be notified for any new updates in future! Hope you enjoy it :-)
