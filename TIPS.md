@@ -2,6 +2,11 @@
 
 Here are some tips that are specific to this lab and can help you run this lab more efficiently.
 
+## Login to the lab
+
+For Think lab students, there's a jumpbox that allows you to enter into the lab. To login to the lab via the
+jumpbox, use the username/password: `ibmuser/passw0rd`.
+
 ## UI shortcuts
 
 To explore CP4MCM UI, you can open the web browser by double clicking the Firefox icon on desktop, then find
