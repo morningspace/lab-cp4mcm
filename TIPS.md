@@ -5,7 +5,7 @@ Here are some tips that are specific to this lab and can help you run this lab m
 ## Login to the lab
 
 For Think lab students, there's a jumpbox that allows you to enter into the lab. To login to the lab via the
-jumpbox, use the username/password: `ibmuser/passw0rd`.
+jumpbox, choose CL1-Master as the VM to login, and use the username/password: `ibmuser/passw0rd`.
 
 ## Lab VM clipboard
 
