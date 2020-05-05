@@ -4,7 +4,7 @@ Instructions
 ============
 
 If you already have an AWS account, you can follow the below steps to get your AWS access key ID and secret
-access key, otherwise, you can contact the lab owner for access credentials:
+access key, otherwise, you can contact the lab instructor for access credentials:
 
 Login to Amazon Console https://console.aws.amazon.com/ using your Amazon account. Click the user account on
 top navigation bar and choose "My Security Credentials". Click the "Create access key" button to generate a
@@ -14,7 +14,7 @@ new access key ID and a secret access key for you. Remember the two values for l
 
 ---
 
-If you do not have AWS account yet, you can sign up by yourself, or you can contact the lab owner for any help.
+If you do not have AWS account yet, you can sign up by yourself, or you can contact the lab instructor for any help.
 
 Save your AWS access key ID and secret access key...
 

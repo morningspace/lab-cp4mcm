@@ -17,7 +17,7 @@ In general, you may need to:
 
 ## Login to IBM Cloud using your IBM Cloud account
 
-If you do not have IBM Cloud account yet, you can sign up by yourself to register an account. Or, you can contact the lab owner for any help.
+If you do not have IBM Cloud account yet, you can sign up by yourself to register an account. Or, you can contact the lab instructor for any help.
 
 To register an account, go to https://www.ibm.com/cloud, and click "Sign up or log in" button
 
